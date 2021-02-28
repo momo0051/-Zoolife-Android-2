@@ -41,59 +41,94 @@ import retrofit2.http.Query;
 public interface ApiService {
 
 
-    @FormUrlEncoded
+    /*@FormUrlEncoded
     @POST("/api/public/auth")
     Call<JsonObject> signIn(
             @Field("pass") String pass,
             @Field("username") String username,
             @Field("password") String password
-            );
+    );*/
+    @FormUrlEncoded
+    @POST("public/api/loginapi")
+    Call<JsonObject> signIn(
+            @Field("phone") String phone,
+            @Field("password") String password
+    );
+
 
     @FormUrlEncoded
-    @POST("/api/public/auth")
+    @POST("public/api/registerapi")
     Call<JsonObject> signUp(
-            @Field("pass") String pass,
             @Field("fullname") String fullname,
             @Field("email") String email,
             @Field("phone") String phone,
             @Field("password") String password
     );
 
-    @FormUrlEncoded
+
+    /*@FormUrlEncoded
     @POST("/api/public/auth")
     Call<OTPResponseModel> otpVerify(
             @Field("pass") String pass,
             @Field("otp") String otp,
             @Field("username") String username
     );
-
+*/
     @FormUrlEncoded
+    @POST("public/api/verify_otp")
+    Call<OTPResponseModel> otpVerify(
+            @Field("phone") String phone,
+            @Field("otp") String otp
+    );
+
+
+   /* @FormUrlEncoded
     @POST("/api/public/auth")
     Call<JsonObject> resetPassword(
             @Field("pass") String pass,
             @Field("username") String username
+    );*/
+
+    @FormUrlEncoded
+    @POST("public/api/reset_password")
+    Call<JsonObject> resetPassword(
+            @Field("phone") String pass
     );
 
- @FormUrlEncoded
+
+   /* @FormUrlEncoded
     @POST("/api/public/auth")
     Call<ChangePasswordResponseModel> updatePassword(
             @Field("pass") String pass,
             @Field("password") String password,
             @Field("username") String username
+    );*/
 
+    @FormUrlEncoded
+    @POST("public/api/update_password")
+    Call<ChangePasswordResponseModel> updatePassword(
+            @Field("pass") String pass,
+            @Field("phone") String password
     );
 
- @FormUrlEncoded
+
+
+    /*@FormUrlEncoded
 //    @POST("/api/public/category")
     @POST("/api/category")
     Call<CategoryResponseModel> getCategory(
             @Field("pass") String pass
 
+    );*/
+
+    @POST("public/api/category")
+    Call<CategoryResponseModel> getCategory(
+
+
     );
 
 
-
- @FormUrlEncoded
+    @FormUrlEncoded
     @POST("/api/public/home")
     Call<AllPostResponseModel> getAllPost(
             @Field("pass") String pass
@@ -109,7 +144,7 @@ public interface ApiService {
     );
 
 
- @FormUrlEncoded
+    @FormUrlEncoded
     @POST("/api/public/home")
     Call<SearchResponseModel> getSearch(
             @Field("pass") String pass,
@@ -118,15 +153,24 @@ public interface ApiService {
     );
 
 
- @FormUrlEncoded
+   /* @FormUrlEncoded
     @POST("/api/public/category")
     Call<SubCategoryResponseModel> getSubCategory(
             @Field("pass") String pass,
             @Field("category_id") int category_id
 
+    );*/
+
+
+    @FormUrlEncoded
+    @POST("public/api/get_sub_category")
+    Call<SubCategoryResponseModel> getSubCategory(
+            @Field("category_id") int category_id
+
     );
 
- @FormUrlEncoded
+
+    @FormUrlEncoded
     @POST("/api/public/notification")
     Call<NotificationsResponseModel> getNotifications(
             @Field("pass") String pass,
@@ -169,13 +213,13 @@ public interface ApiService {
 
     @POST("/api/public/item")
     Call<AddPostResponseModel> addPost1(
-         @Body RequestBody file
+            @Body RequestBody file
     );
 
 
     @POST("/api/sliders")
     Call<RelatedAdHomeModel> getRelatedAdds(
-         @Body RequestBody file
+            @Body RequestBody file
     );
 
 
@@ -256,7 +300,7 @@ public interface ApiService {
     );
 
 
-   @FormUrlEncoded
+    @FormUrlEncoded
     @POST("/api/public/comments")
     Call<ViewCommentsResponseModel> viewComments(
             @Field("pass") String pass,
@@ -264,13 +308,12 @@ public interface ApiService {
     );
 
 
- @FormUrlEncoded
+    @FormUrlEncoded
     @POST("/api/public/home")
     Call<GetPostResponseModel> getPost(
             @Field("pass") String pass,
             @Field("id") String itemId
     );
-
 
 
     @FormUrlEncoded
@@ -314,15 +357,21 @@ public interface ApiService {
             @Field("city") String city
 
     );
-
+/*
     @FormUrlEncoded
     @POST("/api/articles")
+    Call<AllArticlesResponseModel> getAllArticles(
+            @Field("pass") String pass
+    );*/
+
+    @FormUrlEncoded
+    @POST("public/api/articles")
     Call<AllArticlesResponseModel> getAllArticles(
             @Field("pass") String pass
     );
 
 
- @FormUrlEncoded
+    @FormUrlEncoded
     @POST("/api/public/favorites")
     Call<FavResponseModel> doFavAd(
             @Field("pass") String pass,
