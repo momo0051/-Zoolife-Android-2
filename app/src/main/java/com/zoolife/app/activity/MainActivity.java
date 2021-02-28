@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,7 @@ public class MainActivity extends AppBaseActivity {
 
     ImageView icon_home,icon_favourite,icon_notif,icon_message,ivViewMore;
     TextView text_home,text_favourite,text_notif,toolbar_title,text_message, tvUsername,tvViewMore;
+    LinearLayout llHome, llSearch, llNotification, llMessage, llSetting;
     NavigationView navigation_view,navigation_view_left;
     DrawerLayout drawerLayout;
     SharedPreferences sharedPreferences;
@@ -109,7 +111,11 @@ public class MainActivity extends AppBaseActivity {
         tvViewMore = findViewById(R.id.tvViewMore);
         ivViewMore = findViewById(R.id.ivViewMore);
 
-
+        llHome = findViewById(R.id.home_btn);
+        llMessage = findViewById(R.id.message_btn);
+        llNotification = findViewById(R.id.notification_btn);
+        llSearch = findViewById(R.id.favourite_btn);
+        llSetting = findViewById(R.id.viewMoreBtn);
 
 
         readLocation();
@@ -124,10 +130,10 @@ public class MainActivity extends AppBaseActivity {
 
                 setFragment(new HomeFragment());
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
-                changeColor(icon_home,text_home);
-                resetColor(icon_favourite,text_favourite);
-                resetColor(icon_notif,text_notif);
-                resetColor(icon_message,text_message);
+                changeColor(llHome, icon_home,text_home);
+                resetColor(llSearch, icon_favourite,text_favourite);
+                resetColor(llNotification, icon_notif,text_notif);
+                resetColor(llMessage, icon_message,text_message);
             }
         });
 
@@ -173,11 +179,11 @@ public class MainActivity extends AppBaseActivity {
                 toolbar_title.setText(getResources().getString(R.string.more));
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
                 setFragment(new ViewMoreFragment());
-                changeColor(ivViewMore,tvViewMore);
-                resetColor(icon_favourite,text_favourite);
-                resetColor(icon_notif,text_notif);
-                resetColor(icon_message,text_message);
-                resetColor(icon_home,text_home);
+                changeColor(llSetting, ivViewMore,tvViewMore);
+                resetColor(llSearch, icon_favourite,text_favourite);
+                resetColor(llNotification, icon_notif,text_notif);
+                resetColor(llMessage, icon_message,text_message);
+                resetColor(llHome, icon_home,text_home);
             }
         });
 
@@ -187,11 +193,11 @@ public class MainActivity extends AppBaseActivity {
 
                 setFragment(new HomeFragment());
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
-                changeColor(icon_home,text_home);
-                resetColor(icon_favourite,text_favourite);
-                resetColor(icon_notif,text_notif);
-                resetColor(icon_message,text_message);
-                resetColor(ivViewMore,tvViewMore);
+                changeColor(llHome, icon_home,text_home);
+                resetColor(llSearch, icon_favourite,text_favourite);
+                resetColor(llNotification, icon_notif,text_notif);
+                resetColor(llMessage, icon_message,text_message);
+                resetColor(llSetting, ivViewMore,tvViewMore);
             }
         });
 
@@ -218,11 +224,11 @@ public class MainActivity extends AppBaseActivity {
                     toolbar_title.setText(getResources().getString(R.string.notification));
                     findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
                     setFragment(new NotificationFragment());
-                    resetColor(icon_home, text_home);
-                    resetColor(icon_favourite, text_favourite);
-                    changeColor(icon_notif, text_notif);
-                    resetColor(icon_message, text_message);
-                    resetColor(ivViewMore, tvViewMore);
+                    resetColor(llHome, icon_home, text_home);
+                    resetColor(llSearch, icon_favourite, text_favourite);
+                    changeColor(llNotification, icon_notif, text_notif);
+                    resetColor(llMessage, icon_message, text_message);
+                    resetColor(llSetting, ivViewMore, tvViewMore);
                 }
 //                else
 //                {
@@ -240,11 +246,11 @@ public class MainActivity extends AppBaseActivity {
                     toolbar_title.setText(getResources().getString(R.string.message));
                     findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
                     setFragment(new MessageFragment(session));
-                    resetColor(icon_home, text_home);
-                    resetColor(icon_favourite, text_favourite);
-                    resetColor(icon_notif, text_notif);
-                    changeColor(icon_message, text_message);
-                    resetColor(ivViewMore, tvViewMore);
+                    resetColor(llHome, icon_home, text_home);
+                    resetColor(llSearch, icon_favourite, text_favourite);
+                    resetColor(llNotification, icon_notif, text_notif);
+                    changeColor(llMessage, icon_message, text_message);
+                    resetColor(llSetting, ivViewMore, tvViewMore);
                 }else {
                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 }
@@ -268,12 +274,14 @@ public class MainActivity extends AppBaseActivity {
 
 
 
-    public void changeColor(ImageView imageView, TextView textView){
-        imageView.setColorFilter(getResources().getColor(R.color.appColor));
+    public void changeColor(LinearLayout linearLayout, ImageView imageView, TextView textView){
+        linearLayout.setSelected(true);
+        imageView.setColorFilter(getResources().getColor(R.color.dark_slate_blue));
         textView.setTextColor(getResources().getColor(R.color.appColor));
     }
 
-    public void resetColor(ImageView imageView, TextView textView){
+    public void resetColor(LinearLayout linearLayout, ImageView imageView, TextView textView){
+        linearLayout.setSelected(false);
         imageView.setColorFilter(Color.rgb(176,196,222));
         textView.setTextColor(getResources().getColor(R.color.light_steel_blue));
     }

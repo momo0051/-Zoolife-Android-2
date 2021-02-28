@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -33,7 +34,7 @@ import retrofit2.Response;
 
 public class SignUpActivity extends AppBaseActivity {
 
-    Button signupButton;
+    RelativeLayout signupButton;
     TextView loginTextview;
     ToggleButton ivSignup;
     Typeface typeface;
@@ -47,7 +48,7 @@ public class SignUpActivity extends AppBaseActivity {
         forceRTLIfSupported();
         setContentView(R.layout.activity_sign_up);
 
-        signupButton = (Button)findViewById(R.id.signupButton);
+        signupButton = (RelativeLayout) findViewById(R.id.signupButton);
         loginTextview = (TextView) findViewById(R.id.loginTextview);
         ivSignup = (ToggleButton) findViewById(R.id.ivSignup);
         editTextMobileNumber = (EditText)findViewById(R.id.editTextMobileNumber);

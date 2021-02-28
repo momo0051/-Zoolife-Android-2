@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -32,7 +33,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppBaseActivity {
 
-    Button loginButton;
+    RelativeLayout loginButton;
     TextView signupTextview;
     ToggleButton ivPLogin;
     EditText editTextUserName, editTextPassword;
@@ -47,7 +48,7 @@ public class LoginActivity extends AppBaseActivity {
         forceRTLIfSupported();
         setContentView(R.layout.activity_login);
 
-        loginButton = (Button)findViewById(R.id.loginButton);
+        loginButton = (RelativeLayout) findViewById(R.id.loginButton);
         signupTextview = (TextView) findViewById(R.id.signupTextview);
         ivPLogin = (ToggleButton) findViewById(R.id.ivPLogin);
         editTextUserName = (EditText) findViewById(R.id.editTextUserName);

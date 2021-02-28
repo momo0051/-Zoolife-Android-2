@@ -68,14 +68,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             }
         });
         if(row_index==position){
-            holder.categoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue_yellow));
+            holder.categoryLayout.setSelected(true);
+//            holder.categoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue_yellow));
 //            holder.itemTitle.setTextColor(context.getResources().getColor(R.color.appColor));
 //            holder.itemImage.setImageTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.appColor)));
 
         }
         else
         {
-            holder.categoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue));
+            holder.categoryLayout.setSelected(false);
+//            holder.categoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue));
 //            holder.itemTitle.setTextColor(context.getResources().getColor(R.color.white));
 //            holder.itemImage.setImageTintList(ColorStateList.valueOf(context.getResources().getColor(R.color.white)));
         }

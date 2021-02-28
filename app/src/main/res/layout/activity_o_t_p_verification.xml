@@ -6,49 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".activity.OTPVerification">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_splash"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/d250"
-            android:src="@drawable/app_logo_2"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"/>
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/iv_logo"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="التحقق من OTP"
-            android:textColor="@color/white"
-            android:textSize="@dimen/d30"
-            android:textStyle="bold"
-            android:layout_marginTop="-100dp"
-            android:layout_marginBottom="@dimen/d50"/>
+            android:adjustViewBounds="true"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="10dp"
+            android:src="@drawable/ic_title_icon"/>
 
-        <com.mukesh.OtpView
-            android:id="@+id/otp_view"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:itemBackground="@color/content_page"
-            android:alpha=".8"
-            android:textColor="@android:color/black"
-            android:textAllCaps="true"
-            app:OtpHideLineWhenFilled="true"
-            app:OtpItemCount="6"
-            app:OtpItemRadius="@dimen/dpoit1"
-            app:OtpItemSpacing="6dp"
-            app:OtpLineColor="@color/white"
-            app:OtpState_filled="true"
-            app:OtpViewType="line" />
+            android:layout_below="@+id/iv_logo"
+            android:layout_above="@+id/ll_otp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_line1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/otp_message_1"
+                android:textColor="@color/light_slate_gray"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="@dimen/d50"/>
+
+            <TextView
+                android:id="@+id/tv_line2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/otp_message_2"
+                android:textColor="@color/light_slate_gray"
+                android:textSize="20sp"
+                android:layout_below="@+id/tv_line1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginBottom="@dimen/d50"/>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_otp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="التحقق من OTP"
+                android:textColor="@color/light_slate_gray"
+                android:textSize="@dimen/d30"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/d50"/>
+
+            <com.mukesh.OtpView
+                android:id="@+id/otp_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_gravity="center_horizontal"
+                android:alpha=".8"
+                android:textColor="@android:color/black"
+                android:textAllCaps="true"
+                app:OtpHideLineWhenFilled="true"
+                app:OtpItemCount="6"
+                app:OtpItemRadius="@dimen/dpoit1"
+                app:OtpItemSpacing="6dp"
+                app:OtpLineColor="@color/dark_slate_blue"
+                app:OtpState_filled="true"
+                app:OtpViewType="line" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/otpTV"
@@ -61,12 +101,59 @@
             android:visibility="gone"
             android:textSize="17sp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_otp"
+            android:layout_marginTop="20dp">
 
-    </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/signupButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="70dp"
+                android:layout_above="@+id/loginTextview"
+                android:background="@drawable/bg_btn_blue">
+
+                <TextView
+                    android:id="@+id/tv_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="@string/log_in"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_start"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/tv_start"
+                    android:src="@drawable/ic_start_arrow_right" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/loginTextview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d15"
+                android:singleLine="true"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:text="هل لديك حساب؟ تسجيل الدخول"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/light_slate_gray"
+                android:textSize="13sp"
+                tools:ignore="MissingPrefix" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress_circular"
