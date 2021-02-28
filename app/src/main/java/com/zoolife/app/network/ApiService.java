@@ -107,7 +107,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("public/api/update_password")
     Call<ChangePasswordResponseModel> updatePassword(
-            @Field("pass") String pass,
+            @Field("password") String pass,
             @Field("phone") String password
     );
 

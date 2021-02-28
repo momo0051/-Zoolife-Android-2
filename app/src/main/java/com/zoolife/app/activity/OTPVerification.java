@@ -2,6 +2,7 @@ package com.zoolife.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,9 +22,9 @@ import retrofit2.Response;
 public class OTPVerification extends AppBaseActivity implements View.OnClickListener,
         OnOtpCompletionListener {
     private OtpView otpView;
-    String otp1="";
-    String email1="";
-    String from="";
+    String otp1 = "";
+    String email1 = "";
+    String from = "";
     private TextView otpTV;
     ProgressBar progress_circular;
 
@@ -34,15 +35,17 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
         initializeUi();
         setListeners();
 
-         otp1 = getIntent().getStringExtra("otp");
-         email1 = getIntent().getStringExtra("email");
-         from = getIntent().getStringExtra("from");
-         otpTV.setText(otp1);
+        otp1 = getIntent().getStringExtra("otp");
+        email1 = getIntent().getStringExtra("email");
+        from = getIntent().getStringExtra("from");
+        otpTV.setText(otp1);
 
     }
-    @Override public void onClick(View v) {
+
+    @Override
+    public void onClick(View v) {
         if (v.getId() == R.id.otpTV) {
-           // Toast.makeText(this, otpView.getText(), Toast.LENGTH_SHORT).show();
+            // Toast.makeText(this, otpView.getText(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -56,10 +59,11 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
         otpView.setOtpCompletionListener(this);
     }
 
-    @Override public void onOtpCompleted(String otp) {
+    @Override
+    public void onOtpCompleted(String otp) {
         // do Stuff
 
-       verifyOTP(otp);
+        verifyOTP(otp);
 
 
     }
@@ -67,43 +71,47 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
     private void verifyOTP(String otp) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<OTPResponseModel> call=apiService.otpVerify("verify-otp",otp,email1);
+        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<OTPResponseModel> call = apiService.otpVerify(email1, otp);
         call.enqueue(new Callback<OTPResponseModel>() {
             @Override
             public void onResponse(Call<OTPResponseModel> call, Response<OTPResponseModel> response) {
-                OTPResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
-                    finishAffinity();
-                    session.setIsLogin(true);
-                    session.setEmail(email1);
-                    Toast.makeText(getApplicationContext(),"OTP Verified",Toast.LENGTH_LONG).show();
-
-                  if(from!=null && from .equalsIgnoreCase("forgotpassword")) {
-                       Intent intent = new Intent(getBaseContext(), ChangePassword.class);
-                       startActivity(intent);
-                   }
-                   else
-                   {
-                       Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                       startActivity(intent);
-
-                   }
+                try {
 
 
-                    progress_circular.setVisibility(View.GONE);
-                }else {
-                    // infoDialog("Server Error.");
-                    progress_circular.setVisibility(View.GONE);
-                    Toast.makeText(OTPVerification.this,responseModel.getMessage(),Toast.LENGTH_LONG).show();
+                    OTPResponseModel responseModel = response.body();
+                    if (responseModel != null && !responseModel.isError()) {
+                        finishAffinity();
+                        session.setIsLogin(true);
+                        session.setEmail(email1);
+                        Toast.makeText(getApplicationContext(), "OTP Verified", Toast.LENGTH_LONG).show();
+
+                        if (from != null && from.equalsIgnoreCase("forgotpassword")) {
+                            Intent intent = new Intent(getBaseContext(), ChangePassword.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                            startActivity(intent);
+
+                        }
+
+
+                        progress_circular.setVisibility(View.GONE);
+                    } else {
+                        // infoDialog("Server Error.");
+                        progress_circular.setVisibility(View.GONE);
+                        Toast.makeText(OTPVerification.this, responseModel.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    Log.e("TAG", "Exception at verify " + e.getMessage());
                 }
 
             }
 
             @Override
             public void onFailure(Call<OTPResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(OTPVerification.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(OTPVerification.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });

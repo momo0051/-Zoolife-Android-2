@@ -135,8 +135,8 @@ public class LoginActivity extends AppBaseActivity {
         String username = editTextUserName.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<JsonObject> call = apiService.signIn("login",username,password);
+        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<JsonObject> call = apiService.signIn(username,password);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

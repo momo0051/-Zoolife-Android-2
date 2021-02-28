@@ -41,7 +41,7 @@ public class ForgotPassword extends AppBaseActivity {
             public void onClick(View v) {
 //                if(isValidEmail(editTextUserName.getText().toString()))
 //                {
-                    resetPassword(editTextUserName.getText().toString());
+                resetPassword(editTextUserName.getText().toString());
 //                }
 //                else
 //                {
@@ -67,21 +67,20 @@ public class ForgotPassword extends AppBaseActivity {
     private void resetPassword(String email) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<JsonObject> call=apiService.resetPassword("reset-password",email);
+        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<JsonObject> call = apiService.resetPassword(email);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 //                ResetResponseModel responseModel = response.body();
-                if (response.isSuccessful() && response.body().getAsJsonObject().get("data").isJsonObject() &&
-                    !response.body().getAsJsonObject().get("error").getAsBoolean()) {
+                if (response.isSuccessful() &&
+                        !response.body().getAsJsonObject().get("error").getAsBoolean()) {
 
-                    Gson gson= new Gson();
-                    ResetResponseModel responseModel = gson.fromJson(response.body().getAsJsonObject().toString(),ResetResponseModel.class);
+                    Gson gson = new Gson();
+                    ResetResponseModel responseModel = gson.fromJson(response.body().getAsJsonObject().toString(), ResetResponseModel.class);
 
-                    Toast.makeText(getApplicationContext(),responseModel.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
                     progress_circular.setVisibility(View.GONE);
-
 
                     Intent intent = new Intent(getBaseContext(), OTPVerification.class);
                     intent.putExtra("otp", responseModel.getOtp());
@@ -89,18 +88,18 @@ public class ForgotPassword extends AppBaseActivity {
                     intent.putExtra("from", "forgotpassword");
                     startActivity(intent);
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
-                    Toast.makeText(ForgotPassword.this,response.body().getAsJsonObject().get("message").toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgotPassword.this, response.body().getAsJsonObject().get("message").toString(), Toast.LENGTH_LONG).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(ForgotPassword.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(ForgotPassword.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });

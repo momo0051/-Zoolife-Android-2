@@ -67,7 +67,7 @@ public class FavouriteFragment extends Fragment {
     private EditText etSearch;
 
     ProgressBar progress_circular;
-    private static Retrofit retrofit = null ;
+    private static Retrofit retrofit = null;
 
     public FavouriteFragment() {
         // Required empty public constructor
@@ -133,16 +133,16 @@ public class FavouriteFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() > 0) {
+                if (s.length() > 0) {
 //                    dataListFiltered = dataList.forEach(articlesModel -> );
-                    if(dataList.size()>0) {
+                    if (dataList.size() > 0) {
                         dataListFiltered.clear();
-                        for(int m = 0; m <dataList.size();m++){
-                            if(dataList.get(m).title.toLowerCase().contains(s.toString().toLowerCase())) {
+                        for (int m = 0; m < dataList.size(); m++) {
+                            if (dataList.get(m).title.toLowerCase().contains(s.toString().toLowerCase())) {
                                 dataListFiltered.add(dataList.get(m));
                             }
                         }
-                        if(dataListFiltered.size()>0) {
+                        if (dataListFiltered.size() > 0) {
                             articlesAdapter = new ArticlesAdapter(getActivity(), dataListFiltered);
                             articleRecyclerview.setAdapter(articlesAdapter);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -155,8 +155,7 @@ public class FavouriteFragment extends Fragment {
                             articleRecyclerview.setLayoutManager(gridLayoutManager);
 
                             articlesAdapter.notifyDataSetChanged();
-                        }
-                        else{
+                        } else {
                             articlesAdapter = new ArticlesAdapter(getActivity(), dataList);
                             articleRecyclerview.setAdapter(articlesAdapter);
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -171,14 +170,12 @@ public class FavouriteFragment extends Fragment {
                             articlesAdapter.notifyDataSetChanged();
 //                        Toast.makeText(this,"Nothing found",Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else{
+                    } else {
                         dataListFiltered.clear();
 
                     }
 //                    field2.setText("");
-                }
-                else{
+                } else {
                     dataListFiltered.clear();
                     articlesAdapter = new ArticlesAdapter(getActivity(), dataList);
                     articleRecyclerview.setAdapter(articlesAdapter);
@@ -203,7 +200,8 @@ public class FavouriteFragment extends Fragment {
 
         return view;
     }
-    public Retrofit getClient(){
+
+    public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -222,7 +220,7 @@ public class FavouriteFragment extends Fragment {
                 .build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(ApiConstant.BASE_URL4)
+                .baseUrl(ApiConstant.BASE_URL_7)
                 .client(client)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -231,34 +229,33 @@ public class FavouriteFragment extends Fragment {
     }
 
 
-
     private void getAllArticles() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= getClient().create(ApiService.class);
-        Call<AllArticlesResponseModel> call=apiService.getAllArticles("all_articles");
+        Log.e("TAG", "All Articales Called");
+        ApiService apiService = getClient().create(ApiService.class);
+        Call<AllArticlesResponseModel> call = apiService.getAllArticles("all_articles");
         call.enqueue(new Callback<AllArticlesResponseModel>() {
             @Override
             public void onResponse(Call<AllArticlesResponseModel> call, Response<AllArticlesResponseModel> response) {
                 AllArticlesResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
                     dataList = new ArrayList<>();
                     Log.d(TAG, "onResponse: true");
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++)
-                    {
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
                         ArticleDataItem articleDataItem = responseModel.getData().get(i);
                         dataList.add(new ArticlesModel(articleDataItem.getImage1(), articleDataItem.getImage2(), articleDataItem.getImage3(), articleDataItem.getId(), articleDataItem.getTitle(), articleDataItem.getDescription(), articleDataItem.getDate(), articleDataItem.getStatus()));
 
                     }
 
 
-                    if(dataList.size()>0) {
+                    if (dataList.size() > 0) {
                         articlesAdapter = new ArticlesAdapter(getActivity(), dataList);
                         articleRecyclerview.setAdapter(articlesAdapter);
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
                         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                             @Override
                             public int getSpanSize(int position) {
@@ -270,7 +267,7 @@ public class FavouriteFragment extends Fragment {
                         articlesAdapter.notifyDataSetChanged();
                     }
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -279,9 +276,9 @@ public class FavouriteFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AllArticlesResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-                Log.d(TAG, "onFailure: true"+t.getMessage());
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onFailure: true" + t.getMessage());
                 progress_circular.setVisibility(View.GONE);
             }
         });

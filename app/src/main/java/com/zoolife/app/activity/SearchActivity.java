@@ -201,8 +201,9 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getCategory() {
 
-        ApiService apiService= ApiClient.getClientZoo().create(ApiService.class);
-        Call<CategoryResponseModel> call=apiService.getCategory("get-all-categories");
+//        ApiService apiService= ApiClient.getClientZoo().create(ApiService.class);
+        ApiService apiService= ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<CategoryResponseModel> call=apiService.getCategory();
         call.enqueue(new Callback<CategoryResponseModel>() {
             @Override
             public void onResponse(Call<CategoryResponseModel> call, Response<CategoryResponseModel> response) {
@@ -281,8 +282,8 @@ public class SearchActivity extends AppCompatActivity {
 
     public void getSubCategory(int cat_id) {
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<SubCategoryResponseModel> call=apiService.getSubCategory("get-sub-categories",cat_id);
+        ApiService apiService= ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<SubCategoryResponseModel> call=apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
             public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {

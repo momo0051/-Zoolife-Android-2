@@ -382,8 +382,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     public void getSubCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<SubCategoryResponseModel> call = apiService.getSubCategory("get-sub-categories", cat_id);
+        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<SubCategoryResponseModel> call = apiService.getSubCategory( cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
             public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {

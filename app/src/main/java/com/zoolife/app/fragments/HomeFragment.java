@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
     List<HomeModel> homeModelList;
     List<SubCategoryModel> subCategoryList;
     List<Datum> relatedAdsList;
-    RecyclerView recyclerView,category_rv;
+    RecyclerView recyclerView, category_rv;
     ViewPager adSliderViewPager;
     AdSliderAdapter adSliderAdapter;
     List<ImageData> items = new ArrayList<>();
@@ -115,11 +115,11 @@ public class HomeFragment extends Fragment {
     RelativeLayout citiesCv;
     Spinner spinner;
     EditText searchET;
-    RecyclerView subCategoryRecyclerView,newSubCategoryRecyclerView;
+    RecyclerView subCategoryRecyclerView, newSubCategoryRecyclerView;
     LinearLayout linSubCategory;
-    String[] cities = {"","كل المدن", "الرياض", "الشرقية", "جدة","مكة", "ينبع", "حفر الباطن", "المدينة", "الطائف", "تبوك", "القصيم", "حائل", "ابها", "الباحة", "جيزان", "نجران", "الجوف", "عرعر", "الكويت", "الأمارات", "البحرين"};
+    String[] cities = {"", "كل المدن", "الرياض", "الشرقية", "جدة", "مكة", "ينبع", "حفر الباطن", "المدينة", "الطائف", "تبوك", "القصيم", "حائل", "ابها", "الباحة", "جيزان", "نجران", "الجوف", "عرعر", "الكويت", "الأمارات", "البحرين"};
     ImageSlider imageSlider;
-    private static Retrofit retrofit = null ;
+    private static Retrofit retrofit = null;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -144,7 +144,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -155,7 +154,6 @@ public class HomeFragment extends Fragment {
 
 
         forceRTLIfSupported();
-
 
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -179,7 +177,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Fragment someFragment = new FavouriteFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, someFragment ); // give your fragment container id in first parameter
+                transaction.replace(R.id.frame_container, someFragment); // give your fragment container id in first parameter
                 transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
                 transaction.commit();
             }
@@ -188,7 +186,7 @@ public class HomeFragment extends Fragment {
         category_rv = view.findViewById(R.id.category_rv);
 //        citiesCv = view.findViewById(R.id.citiesCv);
         linSubCategory = view.findViewById(R.id.linSubCategory);
-      //  subCategoryRecyclerView = view.findViewById(R.id.subCategoryRecyclerView);
+        //  subCategoryRecyclerView = view.findViewById(R.id.subCategoryRecyclerView);
         newSubCategoryRecyclerView = view.findViewById(R.id.new_sub_category_rv);
         progress_circular = (ProgressBar) view.findViewById(R.id.progress_circular);
 
@@ -201,16 +199,12 @@ public class HomeFragment extends Fragment {
         newSubCategoryRecyclerView.setVisibility(View.GONE);
 
 
-
-
         view.findViewById(R.id.add_ad).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!session.isLogin()) {
+                if (!session.isLogin()) {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
-                }
-                else
-                {
+                } else {
                     startActivity(new Intent(getActivity(), AddAdActivity.class));
 
                 }
@@ -222,8 +216,7 @@ public class HomeFragment extends Fragment {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported()
-    {
+    private void forceRTLIfSupported() {
         Objects.requireNonNull(getActivity()).getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
@@ -233,16 +226,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(!searchET.getText().toString().isEmpty()) {
+                if (!searchET.getText().toString().isEmpty()) {
                     getSearch(searchET.getText().toString());
-                }
-                else
-                {
-                    Toast.makeText(getActivity(),"Please Enter something to search",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getActivity(), "Please Enter something to search", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
+
     public List<ImageData> getAdSliderData() {
         List<ImageData> items = new ArrayList<>();
 
@@ -262,31 +254,31 @@ public class HomeFragment extends Fragment {
     public void getAllPost() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call=apiService.getAllPost("get-all-item");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
                 AllPostResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
 
-                    Log.d(TAG, "getallpost: "+response.body().getData().toString());
+                    Log.d(TAG, "getallpost: " + response.body().getData().toString());
                     progress_circular.setVisibility(View.GONE);
 
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++) {
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
                         DataItem dataItem = responseModel.getData().get(i);
-                        arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt() ,dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(),dataItem.getPriority()));
+                        arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
                     }
 
-                    if(arrayList.size() > 0) {
+                    if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -295,42 +287,43 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
+
     public void getAllPostByCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call=apiService.getAllPost("get-all-item");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
                 AllPostResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
 
-                    Log.d(TAG, "getallpost: "+response.body().getData().toString());
+                    Log.d(TAG, "getallpost: " + response.body().getData().toString());
                     progress_circular.setVisibility(View.GONE);
 
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++) {
-                        if(responseModel.getData().get(i).getCategory().equals(String.valueOf(cat_id))){
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
+                        if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat_id))) {
                             DataItem dataItem = responseModel.getData().get(i);
-                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt() ,dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(),dataItem.getPriority()));
+                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
                         }
                     }
 
-                    if(arrayList.size() > 0) {
+                    if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     recyclerView.removeAllViews();
                     Toast.makeText(getContext(), "No Ad for this category", Toast.LENGTH_SHORT).show();
@@ -341,46 +334,49 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
+
     public void getAllPostBySubCategory(int cat_id, int sub_cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
-        Log.d(TAG, "getAllPostBySubCategory: "+cat_id+" "+sub_cat_id);
+        Log.d(TAG, "getAllPostBySubCategory: " + cat_id + " " + sub_cat_id);
 
-
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call=apiService.getAllPost("get-all-item");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
                 AllPostResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
 
-                    Log.d(TAG, "getallpost: "+response.body().getData().toString());
+                    Log.d(TAG, "getallpost: " + response.body().getData().toString());
                     progress_circular.setVisibility(View.GONE);
 
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++) {
-                        if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat_id))){
-                            if (responseModel.getData().get(i).getSubCategory().equals(String.valueOf(sub_cat_id))){
-                                DataItem dataItem = responseModel.getData().get(i);
-                                arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt() ,dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(),dataItem.getPriority()));
+                    try {
+                        for (int i = 0; i < responseModel.getData().size(); i++) {
+                            if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat_id))) {
+                                if (responseModel.getData().get(i).getSubCategory().equals(String.valueOf(sub_cat_id))) {
+                                    DataItem dataItem = responseModel.getData().get(i);
+                                    arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
 
+                                }
                             }
                         }
+                    } catch (Exception e) {
+                        Log.e("TAG", "Exception at List Fetch " + e.getMessage());
                     }
 
-                    if(arrayList.size() > 0) {
+                    if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    }
-                    else {
+                    } else {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -388,7 +384,8 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), "No Ad for this category", Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
+
+                } else {
                     // infoDialog("Server Error.");
 
                     progress_circular.setVisibility(View.GONE);
@@ -398,43 +395,44 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
+
     private void getCategory() {
         progress_circular.setVisibility(View.VISIBLE);
-
-        ApiService apiService= ApiClient.getClientZoo().create(ApiService.class);
-        Call<CategoryResponseModel> call=apiService.getCategory("get-all-categories");
+        Log.e("TAG", "Get Category Category called");
+//        ApiService apiService = ApiClient.getClientZoo().create(ApiService.class);
+        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<CategoryResponseModel> call = apiService.getCategory();
         call.enqueue(new Callback<CategoryResponseModel>() {
             @Override
             public void onResponse(Call<CategoryResponseModel> call, Response<CategoryResponseModel> response) {
                 CategoryResponseModel responseModel = response.body();
                 categories = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
                     ArrayList<CategoryModel> arrayList = new ArrayList<>();
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++)
-                    {
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
 
                         com.zoolife.app.ResponseModel.Category.DataItem categoryModel = responseModel.getData().get(i);
-                        arrayList.add(new CategoryModel(categoryModel.getTitle(),categoryModel.getImgUnSelected(),categoryModel.getId()));
+                        arrayList.add(new CategoryModel(categoryModel.getTitle(), categoryModel.getImgUnSelected(), categoryModel.getId()));
                     }
 
 
                     Collections.reverse(arrayList);
 
-                    categoryAdapter = new CategoryAdapter(getActivity(),arrayList,HomeFragment.this);
+                    categoryAdapter = new CategoryAdapter(getActivity(), arrayList, HomeFragment.this);
                     category_rv.setAdapter(categoryAdapter);
                     category_rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
 
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -443,22 +441,23 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<CategoryResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
+
     private void getSearch(String searchText) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<SearchResponseModel> call=apiService.getSearch("search-item",searchText);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<SearchResponseModel> call = apiService.getSearch("search-item", searchText);
         call.enqueue(new Callback<SearchResponseModel>() {
             @Override
             public void onResponse(Call<SearchResponseModel> call, Response<SearchResponseModel> response) {
                 SearchResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
@@ -467,12 +466,10 @@ public class HomeFragment extends Fragment {
                         for (int i = 0; i < responseModel.getData().size(); i++) {
 
                             com.zoolife.app.ResponseModel.SearchPost.DataItem searchResponseModel = responseModel.getData().get(i);
-                            arrayList.add(new HomeModel(searchResponseModel.getItemTitle(), searchResponseModel.getCreateAt(), searchResponseModel.getCity(), searchResponseModel.getFromUserId(), searchResponseModel.getImgUrl(),"0",searchResponseModel.getPriority()));
+                            arrayList.add(new HomeModel(searchResponseModel.getItemTitle(), searchResponseModel.getCreateAt(), searchResponseModel.getCity(), searchResponseModel.getFromUserId(), searchResponseModel.getImgUrl(), "0", searchResponseModel.getPriority()));
                         }
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(),"No Record Found!",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity(), "No Record Found!", Toast.LENGTH_LONG).show();
                     }
 
                     homeAdapter = new HomeAdapter(getActivity(), arrayList);
@@ -480,8 +477,7 @@ public class HomeFragment extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -490,8 +486,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SearchResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
@@ -500,13 +496,13 @@ public class HomeFragment extends Fragment {
     public void getSubCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<SubCategoryResponseModel> call=apiService.getSubCategory("get-sub-categories",cat_id);
+        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
             public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {
                 SubCategoryResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
                     ArrayList<SubCategoryModel> arrayList = new ArrayList<>();
@@ -516,27 +512,23 @@ public class HomeFragment extends Fragment {
                             arrayList.add(new SubCategoryModel(responseModel.getData().get(i).getTitle(), responseModel.getData().get(i).getId()));
 
                         }
-                    }
-                    else
-                    {
-                        Toast.makeText(getActivity(),"No Record Found!",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity(), "No Record Found!", Toast.LENGTH_LONG).show();
                     }
 
-                    if(arrayList.size()>0) {
+                    if (arrayList.size() > 0) {
                         newSubCategoryRecyclerView.setVisibility(View.VISIBLE);
                         newSubCategoryAdapter = new NewSubCategoryAdapter(getActivity(), arrayList, HomeFragment.this, cat_id);
                         newSubCategoryRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                         newSubCategoryRecyclerView.setAdapter(newSubCategoryAdapter);
 
-                    }else
-                    {
+                    } else {
 
                         newSubCategoryRecyclerView.setVisibility(View.GONE);
                     }
 
 
-
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -545,15 +537,15 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SubCategoryResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
 
 
-    public Retrofit getClient(){
+    public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -610,12 +602,11 @@ public class HomeFragment extends Fragment {
 //                        relatedAdsList.addAll(responseModel.getData());
                         List<SlideModel> slideModels = new ArrayList<>();
 
-                        for(int j = 0; j<responseModel.getData().size();j++) {
+                        for (int j = 0; j < responseModel.getData().size(); j++) {
                             slideModels.add(new SlideModel(responseModel.getData().get(j).getImage1()));
                         }
 
-                        imageSlider.setImageList(slideModels,true);
-
+                        imageSlider.setImageList(slideModels, true);
 
 
                     } else {

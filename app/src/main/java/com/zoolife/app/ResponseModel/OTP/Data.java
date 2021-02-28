@@ -2,537 +2,203 @@ package com.zoolife.app.ResponseModel.OTP;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Data{
+public class Data {
 
-	@SerializedName("country")
-	private String country;
+    @SerializedName("id")
+    private int id = 0;
 
-	@SerializedName("rating")
-	private String rating;
+    @SerializedName("name")
+    private String name = "";
 
-	@SerializedName("language")
-	private String language;
+    @SerializedName("disclaimer")
+    private int disclaimer = 0;
 
-	@SerializedName("photoModerateUrl")
-	private String photoModerateUrl;
+    @SerializedName("updated_at")
+    private String updated_at = "";
 
-	@SerializedName("last_notify_view")
-	private String lastNotifyView;
+    @SerializedName("created_at")
+    private String created_at = "";
 
-	@SerializedName("coverPostModerateAt")
-	private String coverPostModerateAt;
 
-	@SerializedName("access_level")
-	private String accessLevel;
+    @SerializedName("msg_badge")
+    private String msg_badge = "";
 
-	@SerializedName("gcm")
-	private String gcm;
 
-	@SerializedName("bMonth")
-	private String bMonth;
+    @SerializedName("noti_badge")
+    private String noti_badge = "";
 
-	@SerializedName("normalCoverUrl")
-	private String normalCoverUrl;
 
-	@SerializedName("balance")
-	private String balance;
+    @SerializedName("login")
+    private String login = "";
 
-	@SerializedName("tw_page")
-	private String twPage;
 
-	@SerializedName("id")
-	private String id;
+    @SerializedName("email")
+    private String email = "";
 
-	@SerializedName("state")
-	private String state;
+    @SerializedName("status")
+    private String status = "";
 
-	@SerializedName("lat")
-	private String lat;
+    @SerializedName("otp")
+    private String otp = "";
 
-	@SerializedName("regtime")
-	private String regtime;
 
-	@SerializedName("gl_id_hash")
-	private String glIdHash;
+    @SerializedName("phone")
+    private String phone = "";
 
-	@SerializedName("lng")
-	private String lng;
 
-	@SerializedName("otp")
-	private String otp;
+    @SerializedName("username")
+    private String username = "";
 
-	@SerializedName("vk_id_hash")
-	private String vkIdHash;
 
-	@SerializedName("allowMessagesGCM")
-	private String allowMessagesGCM;
+    @SerializedName("password")
+    private String password = "";
 
-	@SerializedName("fb_id_hash")
-	private String fbIdHash;
 
-	@SerializedName("bYear")
-	private String bYear;
+    @SerializedName("device_token")
+    private String device_token = "";
 
-	@SerializedName("my_page")
-	private String myPage;
 
-	@SerializedName("allowShowPhoneNumber")
-	private String allowShowPhoneNumber;
+    @SerializedName("device_type")
+    private String device_type = "";
 
-	@SerializedName("originCoverUrl")
-	private String originCoverUrl;
 
-	@SerializedName("allowReviewsGCM")
-	private String allowReviewsGCM;
+    @SerializedName("verify")
+    private int verify = 0;
 
-	@SerializedName("phone")
-	private String phone;
 
-	@SerializedName("fb_id")
-	private String fbId;
+    public int getId() {
+        return id;
+    }
 
-	@SerializedName("comments_count")
-	private String commentsCount;
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@SerializedName("gcm_regid")
-	private Object gcmRegid;
+    public String getName() {
+        return name;
+    }
 
-	@SerializedName("allowPosts")
-	private String allowPosts;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@SerializedName("coverRejectModerateAt")
-	private String coverRejectModerateAt;
+    public int getDisclaimer() {
+        return disclaimer;
+    }
 
-	@SerializedName("allowMessages")
-	private String allowMessages;
+    public void setDisclaimer(int disclaimer) {
+        this.disclaimer = disclaimer;
+    }
 
-	@SerializedName("country_id")
-	private String countryId;
+    public String getUpdated_at() {
+        return updated_at;
+    }
 
-	@SerializedName("status")
-	private String status;
+    public void setUpdated_at(String updated_at) {
+        this.updated_at = updated_at;
+    }
 
-	@SerializedName("city_id")
-	private String cityId;
+    public String getCreated_at() {
+        return created_at;
+    }
 
-	@SerializedName("reviews_count")
-	private String reviewsCount;
-
-	@SerializedName("city")
-	private String city;
-
-	@SerializedName("photoPostModerateAt")
-	private String photoPostModerateAt;
-
-	@SerializedName("login")
-	private String login;
-
-	@SerializedName("tw_id")
-	private String twId;
-
-	@SerializedName("allowShowMyBirthday")
-	private String allowShowMyBirthday;
-
-	@SerializedName("tw_id_hash")
-	private String twIdHash;
-
-	@SerializedName("ghost")
-	private String ghost;
-
-	@SerializedName("coverModerateUrl")
-	private String coverModerateUrl;
-
-	@SerializedName("vk_id")
-	private String vkId;
-
-	@SerializedName("normalPhotoUrl")
-	private String normalPhotoUrl;
-
-	@SerializedName("surname")
-	private String surname;
-
-	@SerializedName("coverModerateAt")
-	private String coverModerateAt;
-
-	@SerializedName("fb_page")
-	private String fbPage;
-
-	@SerializedName("allowCommentsGCM")
-	private String allowCommentsGCM;
-
-	@SerializedName("lowPhotoUrl")
-	private String lowPhotoUrl;
-
-	@SerializedName("verify")
-	private String verify;
-
-	@SerializedName("last_authorize")
-	private String lastAuthorize;
-
-	@SerializedName("lang")
-	private String lang;
-
-	@SerializedName("photoModerateAt")
-	private String photoModerateAt;
-
-	@SerializedName("email")
-	private String email;
-
-	@SerializedName("allowShowMyJoinDate")
-	private String allowShowMyJoinDate;
-
-	@SerializedName("sex")
-	private String sex;
-
-	@SerializedName("bigPhotoUrl")
-	private String bigPhotoUrl;
-
-	@SerializedName("gl_id")
-	private String glId;
-
-	@SerializedName("lasttime")
-	private String lasttime;
-
-	@SerializedName("originPhotoUrl")
-	private String originPhotoUrl;
-
-	@SerializedName("photoRejectModerateAt")
-	private String photoRejectModerateAt;
-
-	@SerializedName("removed")
-	private String removed;
-
-	@SerializedName("items_count")
-	private String itemsCount;
-
-	@SerializedName("bDay")
-	private String bDay;
-
-	@SerializedName("admob")
-	private String admob;
-
-	@SerializedName("fullname")
-	private String fullname;
-
-	@SerializedName("ip_addr")
-	private String ipAddr;
-
-	@SerializedName("allowShowOnline")
-	private String allowShowOnline;
-
-	@SerializedName("coverPosition")
-	private String coverPosition;
-
-	@SerializedName("ios_fcm_regid")
-	private Object iosFcmRegid;
-
-	@SerializedName("vk_page")
-	private String vkPage;
-
-	@SerializedName("allowCommentReplyGCM")
-	private String allowCommentReplyGCM;
-
-	public String getCountry(){
-		return country;
-	}
-
-	public String getRating(){
-		return rating;
-	}
-
-	public String getLanguage(){
-		return language;
-	}
-
-	public String getPhotoModerateUrl(){
-		return photoModerateUrl;
-	}
-
-	public String getLastNotifyView(){
-		return lastNotifyView;
-	}
-
-	public String getCoverPostModerateAt(){
-		return coverPostModerateAt;
-	}
-
-	public String getAccessLevel(){
-		return accessLevel;
-	}
-
-	public String getGcm(){
-		return gcm;
-	}
-
-	public String getBMonth(){
-		return bMonth;
-	}
-
-	public String getNormalCoverUrl(){
-		return normalCoverUrl;
-	}
-
-	public String getBalance(){
-		return balance;
-	}
-
-	public String getTwPage(){
-		return twPage;
-	}
-
-	public String getId(){
-		return id;
-	}
-
-	public String getState(){
-		return state;
-	}
-
-	public String getLat(){
-		return lat;
-	}
-
-	public String getRegtime(){
-		return regtime;
-	}
-
-	public String getGlIdHash(){
-		return glIdHash;
-	}
-
-	public String getLng(){
-		return lng;
-	}
-
-	public String getOtp(){
-		return otp;
-	}
-
-	public String getVkIdHash(){
-		return vkIdHash;
-	}
-
-	public String getAllowMessagesGCM(){
-		return allowMessagesGCM;
-	}
-
-	public String getFbIdHash(){
-		return fbIdHash;
-	}
-
-	public String getBYear(){
-		return bYear;
-	}
-
-	public String getMyPage(){
-		return myPage;
-	}
-
-	public String getAllowShowPhoneNumber(){
-		return allowShowPhoneNumber;
-	}
-
-	public String getOriginCoverUrl(){
-		return originCoverUrl;
-	}
-
-	public String getAllowReviewsGCM(){
-		return allowReviewsGCM;
-	}
-
-	public String getPhone(){
-		return phone;
-	}
-
-	public String getFbId(){
-		return fbId;
-	}
-
-	public String getCommentsCount(){
-		return commentsCount;
-	}
-
-	public Object getGcmRegid(){
-		return gcmRegid;
-	}
-
-	public String getAllowPosts(){
-		return allowPosts;
-	}
-
-	public String getCoverRejectModerateAt(){
-		return coverRejectModerateAt;
-	}
-
-	public String getAllowMessages(){
-		return allowMessages;
-	}
-
-	public String getCountryId(){
-		return countryId;
-	}
-
-	public String getStatus(){
-		return status;
-	}
-
-	public String getCityId(){
-		return cityId;
-	}
-
-	public String getReviewsCount(){
-		return reviewsCount;
-	}
-
-	public String getCity(){
-		return city;
-	}
-
-	public String getPhotoPostModerateAt(){
-		return photoPostModerateAt;
-	}
-
-	public String getLogin(){
-		return login;
-	}
-
-	public String getTwId(){
-		return twId;
-	}
-
-	public String getAllowShowMyBirthday(){
-		return allowShowMyBirthday;
-	}
-
-	public String getTwIdHash(){
-		return twIdHash;
-	}
-
-	public String getGhost(){
-		return ghost;
-	}
-
-	public String getCoverModerateUrl(){
-		return coverModerateUrl;
-	}
-
-	public String getVkId(){
-		return vkId;
-	}
-
-	public String getNormalPhotoUrl(){
-		return normalPhotoUrl;
-	}
-
-	public String getSurname(){
-		return surname;
-	}
-
-	public String getCoverModerateAt(){
-		return coverModerateAt;
-	}
-
-	public String getFbPage(){
-		return fbPage;
-	}
-
-	public String getAllowCommentsGCM(){
-		return allowCommentsGCM;
-	}
-
-	public String getLowPhotoUrl(){
-		return lowPhotoUrl;
-	}
-
-	public String getVerify(){
-		return verify;
-	}
-
-	public String getLastAuthorize(){
-		return lastAuthorize;
-	}
-
-	public String getLang(){
-		return lang;
-	}
-
-	public String getPhotoModerateAt(){
-		return photoModerateAt;
-	}
-
-	public String getEmail(){
-		return email;
-	}
-
-	public String getAllowShowMyJoinDate(){
-		return allowShowMyJoinDate;
-	}
-
-	public String getSex(){
-		return sex;
-	}
-
-	public String getBigPhotoUrl(){
-		return bigPhotoUrl;
-	}
-
-	public String getGlId(){
-		return glId;
-	}
-
-	public String getLasttime(){
-		return lasttime;
-	}
-
-	public String getOriginPhotoUrl(){
-		return originPhotoUrl;
-	}
-
-	public String getPhotoRejectModerateAt(){
-		return photoRejectModerateAt;
-	}
-
-	public String getRemoved(){
-		return removed;
-	}
-
-	public String getItemsCount(){
-		return itemsCount;
-	}
-
-	public String getBDay(){
-		return bDay;
-	}
-
-	public String getAdmob(){
-		return admob;
-	}
-
-	public String getFullname(){
-		return fullname;
-	}
-
-	public String getIpAddr(){
-		return ipAddr;
-	}
-
-	public String getAllowShowOnline(){
-		return allowShowOnline;
-	}
-
-	public String getCoverPosition(){
-		return coverPosition;
-	}
-
-	public Object getIosFcmRegid(){
-		return iosFcmRegid;
-	}
-
-	public String getVkPage(){
-		return vkPage;
-	}
-
-	public String getAllowCommentReplyGCM(){
-		return allowCommentReplyGCM;
-	}
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
+    }
+
+    public String getMsg_badge() {
+        return msg_badge;
+    }
+
+    public void setMsg_badge(String msg_badge) {
+        this.msg_badge = msg_badge;
+    }
+
+    public String getNoti_badge() {
+        return noti_badge;
+    }
+
+    public void setNoti_badge(String noti_badge) {
+        this.noti_badge = noti_badge;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDevice_token() {
+        return device_token;
+    }
+
+    public void setDevice_token(String device_token) {
+        this.device_token = device_token;
+    }
+
+    public String getDevice_type() {
+        return device_type;
+    }
+
+    public void setDevice_type(String device_type) {
+        this.device_type = device_type;
+    }
+
+    public int getVerify() {
+        return verify;
+    }
+
+    public void setVerify(int verify) {
+        this.verify = verify;
+    }
 }
