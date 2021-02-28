@@ -1,0 +1,477 @@
+package com.zoolife.app.activity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.zoolife.app.R;
+import com.zoolife.app.ResponseModel.AllPost.AllPostResponseModel;
+import com.zoolife.app.ResponseModel.AllPost.DataItem;
+import com.zoolife.app.ResponseModel.Category.CategoryResponseModel;
+import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
+import com.zoolife.app.SortedPostActivity;
+import com.zoolife.app.adapter.ArticlesAdapter;
+import com.zoolife.app.adapter.CategoryAdapter;
+import com.zoolife.app.adapter.HomeAdapter;
+import com.zoolife.app.adapter.NewSubCategoryAdapter;
+import com.zoolife.app.fragments.HomeFragment;
+import com.zoolife.app.models.ArticlesModel;
+import com.zoolife.app.models.CategoryModel;
+import com.zoolife.app.models.HomeModel;
+import com.zoolife.app.models.SubCategoryModel;
+import com.zoolife.app.network.ApiClient;
+import com.zoolife.app.network.ApiService;
+import com.zoolife.app.utility.LocaleHelper;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import io.github.inflationx.viewpump.ViewPumpContextWrapper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.zoolife.app.activity.AppBaseActivity.categories;
+
+public class SearchActivity extends AppCompatActivity {
+
+    ImageView btnSearchBack;
+    RelativeLayout dropdown_btn;
+    ProgressBar progress_circular;
+    Button search;
+
+    Spinner spinner, spinner2, spinner3;
+    String[] cities = {"اختيار موقع","الشرقية","جدة","البحرين","الأمارات","الكويت","عرعر","الجوف","نجران","جيزان","الباحة","ابها","حائل","القصيم","تبوك","الطائف","المدينة","حفر الباطن","ينبع","مكة","الرياض"};
+    String[] mainCategory;
+    String[] subCategory;
+
+    HomeAdapter homeAdapter;
+    RecyclerView recyclerView;
+
+    List<HomeModel> dataList;
+    List<HomeModel> dataListFiltered;
+    private EditText etSearch;
+    private LinearLayout llSpinner;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+
+        search = findViewById(R.id.btn);
+        spinner = findViewById(R.id.spinner);
+        spinner2 = findViewById(R.id.spinner2);
+        spinner3 = findViewById(R.id.spinner3);
+        dropdown_btn = findViewById(R.id.dropdown_btn);
+        llSpinner = findViewById(R.id.ll_spinners);
+        recyclerView = findViewById(R.id.search_recyclerview);
+        progress_circular = findViewById(R.id.search_pd);
+        etSearch = findViewById(R.id.et_search);
+
+        getCategory();
+
+        getAllPost();
+
+        dataListFiltered = new ArrayList<>();
+        dataListFiltered.clear();
+        etSearch.addTextChangedListener(new TextWatcher() {
+
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() > 0) {
+                    llSpinner.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+
+//                    dataListFiltered = dataList.forEach(articlesModel -> );
+                    if(dataList.size()>0) {
+                        dataListFiltered.clear();
+                        for(int m = 0; m <dataList.size();m++){
+                            if(dataList.get(m).title.toLowerCase().contains(s.toString().toLowerCase())) {
+                                dataListFiltered.add(dataList.get(m));
+                            }
+                        }
+                        if(dataListFiltered.size()>0) {
+                            homeAdapter = new HomeAdapter(SearchActivity.this, dataListFiltered);
+                            recyclerView.setAdapter(homeAdapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+
+                            homeAdapter.notifyDataSetChanged();
+
+
+                        }
+                        else{
+                            homeAdapter = new HomeAdapter(SearchActivity.this, dataList);
+                            recyclerView.setAdapter(homeAdapter);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+
+                            homeAdapter.notifyDataSetChanged();
+
+//                            articlesAdapter.notifyDataSetChanged();
+//                        Toast.makeText(this,"Nothing found",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else{
+                        dataListFiltered.clear();
+
+                    }
+//                    field2.setText("");
+                }
+                else{
+                    dataListFiltered.clear();
+                    homeAdapter = new HomeAdapter(SearchActivity.this, dataList);
+                    recyclerView.setAdapter(homeAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+
+                    homeAdapter.notifyDataSetChanged();
+
+                    llSpinner.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
+        //Creating the ArrayAdapter instance having the country list
+        ArrayAdapter aa = new ArrayAdapter(SearchActivity.this,android.R.layout.simple_spinner_item,cities);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        spinner.setAdapter(aa);
+
+
+
+
+
+
+
+
+        btnSearchBack = (ImageView) findViewById(R.id.btnSearchBack);
+
+        btnSearchBack.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                SearchActivity.this.finish();
+            }
+        });
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Context context = LocaleHelper.onAttach(newBase);
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(context));
+    }
+
+
+
+
+
+    private void getCategory() {
+
+        ApiService apiService= ApiClient.getClientZoo().create(ApiService.class);
+        Call<CategoryResponseModel> call=apiService.getCategory("get-all-categories");
+        call.enqueue(new Callback<CategoryResponseModel>() {
+            @Override
+            public void onResponse(Call<CategoryResponseModel> call, Response<CategoryResponseModel> response) {
+                CategoryResponseModel responseModel = response.body();
+                categories = response.body();
+                if (responseModel!=null && !responseModel.isError()) {
+
+                    ArrayList<CategoryModel> arrayList = new ArrayList<>();
+
+                    mainCategory = new String[responseModel.getData().size()+1];
+                    mainCategory[0] = "اختر الفئة";
+
+                    for(int i=0 ; i<responseModel.getData().size() ; i++)
+                    {
+
+                        com.zoolife.app.ResponseModel.Category.DataItem categoryModel = responseModel.getData().get(i);
+                        arrayList.add(new CategoryModel(categoryModel.getTitle(),categoryModel.getImgUnSelected(),categoryModel.getId()));
+                        mainCategory[i+1] = categoryModel.getTitle();
+                        
+                    }
+
+                    //Creating the ArrayAdapter instance having the country list
+                    ArrayAdapter aa2 = new ArrayAdapter(SearchActivity.this,android.R.layout.simple_spinner_item,mainCategory);
+                    aa2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //Setting the ArrayAdapter data on the Spinner
+                    spinner2.setAdapter(aa2);
+
+
+                    spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            String selectedItem = spinner2.getSelectedItem().toString();
+                            for(int j=0; j<arrayList.size(); j++){
+                                if (selectedItem.equals(arrayList.get(j).getName())){
+                                    int mainCategoryId = Integer.parseInt(arrayList.get(j).getId());
+                                    getSubCategory(mainCategoryId);
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            Toast.makeText(SearchActivity.this, "Choose a category", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+
+
+
+
+//                    Collections.reverse(arrayList);
+
+
+//                    categoryAdapter = new CategoryAdapter(getActivity(),arrayList, HomeFragment.this);
+//                    category_rv.setAdapter(categoryAdapter);
+//                    category_rv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, true));
+
+
+                }else {
+                    // infoDialog("Server Error.");
+//                    progress_circular.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CategoryResponseModel> call, Throwable t) {
+                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+//                progress_circular.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void getSubCategory(int cat_id) {
+
+        ApiService apiService= ApiClient.getClient().create(ApiService.class);
+        Call<SubCategoryResponseModel> call=apiService.getSubCategory("get-sub-categories",cat_id);
+        call.enqueue(new Callback<SubCategoryResponseModel>() {
+            @Override
+            public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {
+                SubCategoryResponseModel responseModel = response.body();
+                if (responseModel!=null && !responseModel.isError()) {
+
+                    ArrayList<SubCategoryModel> arrayList = new ArrayList<>();
+                    subCategory = new String[responseModel.getData().size()+1];
+                    subCategory[0] = "حدد فئة فرعية";
+
+                    if (responseModel.getData() != null) {
+                        for (int i = 0; i < responseModel.getData().size(); i++) {
+                            arrayList.add(new SubCategoryModel(responseModel.getData().get(i).getTitle(), responseModel.getData().get(i).getId()));
+                            subCategory[i+1] = responseModel.getData().get(i).getTitle();
+                        }
+
+                        //Creating the ArrayAdapter instance having the country list
+                        ArrayAdapter aa3 = new ArrayAdapter(SearchActivity.this,android.R.layout.simple_spinner_item,subCategory);
+                        aa3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //Setting the ArrayAdapter data on the Spinner
+                        spinner3.setAdapter(aa3);
+
+                        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                String subCategory = spinner3.getSelectedItem().toString();
+                                for(int j=0; j<arrayList.size(); j++){
+                                    if (subCategory.equals(arrayList.get(j).getSubCategoryName())){
+                                        int subCategoryId = Integer.parseInt(arrayList.get(j).getSubCategoryId());
+                                        search.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                getAllPost(cat_id, subCategoryId);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"No Record Found!",Toast.LENGTH_LONG).show();
+                    }
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SubCategoryResponseModel> call, Throwable t) {
+                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getAllPost(int cat, int sub_cat) {
+
+        progress_circular.setVisibility(View.VISIBLE);
+
+        ApiService apiService= ApiClient.getClient().create(ApiService.class);
+        Call<AllPostResponseModel> call=apiService.getAllPost("get-all-item");
+        call.enqueue(new Callback<AllPostResponseModel>() {
+            @Override
+            public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
+                AllPostResponseModel responseModel = response.body();
+                if (responseModel!=null && !responseModel.isError()) {
+
+
+                    ArrayList<HomeModel> arrayList = new ArrayList<>();
+
+
+                    progress_circular.setVisibility(View.GONE);
+
+                    if(spinner.getSelectedItem().equals("اختيار موقع"))
+                        Toast.makeText(SearchActivity.this, "Please Select City!", Toast.LENGTH_SHORT).show();
+                    else {
+                        for(int i=0 ; i<responseModel.getData().size() ; i++) {
+                            if(responseModel.getData().get(i).getCategory()!=null) {
+                                if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat))) {
+                                    if (responseModel.getData().get(i).getSubCategory() != null) {
+                                        if (responseModel.getData().get(i).getSubCategory().equals(String.valueOf(sub_cat))) {
+                                            if (responseModel.getData().get(i).getCity() != null) {
+                                                if (responseModel.getData().get(i).getCity().equals(spinner.getSelectedItem())) {
+                                                    DataItem dataItem = responseModel.getData().get(i);
+                                                    arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+
+
+//
+
+                    if(arrayList.size() > 0) {
+//                        homeAdapter = new HomeAdapter(getApplicationContext(), arrayList);
+//                        recyclerView.setAdapter(homeAdapter);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+                        Intent intent = new Intent(getApplicationContext(), SortedPostActivity.class);
+                        Bundle args = new Bundle();
+                        args.putSerializable("ARRAYLIST",arrayList);
+                        intent.putExtra("BUNDLE",args);
+                        intent.putExtra("activity", "search");
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(SearchActivity.this, "No Post found!", Toast.LENGTH_SHORT).show();
+//                        homeAdapter.notifyDataSetChanged();
+                    }
+
+
+
+
+                }else {
+                    // infoDialog("Server Error.");
+                    progress_circular.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
+                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                progress_circular.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    public void getAllPost() {
+        progress_circular.setVisibility(View.VISIBLE);
+
+        ApiService apiService= ApiClient.getClient().create(ApiService.class);
+        Call<AllPostResponseModel> call=apiService.getAllPost("get-all-item");
+        call.enqueue(new Callback<AllPostResponseModel>() {
+            @Override
+            public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
+                AllPostResponseModel responseModel = response.body();
+                if (responseModel!=null && !responseModel.isError()) {
+
+                    Log.d("SEARCH_TAG", "getallpost: "+response.body().getData().toString());
+                    progress_circular.setVisibility(View.GONE);
+
+                    ArrayList<HomeModel> arrayList = new ArrayList<>();
+
+                    for(int i=0 ; i<responseModel.getData().size() ; i++) {
+                        DataItem dataItem = responseModel.getData().get(i);
+                        arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt() ,dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(),dataItem.getPriority()));
+                    }
+
+                    if(arrayList.size() > 0) {
+                        dataList = arrayList;
+                        homeAdapter = new HomeAdapter(SearchActivity.this, arrayList);
+                        recyclerView.setAdapter(homeAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
+                    }
+
+                }else {
+                    // infoDialog("Server Error.");
+                    progress_circular.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
+                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
+                Toast.makeText(SearchActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+                progress_circular.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+
+}

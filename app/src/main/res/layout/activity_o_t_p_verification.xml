@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.OTPVerification">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_splash"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/d250"
+            android:src="@drawable/app_logo_2"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="التحقق من OTP"
+            android:textColor="@color/white"
+            android:textSize="@dimen/d30"
+            android:textStyle="bold"
+            android:layout_marginTop="-100dp"
+            android:layout_marginBottom="@dimen/d50"/>
+
+        <com.mukesh.OtpView
+            android:id="@+id/otp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:itemBackground="@color/content_page"
+            android:alpha=".8"
+            android:textColor="@android:color/black"
+            android:textAllCaps="true"
+            app:OtpHideLineWhenFilled="true"
+            app:OtpItemCount="6"
+            app:OtpItemRadius="@dimen/dpoit1"
+            app:OtpItemSpacing="6dp"
+            app:OtpLineColor="@color/white"
+            app:OtpState_filled="true"
+            app:OtpViewType="line" />
+
+        <TextView
+            android:id="@+id/otpTV"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            android:text="OTP"
+            android:gravity="center"
+            android:layout_margin="@dimen/d50"
+            android:visibility="gone"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+</FrameLayout>

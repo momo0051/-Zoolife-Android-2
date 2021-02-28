@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AddActivity2">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#009FE3">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ivBackAddActivity2"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/d15"
+                android:background="@drawable/right_arrow"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="إضافة إعلان"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:id="@+id/scrollView" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:background="@color/grey_10"/>
+
+                    <LinearLayout
+                        android:id="@+id/title_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/d70"
+                        android:layout_weight="0"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_alignParentStart="true"
+                                android:id="@+id/textView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="17sp"
+                                android:layout_marginTop="@dimen/d20"
+                                android:layout_weight="1"
+                                android:text="نص الإعلان" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/textView2">
+
+                                <ImageView
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/title_checkbox_status"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_weight="0"
+                                    app:tint='#009FE3'
+                                    android:src="@drawable/checked" />
+
+                                <TextView
+                                    android:id="@+id/itemTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="16dp"
+                                    android:textSize="16sp"
+                                    android:ems="10"
+                                    android:hint="ادخل نص الإعلان"
+                                    android:background="@null"
+                                    android:layout_toRightOf="@id/title_checkbox_status"
+                                    android:layout_marginTop="@dimen/d5"
+                                    android:inputType="textPersonName"
+                                    android:maxLength="70" />
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/d5"
+                        android:background="@color/light_grey"/>
+
+                    <LinearLayout
+                        android:id="@+id/description_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/d70"
+                        android:layout_weight="0"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_alignParentStart="true"
+                                android:id="@+id/tvDescription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="17sp"
+                                android:layout_marginTop="@dimen/d20"
+                                android:layout_weight="1"
+                                android:text="وصف الإعلان" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tvDescription">
+
+                                <ImageView
+                                    android:visibility="gone"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/description_checkbox_status"
+                                    android:layout_width="18dp"
+                                    android:layout_height="18dp"
+                                    android:layout_weight="0"
+                                    app:tint='#009FE3'
+                                    android:src="@drawable/checked" />
+
+                                <TextView
+                                    android:id="@+id/itemDescription"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="16dp"
+                                    android:textSize="16sp"
+                                    android:ems="10"
+                                    android:hint="ادخل نص الإعلان"
+                                    android:background="@null"
+                                    android:layout_toRightOf="@id/description_checkbox_status"
+                                    android:layout_marginTop="@dimen/d5"
+                                    android:inputType="textPersonName"
+                                    android:maxLength="70" />
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/titleErrorLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="16dp"
+                            android:textColor="@color/error"
+                            android:visibility="gone"
+                            android:text="الرجاء التأكد من المدخلات" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/d5"
+                        android:background="@color/light_grey"/>
+
+                    <LinearLayout
+                        android:id="@+id/option_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="0"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_weight="0"
+                                android:visibility="gone"
+                                android:src="@drawable/ic_checkbox_gray" />
+
+                            <TextView
+                                android:layout_alignParentStart="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="8dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:textSize="17sp"
+                                android:text="طريقة التواصل" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@color/content_page"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <Spinner
+                                android:id="@+id/optionChoiceCategory"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:spinnerMode="dropdown" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/d30"
+                    android:background="@color/light_grey"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:layout_weight="0"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="16dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_alignParentEnd="true"
+                                android:id="@+id/subcategory_checkbox_status"
+                                android:layout_width="50dp"
+                                android:layout_height="@dimen/d40"
+                                android:layout_centerInParent="true"
+                                android:layout_marginEnd="@dimen/d10"
+                                android:src="@drawable/sw_no" />
+
+                            <TextView
+                                android:layout_alignParentStart="true"
+                                android:id="@+id/textViewSubcategory"
+                                android:layout_width="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:textSize="17sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_weight="1"
+                                android:text="إظهار رقم الجوال" />
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/d10"
+                            android:padding="@dimen/d10"
+                            android:text="+9665551112"
+                            android:textAlignment="viewStart"
+                            android:textColor="@color/black"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/content_page">
+
+                    <Button
+                        android:id="@+id/adContinueBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_below="@+id/categoryLayout2"
+                        android:layout_marginStart="@dimen/d20"
+                        android:layout_marginTop="@dimen/d50"
+                        android:layout_marginEnd="@dimen/d20"
+                        android:background="#009FE3"
+                        android:text="@string/submit"
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

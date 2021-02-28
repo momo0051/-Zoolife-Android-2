@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <RelativeLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#009FE3">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" بحث"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp" />
+
+
+        <ImageView
+            android:id="@+id/btnSearchBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/right_arrow" />
+
+<!--        بحث-->
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="@dimen/d10"
+        android:layout_marginEnd="@dimen/d10"
+        android:id="@+id/search_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="@dimen/d15"
+                app:cardBackgroundColor="@android:color/white"
+                android:paddingStart="@dimen/d30"
+                android:layout_below="@id/search_bar">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/rounded_editext"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_search"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        app:tint="@color/gray"
+                        android:id="@+id/btnSearch"/>
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/search"
+                        android:textSize="13sp"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="start"
+                        android:textAlignment="viewStart"
+                        android:singleLine="true"
+                        android:layout_toRightOf="@+id/btnSearch"
+                        android:background="@null"
+                        android:paddingStart="@dimen/d30"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_spinners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/search_bar"
+        >
+
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:prompt="@string/main_category"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/gray_round_boder"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/gray_round_boder"
+            android:layout_marginBottom="8dp"
+            />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/gray_round_boder"
+            android:layout_marginBottom="8dp"
+             />
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/d20"
+            android:layout_marginTop="@dimen/d10"
+            android:layout_marginEnd="@dimen/d20"
+            android:background="@drawable/round_btn"
+            android:text="بحث"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/search_pd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_spinners"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/d20"
+        android:visibility="gone"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/search_recyclerview"
+        android:layout_below="@id/ll_spinners" />
+
+
+</RelativeLayout>

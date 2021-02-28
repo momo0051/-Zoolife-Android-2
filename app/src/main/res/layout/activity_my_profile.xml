@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<ScrollView
+    android:id="@+id/scrollable"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <LinearLayout  android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الملف الشخصي"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"/>
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/right_arrow"
+                    android:visibility="gone"
+                    android:layout_gravity="end|center_vertical"/>
+            </FrameLayout>
+        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-50dp"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:alpha=".1"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ic_user"
+                        android:layout_gravity="center"
+                        app:civ_border_width="1dp"
+                        app:civ_border_color="@color/gray"/>
+                    <ImageView
+                        android:id="@+id/profileBtn"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_add"
+                        android:visibility="gone"
+                        android:layout_gravity="right"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="20dp"
+                        />
+                </FrameLayout>
+
+
+                <TextView
+                    android:id="@+id/emailTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hafiz@gmail.com"
+                    android:textColor="@color/light_gray"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-50dp"
+            android:paddingBottom="50dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الاسم الاول"
+                        android:textSize="18dp"
+                        android:textColor="@color/white"/>
+
+                    <EditText
+                        android:id="@+id/firstNameET"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textSize="18dp"
+                        android:text="الاسم الاول"
+                        android:enabled="false"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:layout_gravity="start|bottom"
+                        android:layout_marginRight="50dp"
+                        android:background="@null"
+                        android:paddingLeft="10dp"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"/>
+
+                    <ImageView
+                        android:id="@+id/firstNameE"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:padding="5dp"
+                        android:layout_gravity="center_vertical|right"/>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white"
+                    android:alpha=".4"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:padding="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="اسم المستخدم"
+                        android:textSize="18dp"
+                        android:layout_marginLeft="2dp"
+                        android:textColor="@color/white"/>
+
+                    <EditText
+                        android:id="@+id/lastNameET"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textSize="18dp"
+                        android:text="اسم المستخدم"
+                        android:layout_marginLeft="2dp"
+                        android:enabled="false"
+                        android:imeOptions="actionDone"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:layout_gravity="start|bottom"
+                        android:layout_marginRight="50dp"
+                        android:paddingLeft="10dp"
+                        android:background="@null"
+                        android:layout_marginTop="20dp"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"/>
+
+                    <ImageView
+                        android:id="@+id/lastNameE"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:padding="5dp"
+                        android:layout_gravity="center_vertical|right"/>
+                </FrameLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white"
+                    android:alpha=".4"/>
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="40dp"/>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+</FrameLayout>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_splash"
+    tools:context=".activity.SignUpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="@dimen/d250"
+                    android:layout_height="@dimen/d250"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/app_logo_2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="sans-serif-black"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="75sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/d20"
+                android:layout_marginTop="@dimen/d10"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                tools:layout_editor_absoluteX="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/d20"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/d10"
+                    android:singleLine="true"
+                    android:text="الاسم الكامل"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    tools:ignore="MissingPrefix" />
+
+                <EditText
+                    android:id="@+id/editFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/blue_button"
+                    android:padding="@dimen/d15"
+                    android:hint="ادخل الاسم الكامل"
+                    android:textColorHint="@color/silver"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/d20"
+                android:layout_marginTop="@dimen/d20"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/d20"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/d10"
+                    android:layout_marginTop="@dimen/dt10"
+                    android:singleLine="true"
+                    android:text="اسم المستخدم"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    tools:ignore="MissingPrefix" />
+
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/blue_button"
+                    android:padding="@dimen/d15"
+                    android:hint=" أدخل اسم المستخدم"
+                    android:textColorHint="@color/silver"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/d20"
+                android:layout_marginTop="@dimen/d10"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/d10"
+                    android:layout_marginTop="@dimen/dt10"
+                    android:singleLine="true"
+                    android:text="كلمه السر"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    tools:ignore="MissingPrefix" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/blue_button"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/d15"
+                    android:weightSum="1">
+
+                    <EditText
+                        android:id="@+id/editTextSPassword"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.91"
+                        android:background="@null"
+                        android:inputType="textPassword"
+                        android:minWidth="@dimen/d60"
+                        android:paddingHorizontal="@dimen/d15"
+                        android:singleLine="true"
+                        android:hint="ادخل كلمة المرور"
+                        android:textAlignment="viewStart"
+                        android:textColorHint="@color/silver"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:ignore="MissingPrefix" />
+
+                    <ToggleButton
+                        android:id="@+id/ivSignup"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/d24"
+                        android:layout_marginLeft="@dimen/dt20"
+                        android:layout_weight="0.09"
+                        android:background="@drawable/eyeshow"
+                        android:backgroundTint="@color/white"
+                        android:textOff=""
+                        android:textOn="" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/d20"
+                android:layout_marginTop="@dimen/d10"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/d20"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/d10"
+                    android:singleLine="true"
+                    android:text="رقم الهاتف الجوال"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    tools:ignore="MissingPrefix" />
+
+                <EditText
+                    android:id="@+id/editTextMobileNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/blue_button"
+                    android:inputType="phone"
+                    android:padding="@dimen/d15"
+                    android:hint="ادخل كلمة رقم الهاتف"
+                    android:textColorHint="@color/silver"
+                    android:textAlignment="viewStart"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:ignore="MissingPrefix" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/d20"
+                android:layout_marginVertical="@dimen/d30"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+                <Button
+                    android:id="@+id/signupButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/white_button"
+                    android:text="سجل"
+                    android:textColor="@color/actionbar_top_bg"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/loginTextview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/d15"
+                    android:singleLine="true"
+                    android:text="هل لديك حساب؟ تسجيل الدخول"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    tools:ignore="MissingPrefix" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</FrameLayout>

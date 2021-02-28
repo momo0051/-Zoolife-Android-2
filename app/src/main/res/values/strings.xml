@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">ZooLife</string>
+    <string name="search">الرجاء إدخال كلمتك الرئيسية</string>
+    <string name="write_message">اكتب رسالتك هنا</string>
+    <string name="category">الفئة</string>
+    <string name="category1">الفئة :</string>
+    <string name="all_categories">اختيار الموقع </string>
+    <string name="dropdown_item1">كل المدن ‎</string>
+    <string name="main_category">Main Category‎</string>
+
+
+    <string name="all_cities">كل المدن</string>
+    <string name="closest">الأقرب</string>
+    <string name="most_recent">الأحدث</string>
+    <string name="favourites">بحث</string>
+    <string name="toolbar_title">Toolbar Title</string>
+    <string name="location">موقعك</string>
+    <string name="user_name">اسم المستخدم</string>
+    <string name="notif_msg">هذا هو اختبار رسالة سطر واحد للإعلام</string>
+    <string name="notif_date">25th Oct. 2020</string>
+    <string name="posted_on">اليوم</string>
+    <string name="add_image">إضافة صورة</string>
+    <string name="txt_continue">استمرار</string>
+    <string name="title_item">This is test item so le make twio line so that it will fill in it or not ust to check</string>
+    <string name="submit">إضافة</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dog_info">النوع / مالتيز بيور مستوى عالى وشيتزو بيور مستوى عالي ️ الجنس / انثى + ذكر️ العمر / 42يو.</string>
+    <string name="sample_text">الحجم / قزم اطرافه قصيره حجمهم جدا صغيييير ميني السعر 2500 ريال الجرو الواحد للمالتيز.</string>
+
+    <!--    Main Activity-->
+    <string name="message">الرسائل</string>
+    <string name="more">المزيد‎</string>
+    <string name="notification">إشعارات</string>
+    <string name="home">الرئيسية</string>
+
+    <!--    View More Fragment-->
+    <string name="add_ad">أضف إعلان</string>
+    <string name="favourite_ad">المفضلة</string>
+    <string name="my_favourite">المفضل لدي</string>
+    <string name="my_ads">إعلاناتي</string>
+    <string name="change_city">تغيير المدينة</string>
+    <string name="call_us">اتصل بنا</string>
+    <string name="order_delivery">طلب توصيل / نقل</string>
+    <string name="order_vet_consultant">طلب بيطرة</string>
+    <string name="report_missing_pet">بلاغ مفقود</string>
+    <string name="policy_terms">السياسة والشروط</string>
+    <string name="logout">تسجيل خروج</string>
+    <string name="black_list">القائمة السوداء</string>
+    <string name="banned_ads">السلع والاعلانات الممنوعه</string>
+    <string name="spinner_title">Select Category</string>
+
+    <string name="firebase_server_key" translatable="false">AAAAarKgHyI:APA91bEucI6EaFo6UlFyLM7YMqdS1xiXVZYlX7ReH7wDQDUHhDx7NCmcnBu7ti3fDTzrk0TjfQ1Zo0wQyk_fgGBd3DOJ7CFM8VqanY1j6nNAXiFMzjvtjhAH3LWavPAovNMXY9c6z5X7</string>
+
+</resources>
