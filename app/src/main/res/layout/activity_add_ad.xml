@@ -15,7 +15,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#009FE3"
+            android:background="@color/white"
             android:gravity="center">
 
             <RelativeLayout
@@ -29,7 +29,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/d15"
-                    android:background="@drawable/right_arrow"
+                    android:background="@drawable/ic_back_icon"
                     app:tint="@color/white" />
 
                 <TextView
@@ -37,7 +37,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="إضافة إعلان"
-                    android:textColor="@color/white"
+                    android:textColor="@color/slate_blue"
+                    android:textStyle="bold"
                     android:textSize="20sp" />
 
             </RelativeLayout>
@@ -79,7 +80,7 @@
                                 android:layout_width="140dp"
                                 android:layout_height="140dp"
                                 android:layout_gravity="start"
-                                android:background="@drawable/bg_border"
+                                android:background="@drawable/ripple_effect_white"
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 android:padding="@dimen/d10">
@@ -87,19 +88,18 @@
                                 <com.zoolife.app.view.SquareImageView
                                     android:id="@+id/coverImg"
                                     android:layout_width="40dp"
-                                    android:layout_height="40dp"
-                                    android:layout_marginStart="@dimen/d5"
+                                    android:layout_height="20dp"
                                     android:layout_weight="1"
                                     android:padding="2dp"
                                     android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_action_camera"
+                                    android:src="@drawable/ic_upload_icon"
                                     android:visibility="visible" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:layout_marginTop="@dimen/d10"
+                                    android:layout_marginTop="@dimen/d3"
                                     android:text="إضافة الصور"
                                     android:textColor="@color/black"
                                     android:textStyle="bold" />
@@ -250,6 +250,8 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dip"
+                                    android:background="@drawable/bg_spinner"
+                                    android:elevation="5dp"
                                     android:orientation="vertical">
 
                                     <!-- Spinner Element -->
@@ -257,7 +259,6 @@
                                         android:id="@+id/location_spinner"
                                         android:layout_width="fill_parent"
                                         android:layout_height="@dimen/d40"
-                                        android:background="@drawable/grid_bg"
                                         android:padding="10dp"
                                         android:prompt="@string/spinner_title" />
 
@@ -284,6 +285,8 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dip"
+                                    android:background="@drawable/bg_spinner"
+                                    android:elevation="5dp"
                                     android:orientation="vertical">
 
                                     <!-- Spinner Element -->
@@ -291,7 +294,6 @@
                                         android:id="@+id/category_spinner"
                                         android:layout_width="fill_parent"
                                         android:layout_height="@dimen/d40"
-                                        android:background="@drawable/grid_bg"
                                         android:padding="10dp"
                                         android:prompt="@string/spinner_title" />
 
@@ -316,6 +318,8 @@
                                     android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dip"
+                                    android:background="@drawable/bg_spinner"
+                                    android:elevation="5dp"
                                     android:orientation="vertical">
 
                                     <!-- Spinner Element -->
@@ -323,7 +327,6 @@
                                         android:id="@+id/sub_category_spinner"
                                         android:layout_width="fill_parent"
                                         android:layout_height="@dimen/d40"
-                                        android:background="@drawable/grid_bg"
                                         android:padding="10dp"
                                         android:prompt="@string/spinner_title" />
 
@@ -349,7 +352,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/d40"
                                     android:layout_marginTop="@dimen/dt10"
-                                    android:background="@drawable/grid_bg"
+                                    android:background="@drawable/bg_spinner"
+                                    android:elevation="5dp"
                                     android:hint="أضف عنوان الأعلان"
                                     android:padding="@dimen/dt10"
                                     android:singleLine="true" />
@@ -359,7 +363,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/d150"
                                     android:layout_marginTop="@dimen/dt20"
-                                    android:background="@drawable/grid_bg"
+                                    android:background="@drawable/bg_spinner"
+                                    android:elevation="5dp"
                                     android:gravity="start"
                                     android:hint="اكتب وصفك هنا"
                                     android:padding="@dimen/dt10" />
@@ -386,38 +391,130 @@
                                 <!--                                    android:layout_gravity="end"-->
                                 <!--                                    android:layout_marginTop="@dimen/dt20"/>-->
                                 <!--                            -->
-                                <CheckBox
-                                    android:id="@+id/phoneCB"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="start"
+                                    android:orientation="horizontal"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:button="@drawable/customcb"
-                                    android:padding="8dp"
-                                    android:text="رقم الهاتف   " />
+                                    android:padding="8dp">
 
-                                <CheckBox
-                                    android:id="@+id/messageCB"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="start"
-                                    android:layout_marginTop="5dp"
-                                    android:layout_marginBottom="5dp"
-                                    android:button="@drawable/customcb"
-                                    android:padding="8dp"
-                                    android:text="الرسائل   " />
+                                    <CheckBox
+                                        android:id="@+id/phoneCB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:button="@drawable/customcb" />
 
-                                <CheckBox
-                                    android:id="@+id/commentCB"
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="5dp"
+                                        android:src="@drawable/ic_phone_icon" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/slate_blue"
+                                        android:text="رقم الهاتف"/>
+                                </LinearLayout>
+
+
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="start"
+                                    android:orientation="horizontal"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:button="@drawable/customcb"
-                                    android:padding="8dp"
-                                    android:text="تعليقات   " />
+                                    android:padding="8dp">
+
+                                    <CheckBox
+                                        android:id="@+id/messageCB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:button="@drawable/customcb" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="5dp"
+                                        android:src="@drawable/ic_messages_icon" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/slate_blue"
+                                        android:text="الرسائل"/>
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:padding="8dp">
+
+                                    <CheckBox
+                                        android:id="@+id/commentCB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:button="@drawable/customcb" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="5dp"
+                                        android:src="@drawable/ic_comment_icon" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/slate_blue"
+                                        android:text="تعليقات"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:padding="8dp">
+
+                                    <CheckBox
+                                        android:id="@+id/whatsappCB"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:button="@drawable/customcb" />
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginStart="5dp"
+                                        android:src="@drawable/ic_whatsapp_icon" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="5dp"
+                                        android:layout_gravity="center"
+                                        android:textColor="@color/slate_blue"
+                                        android:text="تعليقات"/>
+
+                                </LinearLayout>
+
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -467,10 +564,12 @@
                         <Button
                             android:id="@+id/adContinueBtn"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_margin="@dimen/dt20"
-                            android:background="@drawable/white_round_boder"
-                            android:backgroundTint="@color/appColor"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="@dimen/dt20"
+                            android:layout_marginBottom="@dimen/dt20"
+                            android:layout_marginStart="100dp"
+                            android:layout_marginEnd="100dp"
+                            android:background="@drawable/bg_btn_blue"
                             android:text="@string/txt_continue"
                             android:textColor="@color/white"
                             android:textSize="17sp" />
@@ -483,6 +582,7 @@
                             android:layout_marginBottom="@dimen/dt20"
                             android:background="@drawable/white_round_boder"
                             android:backgroundTint="@color/dark_red"
+                            android:visibility="gone"
                             android:text="حذف الاعلان"
                             android:textColor="@color/white"
                             android:textSize="17sp" />
