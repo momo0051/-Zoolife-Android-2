@@ -30,8 +30,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="113142" />
-                            <entry key="outputName" value="ic_whatsapp_icon" />
-                            <entry key="sourceFile" value="D:\Other\ZooLifeAndroid\ZOOLIFE ICON\WhatsApp Icon.svg" />
+                            <entry key="outputName" value="ic_message_icon" />
+                            <entry key="sourceFile" value="D:\Other\ZooLifeAndroid\ZOOLIFE ICON\Message Icon.svg" />
                           </map>
                         </option>
                       </PersistentState>

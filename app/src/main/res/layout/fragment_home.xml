@@ -37,7 +37,7 @@
                     <ImageView
                         android:id="@+id/add_ad"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:src="@drawable/btn_ad"
                         android:layout_weight=".8"/>
 
@@ -56,8 +56,10 @@
                     <ImageView
                         android:id="@+id/search_post"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="50dp"
                         android:src="@drawable/btn_explore"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:layout_weight=".8"/>
 
                 </LinearLayout>
@@ -123,14 +125,18 @@
 
                 <com.denzcoskun.imageslider.ImageSlider
                     android:layout_width="match_parent"
+                    android:layout_height="@dimen/d150"
                     android:id="@+id/slider"
                     app:auto_cycle="true"
                     app:placeholder="@drawable/placeholder"
                     app:error_image="@drawable/placeholder"
-                    android:background="@color/white"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/ripple_effect_white"
                     app:delay="0"
-                    app:period="1000"
-                    android:layout_height="260dp"/>
+                    app:period="1000" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/category_rv"

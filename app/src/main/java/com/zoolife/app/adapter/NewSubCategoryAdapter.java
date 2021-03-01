@@ -56,13 +56,15 @@ public class NewSubCategoryAdapter extends RecyclerView.Adapter<NewSubCategoryAd
             }
         });
         if(row_index==position){
-            holder.subCategoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue_yellow));
+            holder.subCategoryLayout.setSelected(true);
+//            holder.subCategoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue_yellow));
 //            holder.subCategoryLayout.setBackground(context.getResources().getDrawable(R.drawable.white_round_boder));
 //            holder.tvSubCategory.setTextColor(context.getResources().getColor(R.color.appColor));
         }
         else
         {
-            holder.subCategoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue));
+            holder.subCategoryLayout.setSelected(false);
+//            holder.subCategoryLayout.setBackground(context.getResources().getDrawable(R.drawable.border_blue));
 //            holder.subCategoryLayout.setBackground(context.getResources().getDrawable(R.drawable.blue_round_boder));
 //            holder.tvSubCategory.setTextColor(context.getResources().getColor(R.color.white));
         }

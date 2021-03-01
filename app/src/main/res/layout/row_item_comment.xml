@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_rectangle_comments"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
@@ -9,28 +8,36 @@
         android:id="@+id/comment_detail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@drawable/ripple_effect_white"
         android:paddingTop="@dimen/dt10"
+        android:layout_margin="5dp"
         android:paddingEnd="@dimen/dt10"
         android:paddingBottom="@dimen/dt10"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:elevation="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dt10"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-            <ImageView
+            <!--<ImageView
                 android:layout_width="@dimen/d20"
                 android:layout_height="@dimen/d20"
-                android:src="@drawable/ic_user"/>
+                android:src="@drawable/ic_user"/>-->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dt10"
+                android:src="@drawable/ic_account_icon"/>
             <TextView
                 android:id="@+id/idTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ID"
                 android:layout_marginStart="@dimen/dt16"
-                android:textColor="#57c2f0"
+                android:textColor="@color/grey_80"
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/time_stamp"
@@ -47,10 +54,10 @@
         <TextView
             android:id="@+id/commentTv"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/grey_80"
             android:layout_marginTop="@dimen/d8"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dt10"
+            android:layout_marginStart="60dp"
             android:textStyle="bold"
             android:text="Address,Address,Address,Address,Address,AddressAddress,"/>
     </LinearLayout>

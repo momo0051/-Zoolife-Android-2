@@ -3,7 +3,7 @@
     android:id="@+id/subCategoryLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_blue"
+    android:background="@drawable/bg_selector_category"
     android:layout_marginLeft="@dimen/d5"
     android:layout_marginRight="@dimen/d5"
     xmlns:app="http://schemas.android.com/apk/res-auto">

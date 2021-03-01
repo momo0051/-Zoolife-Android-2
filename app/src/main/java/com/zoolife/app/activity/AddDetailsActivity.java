@@ -47,6 +47,7 @@ import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiConstant;
 import com.zoolife.app.network.ApiService;
 import com.squareup.picasso.Picasso;
+import com.zoolife.app.utility.ItemOffsetDecoration;
 import com.zoolife.app.utility.TimeShow;
 
 import java.text.SimpleDateFormat;
@@ -448,12 +449,19 @@ public class AddDetailsActivity extends AppBaseActivity {
                         more_imagesRV.setAdapter(imageLoaderAdapter);
 //                        more_imagesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         more_imagesRV.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset_1);
+                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(3, spacingInPixels, true, 0);
+                        more_imagesRV.addItemDecoration(itemDecoration);
                     }
                      if(arrayListRA.size() > 0) {
                          imageLoaderAdapterRA = new ImageLoaderAdapterRa(AddDetailsActivity.this, arrayListRA);
                         more_imagesRA.setAdapter(imageLoaderAdapterRA);
 //                        more_imagesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
                          more_imagesRA.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+                         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset_1);
+                         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(3, spacingInPixels, true, 0);
+                         more_imagesRA.addItemDecoration(itemDecoration);
                     }
 
 
