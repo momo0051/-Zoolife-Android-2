@@ -1023,7 +1023,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<NoDataResponseModel> call=apiService.deleteItem("delete-item", session.getEmail(), id);
+        Call<NoDataResponseModel> call=apiService.deleteItem(session.getUserId(), id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
             public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {

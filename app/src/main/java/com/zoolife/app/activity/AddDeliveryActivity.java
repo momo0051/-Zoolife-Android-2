@@ -98,7 +98,7 @@ public class AddDeliveryActivity extends AppCompatActivity{
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call=apiService.addDelivery("add-delivery", session.getEmail(), "a", itemTitle, "sdadas fwere ewrrw", "4000", "4", "1", "1", "0", "Pakistan", city);
+        Call<UserAllPostResponseModel> call=apiService.addDelivery( session.getUserId(),  itemTitle, "sdadas fwere ewrrw", "4000", "4", "1", "1", "0", "Pakistan", city,"","");
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
             public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {

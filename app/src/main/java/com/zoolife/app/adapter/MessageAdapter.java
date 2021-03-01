@@ -117,9 +117,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
         private void getUserProfileApi(Group group) {
             String username = group.getSenderPhone().equals(session.getPhone()) ? group.getRecipientPhone() : group.getSenderPhone();
+            //String ID = group.getse().equals(session.getPhone()) ? group.getRecipientPhone() : group.getSenderPhone();
 
             ApiService apiService = ApiClient.getClient().create(ApiService.class);
-            Call<GetUserProfileResponseModel> call = apiService.getProfile("get-user-profile", username);
+            Call<GetUserProfileResponseModel> call = apiService.getUserProfile(session.getUserId());
             call.enqueue(new Callback<GetUserProfileResponseModel>() {
                 @Override
                 public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {

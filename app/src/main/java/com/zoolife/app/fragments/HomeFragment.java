@@ -35,6 +35,7 @@ import com.zoolife.app.ResponseModel.AllPost.DataItem;
 import com.zoolife.app.ResponseModel.Category.CategoryResponseModel;
 import com.zoolife.app.ResponseModel.SearchPost.SearchResponseModel;
 import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
+import com.zoolife.app.Session;
 import com.zoolife.app.SortedPostActivity;
 import com.zoolife.app.activity.AddAdActivity;
 import com.zoolife.app.activity.LoginActivity;
@@ -452,7 +453,7 @@ public class HomeFragment extends Fragment {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<SearchResponseModel> call = apiService.getSearch("search-item", searchText);
+        Call<SearchResponseModel> call = apiService.itemSearch(session.getUserId(), searchText);
         call.enqueue(new Callback<SearchResponseModel>() {
             @Override
             public void onResponse(Call<SearchResponseModel> call, Response<SearchResponseModel> response) {
@@ -590,7 +591,7 @@ public class HomeFragment extends Fragment {
             MultipartBody requestBody = builder.build();
 
             relatedAdsList = new ArrayList<>();
-            Call<RelatedAdHomeModel> call = apiService.getRelatedAdds(requestBody);
+            Call<RelatedAdHomeModel> call = apiService.sliders("all_sliders");
             call.enqueue(new Callback<RelatedAdHomeModel>() {
                 @Override
                 public void onResponse(Call<RelatedAdHomeModel> call, Response<RelatedAdHomeModel> response) {

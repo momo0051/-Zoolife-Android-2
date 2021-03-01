@@ -506,7 +506,7 @@ public class MainActivity extends AppBaseActivity {
     private void updateDeviceInfo(String userId,String deviceToken) {
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UpdateDeviceInfoResponse> call=apiService.updateDeviceInfo("update-user-token",userId,deviceToken,"android");
+        Call<UpdateDeviceInfoResponse> call=apiService.updateUserDeviceToken(userId,deviceToken,"android");
         call.enqueue(new Callback<UpdateDeviceInfoResponse>() {
             @Override
             public void onResponse(Call<UpdateDeviceInfoResponse> call, Response<UpdateDeviceInfoResponse> response) {

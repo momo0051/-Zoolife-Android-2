@@ -403,10 +403,10 @@ public class MyProfileActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UpdateProfileResponseModel> call=apiService.updateProfile("update-user-profile",session.getEmail(),
-                session.getSurName(),session.getFullName(),session.getLanguage(),session.getYear(),session.getMonth(),session.getDay(),session.getCountry(), Integer.parseInt(session.getCountryId()),
-                session.getCity(),
-                Integer.parseInt(session.getCityId()));
+        Call<UpdateProfileResponseModel> call=apiService.updateUserProfile(session.getUserId(),session.getCountry(),session.getCity(),session.getFullName());
+               // session.getSurName(),session.getFullName(),session.getLanguage(),session.getYear(),session.getMonth(),session.getDay(), Integer.parseInt(session.getCountryId()),
+               // session.getCity(),
+               // Integer.parseInt(session.getCityId()));
         call.enqueue(new Callback<UpdateProfileResponseModel>() {
             @Override
             public void onResponse(Call<UpdateProfileResponseModel> call, Response<UpdateProfileResponseModel> response) {

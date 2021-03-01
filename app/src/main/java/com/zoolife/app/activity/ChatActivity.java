@@ -342,7 +342,7 @@ public class ChatActivity extends AppBaseActivity {
 
     private void getUserProfileApi(final FirebaseUtils.OnCompleteCallback onCompleteCallback) {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetUserProfileResponseModel> call = apiService.getProfile("get-user-profile", userEmail);
+        Call<GetUserProfileResponseModel> call = apiService.getUserProfile( adCreatedUser);
         call.enqueue(new Callback<GetUserProfileResponseModel>() {
             @Override
             public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {

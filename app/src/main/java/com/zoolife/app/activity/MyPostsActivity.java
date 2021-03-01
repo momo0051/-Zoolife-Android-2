@@ -133,7 +133,7 @@ public class MyPostsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call=apiService.getAllUserPost("get-all-item-by-user",session.getEmail());
+        Call<UserAllPostResponseModel> call=apiService.getPostbyUser(session.getEmail());
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
             public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {

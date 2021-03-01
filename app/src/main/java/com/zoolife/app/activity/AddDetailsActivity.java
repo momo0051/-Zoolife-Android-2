@@ -473,7 +473,7 @@ public class AddDetailsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AddCommentResponseModel> call=apiService.addComment("add", Integer.parseInt(session.getUserId()), Integer.parseInt(add_id),comment);
+        Call<AddCommentResponseModel> call=apiService.addComment( Integer.parseInt(session.getUserId()), Integer.parseInt(add_id),comment);
         call.enqueue(new Callback<AddCommentResponseModel>() {
             @Override
             public void onResponse(Call<AddCommentResponseModel> call, Response<AddCommentResponseModel> response) {
@@ -687,7 +687,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 //                String username = responseModel.getData().getPhone().equals(session.getPhone()) ? session.getPhone() : responseModel.getData().getPhone();
 
                 ApiService apiService = ApiClient.getClient().create(ApiService.class);
-                Call<GetUserProfileResponseModel> call = apiService.getProfile("get-user-profile", username);
+                Call<GetUserProfileResponseModel> call = apiService.getUserProfile(  responseModel.getData().getId());
                 call.enqueue(new Callback<GetUserProfileResponseModel>() {
                     @Override
                     public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {
@@ -792,7 +792,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetUserProfileResponseModel> call = apiService.getProfile("get-user-profile", username);
+        Call<GetUserProfileResponseModel> call = apiService.getUserProfile(responseModel.getData().getId());
         call.enqueue(new Callback<GetUserProfileResponseModel>() {
             @Override
             public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {

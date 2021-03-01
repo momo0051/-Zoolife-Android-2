@@ -154,11 +154,12 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 
 //        String username = group.email.equals(session.getEmail()) ? session.getEmail() : group.email;
         String username = group.phone.equals(session.getPhone()) ? session.getPhone() : group.phone;
+        String ID = group.id.equals(session.getUserId()) ? session.getUserId() : group.id;
 //        String username = group.getSenderEmail().equals(session.getEmail()) ? group.getRecipientEmail() : group.getSenderEmail();
 
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetUserProfileResponseModel> call = apiService.getProfile("get-user-profile", username);
+        Call<GetUserProfileResponseModel> call = apiService.getUserProfile(ID);
         call.enqueue(new Callback<GetUserProfileResponseModel>() {
             @Override
             public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {

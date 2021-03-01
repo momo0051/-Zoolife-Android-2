@@ -153,7 +153,7 @@ public class NotificationFragment extends Fragment {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= getClient().create(ApiService.class);
-        Call<NotificationModel> call=apiService.getNotifications(session.getUserId());
+        Call<NotificationModel> call=apiService.getAllNotify(session.getUserId());
         call.enqueue(new Callback<NotificationModel>() {
             @Override
             public void onResponse(Call<NotificationModel> call, Response<NotificationModel> response) {

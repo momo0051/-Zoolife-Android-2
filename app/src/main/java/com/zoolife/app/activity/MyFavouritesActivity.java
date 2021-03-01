@@ -91,7 +91,7 @@ public class MyFavouritesActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<GetFavouritesResponse> call=apiService.getMyFav("list-by-user",session.getUserId());
+        Call<GetFavouritesResponse> call=apiService.favItembyUser(session.getUserId());
         call.enqueue(new Callback<GetFavouritesResponse>() {
             @Override
             public void onResponse(Call<GetFavouritesResponse> call, Response<GetFavouritesResponse> response) {
