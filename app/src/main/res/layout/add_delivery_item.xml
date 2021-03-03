@@ -1,94 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_alignParentTop="true"
-        android:id="@+id/tab_layout"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary">
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="42dp"
+        app:cardCornerRadius="24dp">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="إعلاناتي"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_below="@id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@drawable/grid_bg"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/d10">
+            android:layout_height="match_parent">
 
-
-            <Spinner
-                android:id="@+id/add_delivery_city_spinner"
-                android:prompt="@string/main_category"
+            <RelativeLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"/>
+                android:layout_height="60dp"
+                android:layout_alignParentTop="true">
 
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="إعلاناتي"
+                    android:textColor="@color/app_bg"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/close"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/ic_close_dlg" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@drawable/grid_bg"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_margin="@dimen/d10">
+            </RelativeLayout>
 
-
-            <EditText
-                android:id="@+id/add_delivery_desc"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:hint="اضف عنوان الاعلان"
-                android:inputType="text"
-                android:autofillHints="" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tab_layout"
+                android:layout_centerInParent="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="@dimen/d10"
+                    android:background="@drawable/bg_input_field"
+                    android:orientation="vertical">
 
 
+                    <Spinner
+                        android:id="@+id/add_delivery_city_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:prompt="@string/main_category" />
 
-        </LinearLayout>
-        <Button
-            android:id="@+id/add_delivery_btn"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:text="اضف اعلان "
-            android:layout_marginTop="@dimen/d50"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            />
-    </LinearLayout>
 
-</RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="@dimen/d10"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                    <EditText
+                        android:id="@+id/add_delivery_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:autofillHints=""
+                        android:hint="اضف عنوان الاعلان"
+                        android:inputType="text" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/add_delivery_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/add_post" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

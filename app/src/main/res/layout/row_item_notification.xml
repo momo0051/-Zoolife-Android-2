@@ -1,67 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-<FrameLayout
-    android:id="@+id/frame"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end">
-
-    <LinearLayout
-        android:id="@+id/message_lay"
+    <FrameLayout
+        android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/dt10">
-
-        <TextView
-            android:id="@+id/notif_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="start"
-            android:textStyle="bold"
-            android:text="@string/notif_msg"
-            android:textSize="18sp" />
+        android:layout_gravity="end">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/message_lay"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="start|center_vertical">
-            <ImageView
-                android:layout_width="@dimen/dt20"
-                android:layout_height="@dimen/dt20"
-                android:src="@drawable/ic_clock"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="5dp"
-                />
-        <TextView
-            android:id="@+id/notif_posted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/notif_date"
-            android:paddingEnd="@dimen/dt10"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dt10">
+
+            <TextView
+                android:id="@+id/notif_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="start"
+                android:text="@string/notif_msg"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/notif_posted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingEnd="8dp"
+                android:text="@string/notif_date"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
-    </LinearLayout>
 
+    </FrameLayout>
 
-</FrameLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/message_lay"
-        android:layout_marginLeft="@dimen/dt10"
-        android:layout_marginRight="@dimen/dt10"
-        android:background="#D3D3D3"/>
+        android:layout_marginHorizontal="8dp"
+        android:background="@color/app_bg" />
 
 </LinearLayout>

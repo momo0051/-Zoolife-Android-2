@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.MessageFragment">
 
     <RelativeLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginStart="@dimen/d10"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="@dimen/d10"
         android:layout_marginBottom="10dp"
         android:background="@drawable/grid_bg"
-        android:layout_marginStart="@dimen/d10"
-        android:layout_marginEnd="@dimen/d10"
-        android:id="@+id/search_bar">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="@dimen/d15"
+                android:layout_below="@id/search_bar"
                 android:background="@color/grey_10"
                 android:paddingStart="@dimen/d30"
-                android:layout_below="@id/search_bar">
+                app:cardCornerRadius="@dimen/d15">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:background="@color/grey_10"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/grey_10">
 
                     <ImageView
+                        android:id="@+id/btnSearch"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_search"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
-                        app:tint="@color/gray"
-                        android:id="@+id/btnSearch"/>
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/gray" />
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="@string/search"
-                        android:textSize="13sp"
                         android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="start"
-                        android:textAlignment="viewStart"
-                        android:singleLine="true"
                         android:layout_toRightOf="@+id/btnSearch"
                         android:background="@null"
+                        android:hint="@string/search"
                         android:paddingStart="@dimen/d30"
-                        android:layout_centerVertical="true"/>
+                        android:singleLine="true"
+                        android:textAlignment="viewStart"
+                        android:textSize="13sp" />
 
                 </RelativeLayout>
-
 
 
             </androidx.cardview.widget.CardView>
@@ -71,12 +71,12 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/message_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search_bar"
-        android:id="@+id/message_rv"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp" />
 
 </RelativeLayout>

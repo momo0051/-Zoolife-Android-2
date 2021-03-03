@@ -109,17 +109,18 @@ public class MainActivity extends AppBaseActivity {
         llSearch = findViewById(R.id.favourite_btn);
         llSetting = findViewById(R.id.viewMoreBtn);
 
+        setLightStatusBar();
 
         readLocation();
         getToken();
         setFragment(new HomeFragment());
-
 
         findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 setFragment(new HomeFragment());
+                setLightStatusBar();
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
                 changeColor(llHome, icon_home, text_home);
                 resetColor(llSearch, icon_favourite, text_favourite);
@@ -168,6 +169,7 @@ public class MainActivity extends AppBaseActivity {
             @Override
             public void onClick(View view) {
                 toolbar_title.setText(getResources().getString(R.string.more));
+                setLightStatusBar();
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
                 setFragment(new ViewMoreFragment());
                 changeColor(llSetting, ivViewMore, tvViewMore);
@@ -184,6 +186,7 @@ public class MainActivity extends AppBaseActivity {
 
                 setFragment(new HomeFragment());
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
+                setLightStatusBar();
                 changeColor(llHome, icon_home, text_home);
                 resetColor(llSearch, icon_favourite, text_favourite);
                 resetColor(llNotification, icon_notif, text_notif);
@@ -195,6 +198,7 @@ public class MainActivity extends AppBaseActivity {
         findViewById(R.id.favourite_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setLightStatusBar();
 //                toolbar_title.setText(getResources().getString(R.string.favourites));
 //                findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
 //                setFragment(new FavouriteFragment());
@@ -213,6 +217,7 @@ public class MainActivity extends AppBaseActivity {
 
                 //if(session.isLogin()) {
                 toolbar_title.setText(getResources().getString(R.string.notification));
+                setDarkStatusBar();
                 findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
                 setFragment(new NotificationFragment());
                 resetColor(llHome, icon_home, text_home);
@@ -231,10 +236,9 @@ public class MainActivity extends AppBaseActivity {
         findViewById(R.id.message_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (session.isLogin()) {
-
                     toolbar_title.setText(getResources().getString(R.string.message));
+                    setDarkStatusBar();
                     findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
                     setFragment(new MessageFragment(session));
                     resetColor(llHome, icon_home, text_home);
@@ -539,6 +543,4 @@ public class MainActivity extends AppBaseActivity {
             finish();
         }
     }
-
-
 }

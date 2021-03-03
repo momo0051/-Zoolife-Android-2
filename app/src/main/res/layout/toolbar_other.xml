@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/d60"
-    android:background="#009FE3"
     android:orientation="horizontal"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
@@ -19,7 +17,7 @@
             android:layout_width="@dimen/d25"
             android:layout_height="@dimen/d25"
             android:layout_gravity="center"
-            android:src="@drawable/right_arrow" />
+            android:src="@drawable/ic_back_icon" />
 
     </RelativeLayout>
 

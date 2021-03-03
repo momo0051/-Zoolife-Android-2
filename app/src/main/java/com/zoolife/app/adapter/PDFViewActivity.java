@@ -1,20 +1,22 @@
 package com.zoolife.app.adapter;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
-import com.zoolife.app.R;
 import com.shockwave.pdfium.PdfDocument;
+import com.zoolife.app.R;
+import com.zoolife.app.activity.AppBaseActivity;
 
 import java.util.List;
 
-public class PDFViewActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener {
+public class PDFViewActivity extends AppBaseActivity implements OnPageChangeListener, OnLoadCompleteListener {
 
     private static final String TAG = PDFViewActivity.class.getSimpleName();
     public static String SAMPLE_FILE = "sample_pdf.pdf";
@@ -23,17 +25,26 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
     String pdfFileName;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p_d_f_view);
 
-        pdfView= (PDFView)findViewById(R.id.pdfView);
+        pdfView = (PDFView) findViewById(R.id.pdfView);
 
 
-        SAMPLE_FILE =  getIntent().getStringExtra("file");
-        displayFromAsset(SAMPLE_FILE+".pdf");
+        SAMPLE_FILE = getIntent().getStringExtra("file");
+        displayFromAsset(SAMPLE_FILE + ".pdf");
+
+        TextView titleText = (TextView) findViewById(R.id.toolbar_title);
+        titleText.setText(getIntent().getStringExtra("title"));
+        titleText.setTextColor(ContextCompat.getColor(this, R.color.app_bg));
+
+        findViewById(R.id.backBtn).setOnClickListener(view -> {
+            finish();
+        });
+
+        setLightStatusBar();
     }
 
     private void displayFromAsset(String assetFileName) {

@@ -98,8 +98,7 @@
                             android:id="@+id/addImage"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/d240"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
+                            android:scaleType="fitXY"
                             android:src="@drawable/def_photo"
                             android:visibility="visible" />
 

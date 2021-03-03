@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".activity.LoginActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/d20"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,22 +22,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
-        <ImageView
-            android:layout_width="@dimen/d250"
-            android:layout_height="@dimen/d250"
-            android:adjustViewBounds="true"
-            android:layout_centerInParent="true"
-            android:src="@drawable/app_logo_2" />
+
+            <ImageView
+                android:layout_width="@dimen/d250"
+                android:layout_height="@dimen/d250"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:src="@drawable/app_logo_2" />
 
             <ImageView
                 android:id="@+id/iv_cross"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:adjustViewBounds="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:adjustViewBounds="true"
+                android:padding="10dp"
                 android:src="@drawable/ic_cross_red" />
         </RelativeLayout>
 
@@ -45,19 +46,19 @@
             android:id="@+id/iv_main"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/ic_title_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/welcome_back"
             android:textColor="@color/appColor"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="20dp"
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="visible" />
@@ -65,20 +66,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/we_are_happy"
             android:textColor="@color/light_slate_gray"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
             android:textSize="18sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="sans-serif-black"
             android:text="@string/please_let_sign_up"
             android:textColor="@color/light_slate_gray"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="5dp"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -122,23 +124,24 @@
             android:textSize="13sp"
             tools:ignore="MissingPrefix" />
 
-<!--        android:hint="ادخل البريد الإلكتروني"-->
+        <!--        android:hint="ادخل البريد الإلكتروني"-->
         <EditText
             android:id="@+id/editTextUserName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/bg_input_field"
             android:layout_marginTop="@dimen/d5"
+            android:background="@drawable/bg_input_field"
+            android:elevation="5dp"
+            android:gravity="end"
             android:hint="ادخل كلمة رقم الهاتف"
+            android:inputType="phone"
             android:minWidth="@dimen/d40"
             android:padding="@dimen/d15"
             android:singleLine="true"
-            android:textColor="@color/white"
+            android:textColor="@color/app_bg"
             android:textColorHint="@color/silver"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:inputType="phone"
-            android:elevation="5dp"
             tools:ignore="MissingPrefix" />
 
     </LinearLayout>
@@ -169,45 +172,12 @@
             android:textSize="13sp"
             tools:ignore="MissingPrefix" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/bg_input_field"
-            android:elevation="5dp">
-            <EditText
-                android:id="@+id/editTextEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint=" أدخل اسم المستخدم"
-                android:padding="@dimen/d15"
-                android:textAlignment="viewStart"
-                android:background="@color/transparent"
-                android:textColorHint="@color/silver"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_toLeftOf="@id/iv_eye"
-                tools:ignore="MissingPrefix" />
-
-            <ImageView
-                android:id="@+id/iv_eye"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_eye_off" />
-        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_input_field_without_padding"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/d5"
-            android:visibility="gone"
-            android:layout_weight="1"
+            android:background="@drawable/bg_input_field_without_padding"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="1">
@@ -224,7 +194,7 @@
                 android:paddingHorizontal="@dimen/d15"
                 android:singleLine="true"
                 android:textAlignment="viewStart"
-                android:textColor="@color/white"
+                android:textColor="@color/app_bg"
                 android:textColorHint="@color/silver"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -234,10 +204,10 @@
                 android:id="@+id/ivPLogin"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/d24"
-                android:layout_marginLeft="@dimen/dt20"
+                android:layout_marginStart="@dimen/dt20"
+                android:layout_marginEnd="@dimen/dt20"
                 android:layout_weight="0.09"
                 android:background="@drawable/ic_eye_off"
-                android:backgroundTint="@color/white"
                 android:textOff=""
                 android:textOn="" />
 
@@ -249,8 +219,8 @@
         android:id="@+id/fogotPasswrdTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/d10"
         android:layout_marginHorizontal="@dimen/d20"
+        android:layout_marginTop="@dimen/d10"
         android:singleLine="true"
         android:text="هل نسيت كلمة المرور ؟"
         android:textColor="@color/light_slate_gray"
@@ -313,10 +283,10 @@
             android:id="@+id/signupTextview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
             android:layout_marginTop="100dp"
             android:layout_marginBottom="@dimen/d20"
             android:singleLine="true"
-            android:layout_gravity="center|bottom"
             android:text="ليس لديك حساب؟ سجل"
             android:textColor="@color/light_slate_gray"
             android:textSize="13sp"

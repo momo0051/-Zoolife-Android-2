@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DeliveryOrderActivity"
-    android:background="@color/grey_3">
+    android:background="@color/white"
+    tools:context=".activity.DeliveryOrderActivity">
+
     <RelativeLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/toolbar_2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/colorPrimary">
+        android:layout_height="60dp">
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اعلاناتي"
-            android:textSize="22sp"
-            android:textColor="@color/white"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="15dp"
+            android:text="اعلاناتي"
+            android:textColor="@color/app_bg"
+            android:textSize="22sp" />
 
         <ImageView
             android:id="@+id/btn_back"
@@ -36,29 +35,24 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/right_arrow" />
+            android:src="@drawable/ic_back_icon" />
 
     </RelativeLayout>
 
-    <TextView
+    <ImageView
         android:id="@+id/add_delivery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_2"
         android:layout_margin="@dimen/d10"
-        android:padding="@dimen/d10"
-        android:text="اضافة اعلان توصيل"
-        android:background="@color/white"
         android:gravity="center_horizontal"
-        android:textSize="24sp"
-        android:clickable="true"
-        android:textColor="@color/colorPrimary"
-        android:layout_below="@id/tab_layout"/>
+        android:src="@drawable/add_post" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/delivery_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/add_delivery"/>
+        android:layout_below="@id/add_delivery" />
 
     <ProgressBar
         android:id="@+id/delivery_pbar"

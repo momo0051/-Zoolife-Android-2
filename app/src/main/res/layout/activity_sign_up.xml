@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,8 +21,8 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:orientation="vertical"
                 android:layout_marginHorizontal="@dimen/d20"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -32,19 +31,19 @@
                     android:id="@+id/iv_main"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="10dp"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/ic_title_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/hi_there"
                     android:textColor="@color/appColor"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="20dp"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:visibility="visible" />
@@ -52,20 +51,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/we_are_happy"
                     android:textColor="@color/light_slate_gray"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="5dp"
                     android:textSize="18sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
                     android:fontFamily="sans-serif-black"
                     android:text="@string/please_let_sign_up"
                     android:textColor="@color/light_slate_gray"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginTop="5dp"
                     android:textSize="18sp" />
 
             </LinearLayout>
@@ -77,8 +77,8 @@
                 android:layout_marginHorizontal="@dimen/d20"
                 android:layout_marginTop="@dimen/d50"
                 android:gravity="center"
-                android:paddingBottom="5dp"
                 android:orientation="vertical"
+                android:paddingBottom="5dp"
                 android:weightSum="1"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 tools:layout_editor_absoluteX="20dp">
@@ -99,11 +99,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input_field"
+                    android:elevation="5dp"
                     android:padding="@dimen/d15"
-                    android:textColorHint="@color/silver"
                     android:singleLine="true"
                     android:textColor="@color/grey_80"
-                    android:elevation="5dp"
+                    android:textColorHint="@color/silver"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:ignore="MissingPrefix" />
@@ -140,20 +140,21 @@
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input_field"
                     android:elevation="5dp">
+
                     <EditText
                         android:id="@+id/editTextEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/iv_eye"
+                        android:background="@color/transparent"
                         android:hint=" أدخل اسم المستخدم"
                         android:padding="@dimen/d15"
-                        android:textAlignment="viewStart"
-                        android:background="@color/transparent"
-                        android:textColorHint="@color/silver"
                         android:singleLine="true"
+                        android:textAlignment="viewStart"
                         android:textColor="@color/grey_80"
+                        android:textColorHint="@color/silver"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_toLeftOf="@id/iv_eye"
                         tools:ignore="MissingPrefix" />
 
                     <ImageView
@@ -178,8 +179,8 @@
                 android:layout_marginTop="@dimen/d10"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:weightSum="1"
                 android:visibility="gone"
+                android:weightSum="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
@@ -212,14 +213,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.91"
                         android:background="@null"
+                        android:hint="ادخل كلمة المرور"
                         android:inputType="textPassword"
                         android:minWidth="@dimen/d60"
                         android:paddingHorizontal="@dimen/d15"
                         android:singleLine="true"
-                        android:hint="ادخل كلمة المرور"
                         android:textAlignment="viewStart"
-                        android:textColorHint="@color/silver"
                         android:textColor="@color/white"
+                        android:textColorHint="@color/silver"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:ignore="MissingPrefix" />
@@ -268,20 +269,21 @@
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input_field"
                     android:elevation="5dp">
+
                     <EditText
                         android:id="@+id/editTextConfirmPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/iv_eye_confirm"
+                        android:background="@color/transparent"
                         android:hint=" أدخل اسم المستخدم"
                         android:padding="@dimen/d15"
-                        android:textAlignment="viewStart"
-                        android:background="@color/transparent"
-                        android:textColorHint="@color/silver"
                         android:singleLine="true"
+                        android:textAlignment="viewStart"
                         android:textColor="@color/grey_80"
+                        android:textColorHint="@color/silver"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_toLeftOf="@id/iv_eye_confirm"
                         tools:ignore="MissingPrefix" />
 
                     <ImageView
@@ -294,18 +296,19 @@
                         android:layout_marginRight="10dp"
                         android:src="@drawable/ic_eye_off" />
                 </RelativeLayout>
+
                 <EditText
                     android:id="@+id/editTextMobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input_field"
+                    android:hint="ادخل كلمة رقم الهاتف"
                     android:inputType="phone"
                     android:padding="@dimen/d15"
-                    android:hint="ادخل كلمة رقم الهاتف"
-                    android:textColorHint="@color/silver"
-                    android:textAlignment="viewStart"
                     android:singleLine="true"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/white"
+                    android:textColorHint="@color/silver"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="gone"
@@ -316,10 +319,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="bottom"
                 android:layout_marginHorizontal="@dimen/d20"
                 android:layout_marginVertical="@dimen/d20"
                 android:gravity="bottom"
-                android:layout_gravity="bottom"
                 android:orientation="vertical"
                 android:weightSum="1"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -373,8 +376,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/d15"
-                    android:singleLine="true"
                     android:gravity="center_horizontal"
+                    android:singleLine="true"
                     android:text="هل لديك حساب؟ تسجيل الدخول"
                     android:textColor="@color/light_slate_gray"
                     android:textSize="13sp"
