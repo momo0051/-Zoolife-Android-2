@@ -67,14 +67,14 @@ public class LoginActivity extends AppBaseActivity {
         signupTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
         findViewById(R.id.fogotPasswrdTextview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,ForgotPassword.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPassword.class);
                 startActivity(intent);
             }
         });
@@ -83,18 +83,18 @@ public class LoginActivity extends AppBaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                if (b){
+                if (b) {
 
                     editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                     editTextPassword.setTypeface(typeface);
                     editTextPassword.setSelection(editTextPassword.getText().length());
                     ivPLogin.setBackgroundResource(R.drawable.eyehide);
 
-                }else {
+                } else {
                     editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
                     editTextPassword.setTypeface(typeface);
                     editTextPassword.setSelection(editTextPassword.getText().length());
-                    ivPLogin.setBackgroundResource(R.drawable.eyeshow );
+                    ivPLogin.setBackgroundResource(R.drawable.eyeshow);
                 }
             }
         });
@@ -103,8 +103,7 @@ public class LoginActivity extends AppBaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(isValid())
-                {
+                if (isValid()) {
                     //sham12
                     signInUser();
                 }
@@ -115,12 +114,10 @@ public class LoginActivity extends AppBaseActivity {
     }
 
     private boolean isValid() {
-        if (editTextUserName.getText().toString().equals("")){
+        if (editTextUserName.getText().toString().equals("")) {
             editTextUserName.setError("أدخل اسم مستخدم صالح");
             return false;
-        }
-
-        else if (editTextPassword.getText().toString().equals("")){
+        } else if (editTextPassword.getText().toString().equals("")) {
             editTextPassword.setError("أدخل كلمة المرور");
             return false;
         }
@@ -137,17 +134,17 @@ public class LoginActivity extends AppBaseActivity {
         String password = editTextPassword.getText().toString();
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<JsonObject> call = apiService.signIn("login",username,password);
+        Call<JsonObject> call = apiService.signIn("login", username, password);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
 
                 if (response.isSuccessful() && response.body().getAsJsonObject().get("data").isJsonObject()
-                &&  !response.body().getAsJsonObject().get("error").getAsBoolean()){
+                        && !response.body().getAsJsonObject().get("error").getAsBoolean()) {
 
-                    Gson gson= new Gson();
-                    SignInResponseModel responseModel = gson.fromJson(response.body().getAsJsonObject().toString(),SignInResponseModel.class);
+                    Gson gson = new Gson();
+                    SignInResponseModel responseModel = gson.fromJson(response.body().getAsJsonObject().toString(), SignInResponseModel.class);
 
 //                    SignInResponseModel responseModel =   new Gson().toJson(response.body());
 //                    SignInResponseModel responseModel = response.body().getAsJsonObject();
@@ -173,16 +170,15 @@ public class LoginActivity extends AppBaseActivity {
                     startActivity(intent);
 
 
-
                     session.setIsLogin(true);
-                   // infoDialog("تهانينا ! لقد قمت بتسجيل الدخول بنجاح");
+                    // infoDialog("تهانينا ! لقد قمت بتسجيل الدخول بنجاح");
                     progress_circular.setVisibility(View.GONE);
 
                 } else {
                     Log.d(TAG, "Server Error.");
                     progress_circular.setVisibility(View.GONE);
 
-                    Toast.makeText(getApplicationContext(),response.body().getAsJsonObject().get("message").toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), response.body().getAsJsonObject().get("message").toString(), Toast.LENGTH_LONG).show();
                     //infoDialog("Server Error.");
                 }
 
@@ -190,7 +186,7 @@ public class LoginActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
 
             }

@@ -1,32 +1,30 @@
 package com.zoolife.app.activity;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.squareup.picasso.Picasso;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.AddComment.AddCommentResponseModel;
 import com.zoolife.app.ResponseModel.AddPost.AddPostResponseModel;
@@ -35,18 +33,15 @@ import com.zoolife.app.ResponseModel.GetPost.GetPostResponseModel;
 import com.zoolife.app.ResponseModel.GetUserProfile.GetUserProfileResponseModel;
 import com.zoolife.app.ResponseModel.ShowComment.DataItem;
 import com.zoolife.app.ResponseModel.ShowComment.ViewCommentsResponseModel;
-import com.zoolife.app.ResponseModel.SignInResponse.SignInResponseModel;
 import com.zoolife.app.adapter.CommentsAdapter;
 import com.zoolife.app.adapter.ImageLoaderAdapter;
 import com.zoolife.app.adapter.ImageLoaderAdapterRa;
 import com.zoolife.app.models.CommentModel;
-import com.zoolife.app.models.DeliveryModel;
 import com.zoolife.app.models.ImageModel;
 import com.zoolife.app.models.RelatedAdModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiConstant;
 import com.zoolife.app.network.ApiService;
-import com.squareup.picasso.Picasso;
 import com.zoolife.app.utility.ItemOffsetDecoration;
 import com.zoolife.app.utility.TimeShow;
 
@@ -65,36 +60,33 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
-import static com.blankj.utilcode.util.SnackbarUtils.getView;
-
 public class AddDetailsActivity extends AppBaseActivity {
     EditText commentET;
     ProgressBar progress_circular;
     CommentsAdapter commentsAdapter;
     RecyclerView commentRV;
-    String add_id="",from="";
-    TextView descriptionTv,titleTv,idUser,date,city; /*,country;*/
+    String add_id = "", from = "";
+    TextView descriptionTv, titleTv, idUser, date, city; /*,country;*/
     ImageView adImage;
-    RecyclerView more_imagesRV,more_imagesRA;
+    RecyclerView more_imagesRV, more_imagesRA;
     ImageLoaderAdapter imageLoaderAdapter;
     ImageLoaderAdapterRa imageLoaderAdapterRA;
-    LinearLayout CMLayout,EDLayout;
-    ImageView likeBtn,icLike;
-    TextView fullComments;
+    LinearLayout CMLayout, EDLayout;
+    ImageView likeBtn, icLike;
+    ImageButton fullComments;
 
-    private TextView messageBtn,tvCount;
+    private TextView messageBtn, tvCount;
 
     private GetPostResponseModel responseModel;
 
-    boolean isLike=false;
-    boolean isLikeAll=false;
-    boolean isReported=false;
+    boolean isLike = false;
+    boolean isLikeAll = false;
+    boolean isReported = false;
 
     private String adImageUrl;
-    private ImageView ivCall,ivWhatsapp,ivChat,ivChatBox,ivCallBox,ivWhatsappBox,ivReport;
+    private ImageView ivCall, ivWhatsapp, ivChat, ivWhatsappBox, ivReport;
     private LinearLayout llComment;
-    private static Retrofit retrofit = null ;
+    private static Retrofit retrofit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +105,6 @@ public class AddDetailsActivity extends AppBaseActivity {
         ivWhatsapp = findViewById(R.id.whatsapp_icon);
         ivChat = findViewById(R.id.chat_icon);
 
-        ivChatBox = findViewById(R.id.chat_box);
-        ivCallBox = findViewById(R.id.call_box);
         ivWhatsappBox = findViewById(R.id.whatsapp_box);
         ivReport = findViewById(R.id.iv_report);
         tvCount = findViewById(R.id.tv_count);
@@ -131,12 +121,11 @@ public class AddDetailsActivity extends AppBaseActivity {
         });
 
 
-
         ivCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+responseModel.getData().getPhone()));
+                intent.setData(Uri.parse("tel:" + responseModel.getData().getPhone()));
                 startActivity(intent);
             }
         });
@@ -144,7 +133,7 @@ public class AddDetailsActivity extends AppBaseActivity {
         ivWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openWhatsApp( responseModel.getData().getPhone(), "");
+                openWhatsApp(responseModel.getData().getPhone(), "");
 
             }
         });
@@ -193,8 +182,6 @@ public class AddDetailsActivity extends AppBaseActivity {
         });
 
 
-
-
         commentET = findViewById(R.id.commentET);
         commentRV = findViewById(R.id.commentRV);
         descriptionTv = findViewById(R.id.descriptionTv);
@@ -210,31 +197,24 @@ public class AddDetailsActivity extends AppBaseActivity {
         messageBtn = findViewById(R.id.messageBtn);
 
 
-
         from = getIntent().getStringExtra("from");
 
-        if(from!=null) {
+        if (from != null) {
             if (from.equalsIgnoreCase("home")) {
 //                CMLayout.setVisibility(View.VISIBLE);
                 CMLayout.setVisibility(View.GONE);
                 EDLayout.setVisibility(View.GONE);
             }
-        }
-        else {
+        } else {
             CMLayout.setVisibility(View.GONE);
             EDLayout.setVisibility(View.VISIBLE);
 
         }
 
 
-
-
-
-        fetchAd(""+add_id);
+        fetchAd("" + add_id);
 
         viewComments();
-
-
 
 
         likeBtn.setOnClickListener(new View.OnClickListener() {
@@ -244,14 +224,12 @@ public class AddDetailsActivity extends AppBaseActivity {
                     Toast.makeText(AddDetailsActivity.this, "You have to login first to like", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(isLike) {
+                if (isLike) {
                     isLike = false;
                     doFavAdd(0);
                     likeBtn.setImageResource(R.drawable.ic_heart);
-                }
-                else
-                {
-                    isLike=true;
+                } else {
+                    isLike = true;
                     doFavAdd(1);
                     likeBtn.setImageResource(R.drawable.ic_heart_filled);
                 }
@@ -268,14 +246,12 @@ public class AddDetailsActivity extends AppBaseActivity {
                     Toast.makeText(AddDetailsActivity.this, "You have to login first to like", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(isLikeAll) {
+                if (isLikeAll) {
                     isLikeAll = false;
                     doLikeAdd();
                     icLike.setImageResource(R.drawable.ic_like_unchecked);
-                }
-                else
-                {
-                    isLikeAll=true;
+                } else {
+                    isLikeAll = true;
                     doLikeAdd();
                     icLike.setImageResource(R.drawable.ic_liked);
                 }
@@ -297,11 +273,9 @@ public class AddDetailsActivity extends AppBaseActivity {
                     Toast.makeText(AddDetailsActivity.this, "You have to login first to comment", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!commentET.getText().toString().isEmpty()){
+                if (!commentET.getText().toString().isEmpty()) {
                     addComment(commentET.getText().toString());
-                }
-                else
-                {
+                } else {
                     commentET.setError("الحقل فارغ");
                 }
             }
@@ -312,10 +286,10 @@ public class AddDetailsActivity extends AppBaseActivity {
 
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<GetPostResponseModel> call= session.getUsername()!=null && !session.getUsername().equalsIgnoreCase("")  ?
-                apiService.getPostWithLogin("get-item",add_id,session.getEmail())
-               : apiService.getPost("get-item",add_id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<GetPostResponseModel> call = session.getUsername() != null && !session.getUsername().equalsIgnoreCase("") ?
+                apiService.getPostWithLogin("get-item", add_id, session.getEmail())
+                : apiService.getPost("get-item", add_id);
         call.enqueue(new Callback<GetPostResponseModel>() {
             @Override
             public void onResponse(Call<GetPostResponseModel> call, Response<GetPostResponseModel> response) {
@@ -324,28 +298,28 @@ public class AddDetailsActivity extends AppBaseActivity {
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
-                    if(session.isLogin() && responseModel.getData().getFavItemStatus().equals("1")) {
-                        isLike=true;
+                    if (session.isLogin() && responseModel.getData().getFavItemStatus().equals("1")) {
+                        isLike = true;
                         likeBtn.setImageResource(R.drawable.ic_heart_filled);
                     } else {
-                        isLike=false;
+                        isLike = false;
                         likeBtn.setImageResource(R.drawable.ic_heart);
                     }
 
-                    if(session.isLogin() && responseModel.getData().getLikeItemStatus().equals("1")) {
-                        isLikeAll=true;
+                    if (session.isLogin() && responseModel.getData().getLikeItemStatus().equals("1")) {
+                        isLikeAll = true;
                         icLike.setImageResource(R.drawable.ic_liked);
                     } else {
-                        isLikeAll=false;
+                        isLikeAll = false;
                         icLike.setImageResource(R.drawable.ic_like_unchecked);
                     }
 
 
-                    if(session.isLogin() && responseModel.getData().getReportStatus().equals("1")) {
-                        isReported=true;
+                    if (session.isLogin() && responseModel.getData().getReportStatus().equals("1")) {
+                        isReported = true;
                         ivReport.setImageResource(R.drawable.ic_report_red);
                     } else {
-                        isReported=false;
+                        isReported = false;
                         ivReport.setImageResource(R.drawable.ic_flag);
                     }
 
@@ -357,8 +331,8 @@ public class AddDetailsActivity extends AppBaseActivity {
 //                        likeBtn.setImageResource(R.drawable.ic_heart);
 //                    }
 
-                    tvCount.setText(responseModel.getData().getLikesCount()+" إعجاب ");
-                    if(!responseModel.getData().getLikesCount().equalsIgnoreCase("")){
+                    tvCount.setText(responseModel.getData().getLikesCount() + " إعجاب ");
+                    if (!responseModel.getData().getLikesCount().equalsIgnoreCase("")) {
                         tvCount.setVisibility(View.VISIBLE);
                     }
 
@@ -366,8 +340,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 //                        CMLayout.setVisibility(View.VISIBLE);
                         CMLayout.setVisibility(View.GONE);
                         messageBtn.setOnClickListener(messageClickListener);
-                    }
-                    else
+                    } else
                         CMLayout.setVisibility(View.GONE);
 
 
@@ -381,35 +354,28 @@ public class AddDetailsActivity extends AppBaseActivity {
                     date.setText(timeShow.covertTimeToText(responseModel.getData().getCreateAt()));
 //                    date.setText(parseDate(responseModel.getData().getCreateAt()));
 
-                    if(responseModel.getData().getShowPhoneNumber().equals("1")){
+                    if (responseModel.getData().getShowPhoneNumber().equals("1")) {
                         ivCall.setVisibility(View.VISIBLE);
-                        ivCallBox.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         ivCall.setVisibility(View.GONE);
-                        ivCallBox.setVisibility(View.GONE);
                     }
 
-                    if(responseModel.getData().getShowMessage().equals("1")){
+                    if (responseModel.getData().getShowMessage().equals("1")) {
                         ivChat.setVisibility(View.VISIBLE);
-                        ivChatBox.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         ivChat.setVisibility(View.GONE);
-                        ivChatBox.setVisibility(View.GONE);
                     }
 
-                    if(responseModel.getData().getShowComments().equals("1")) {
+                    if (responseModel.getData().getShowComments().equals("1")) {
                         llComment.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    } else {
                         llComment.setVisibility(View.GONE);
                     }
 //                    if(responseModel.getData().getShowPhoneNumber().equals("1")){
 //
 //                    }
 
-                    if(!responseModel.getData().getImgUrl().isEmpty()) {
+                    if (!responseModel.getData().getImgUrl().isEmpty()) {
                         adImage.setVisibility(View.VISIBLE);
                         adImageUrl = "https://api.zoolifeshop.com/api/assets/images/" + responseModel.getData().getImgUrl();
                         Glide
@@ -420,8 +386,7 @@ public class AddDetailsActivity extends AppBaseActivity {
                                 .into(adImage);
 
                         adImage.setOnClickListener(adImageClickListener);
-                    }
-                    else {
+                    } else {
                         adImage.setVisibility(View.GONE);
                     }
 
@@ -429,14 +394,12 @@ public class AddDetailsActivity extends AppBaseActivity {
                     ArrayList<ImageModel> arrayList = new ArrayList<>();
                     ArrayList<RelatedAdModel> arrayListRA = new ArrayList<>();
 
-                    for(int i=0 ; i<responseModel.getData().getImages().size() ; i++)
-                    {
+                    for (int i = 0; i < responseModel.getData().getImages().size(); i++) {
                         arrayList.add(new ImageModel(responseModel.getData().getImages().get(i).toString()));
                     }
 
-                    for(int j=0 ; j<responseModel.getData().getrelatedAdImages().size() ; j++)
-                    {
-                        if(j==6){
+                    for (int j = 0; j < responseModel.getData().getrelatedAdImages().size(); j++) {
+                        if (j == 6) {
                             break; //
                         }
                         arrayListRA.add(
@@ -444,7 +407,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 //                                new ImageModel( "https://api.zoolifeshop.com/api/assets/images/" +responseModel.getData().getrelatedAdImages().get(j).getImgUrl()));
                     }
 
-                    if(arrayList.size() > 0) {
+                    if (arrayList.size() > 0) {
                         imageLoaderAdapter = new ImageLoaderAdapter(AddDetailsActivity.this, arrayList);
                         more_imagesRV.setAdapter(imageLoaderAdapter);
 //                        more_imagesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -453,15 +416,15 @@ public class AddDetailsActivity extends AppBaseActivity {
                         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(3, spacingInPixels, true, 0);
                         more_imagesRV.addItemDecoration(itemDecoration);
                     }
-                     if(arrayListRA.size() > 0) {
-                         imageLoaderAdapterRA = new ImageLoaderAdapterRa(AddDetailsActivity.this, arrayListRA);
+                    if (arrayListRA.size() > 0) {
+                        imageLoaderAdapterRA = new ImageLoaderAdapterRa(AddDetailsActivity.this, arrayListRA);
                         more_imagesRA.setAdapter(imageLoaderAdapterRA);
 //                        more_imagesRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                         more_imagesRA.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
-                         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset_1);
-                         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(3, spacingInPixels, true, 0);
-                         more_imagesRA.addItemDecoration(itemDecoration);
+                        more_imagesRA.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset_1);
+                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(3, spacingInPixels, true, 0);
+                        more_imagesRA.addItemDecoration(itemDecoration);
                     }
 
 
@@ -470,8 +433,8 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<GetPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
@@ -480,15 +443,15 @@ public class AddDetailsActivity extends AppBaseActivity {
     private void addComment(String comment) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AddCommentResponseModel> call=apiService.addComment("add", Integer.parseInt(session.getUserId()), Integer.parseInt(add_id),comment);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<AddCommentResponseModel> call = apiService.addComment("add", Integer.parseInt(session.getUserId()), Integer.parseInt(add_id), comment);
         call.enqueue(new Callback<AddCommentResponseModel>() {
             @Override
             public void onResponse(Call<AddCommentResponseModel> call, Response<AddCommentResponseModel> response) {
                 AddCommentResponseModel responseModel = response.body();
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),responseModel.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
                     commentET.setText("");
                     viewComments();
                 }
@@ -496,8 +459,8 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AddCommentResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
@@ -506,15 +469,15 @@ public class AddDetailsActivity extends AppBaseActivity {
     private void doFavAdd(int isLike) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<FavResponseModel> call=apiService.doFavAd("toggle",session.getUserId(),add_id,""+isLike);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<FavResponseModel> call = apiService.doFavAd("toggle", session.getUserId(), add_id, "" + isLike);
         call.enqueue(new Callback<FavResponseModel>() {
             @Override
             public void onResponse(Call<FavResponseModel> call, Response<FavResponseModel> response) {
                 FavResponseModel responseModel = response.body();
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),responseModel.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
 
 
                 }
@@ -522,8 +485,8 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<FavResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
@@ -532,8 +495,8 @@ public class AddDetailsActivity extends AppBaseActivity {
     private void doLikeAdd() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AddCommentResponseModel> call=apiService.updateLikeStatus("likes", Integer.parseInt(session.getUserId()), Integer.parseInt(add_id),isLikeAll? "1" :"0");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<AddCommentResponseModel> call = apiService.updateLikeStatus("likes", Integer.parseInt(session.getUserId()), Integer.parseInt(add_id), isLikeAll ? "1" : "0");
         call.enqueue(new Callback<AddCommentResponseModel>() {
             @Override
             public void onResponse(Call<AddCommentResponseModel> call, Response<AddCommentResponseModel> response) {
@@ -545,8 +508,8 @@ public class AddDetailsActivity extends AppBaseActivity {
                 AddCommentResponseModel responseModel = response.body();
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),responseModel.getMessage(),Toast.LENGTH_LONG).show();
-                    fetchAd(""+add_id);
+                    Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
+                    fetchAd("" + add_id);
 
                 }
             }
@@ -557,15 +520,15 @@ public class AddDetailsActivity extends AppBaseActivity {
                 icLike.setClickable(true);
                 icLike.setEnabled(true);
 
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
 
 
-    public Retrofit getClient(){
+    public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -596,8 +559,8 @@ public class AddDetailsActivity extends AppBaseActivity {
     private void reportPost(String input) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= getClient().create(ApiService.class);
-        Call<AddPostResponseModel> call=apiService.reportApi("report",add_id, session.getUserId(),input);
+        ApiService apiService = getClient().create(ApiService.class);
+        Call<AddPostResponseModel> call = apiService.reportApi("report", add_id, session.getUserId(), input);
         call.enqueue(new Callback<AddPostResponseModel>() {
             @Override
             public void onResponse(Call<AddPostResponseModel> call, Response<AddPostResponseModel> response) {
@@ -606,10 +569,9 @@ public class AddDetailsActivity extends AppBaseActivity {
                     ivReport.setImageResource(R.drawable.ic_report_red);
 
                     progress_circular.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(),responseModel.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
 
-                }
-                else{
+                } else {
                     ivReport.setImageResource(R.drawable.ic_flag);
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -617,8 +579,8 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AddPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
                 ivReport.setImageResource(R.drawable.ic_flag);
 
@@ -627,12 +589,11 @@ public class AddDetailsActivity extends AppBaseActivity {
     }
 
 
-
     private void viewComments() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<ViewCommentsResponseModel> call=apiService.viewComments("list-by-item",add_id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<ViewCommentsResponseModel> call = apiService.viewComments("list-by-item", add_id);
         call.enqueue(new Callback<ViewCommentsResponseModel>() {
             @Override
             public void onResponse(Call<ViewCommentsResponseModel> call, Response<ViewCommentsResponseModel> response) {
@@ -640,38 +601,32 @@ public class AddDetailsActivity extends AppBaseActivity {
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
-                    if (responseModel!=null && !responseModel.isError()) {
+                    if (responseModel != null && !responseModel.isError()) {
                         progress_circular.setVisibility(View.GONE);
 
                         ArrayList<CommentModel> arrayList = new ArrayList<>();
 
-                        for(int i=0 ; i<responseModel.getData().size() ; i++)
-                        {
-                            if (i<3){
+                        for (int i = 0; i < responseModel.getData().size(); i++) {
+                            if (i < 3) {
                                 DataItem dataItem = responseModel.getData().get(i);
-                                arrayList.add(new CommentModel(dataItem.getMessage(),dataItem.getId(), dataItem.getUserFullname(), dataItem.getCo()));
+                                arrayList.add(new CommentModel(dataItem.getMessage(), dataItem.getId(), dataItem.getUserFullname(), dataItem.getCo()));
 
-                            }
-                            else {
+                            } else {
                                 break;
                             }
 
 
-
-
                         }
-                        if(arrayList.size()>0) {
+                        if (arrayList.size() > 0) {
                             commentsAdapter = new CommentsAdapter(getApplicationContext(), arrayList);
                             commentRV.setAdapter(commentsAdapter);
                             commentRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        }
-                        else
+                        } else
                             progress_circular.setVisibility(View.GONE);
-                    }else {
+                    } else {
                         // infoDialog("Server Error.");
                         progress_circular.setVisibility(View.GONE);
                     }
-
 
 
                 }
@@ -679,15 +634,15 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<ViewCommentsResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });
     }
 
     private View.OnClickListener messageClickListener = v -> {
-        if(session.isLogin()){
+        if (session.isLogin()) {
             if (responseModel != null) {
                 progress_circular.setVisibility(View.VISIBLE);
 //                String email = responseModel.getData().getEmail();
@@ -701,7 +656,7 @@ public class AddDetailsActivity extends AppBaseActivity {
                     public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {
                         progress_circular.setVisibility(View.GONE);
                         GetUserProfileResponseModel responseModel = response.body();
-                        if (response.isSuccessful() && responseModel.getData()!=null ) {
+                        if (response.isSuccessful() && responseModel.getData() != null) {
                             Intent chatIntent = new Intent(AddDetailsActivity.this, ChatActivity.class);
                             chatIntent.putExtra(ChatActivity.AD_ID, AddDetailsActivity.this.responseModel.getData().getId());
                             chatIntent.putExtra(ChatActivity.AD_TITLE, AddDetailsActivity.this.responseModel.getData().getItemTitle());
@@ -719,13 +674,13 @@ public class AddDetailsActivity extends AppBaseActivity {
 
                     @Override
                     public void onFailure(Call<GetUserProfileResponseModel> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                         progress_circular.setVisibility(View.GONE);
                     }
                 });
             }
         } else {
-            Toast.makeText(AddDetailsActivity.this,"You have to login first to chat",Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddDetailsActivity.this, "You have to login first to chat", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -774,20 +729,19 @@ public class AddDetailsActivity extends AppBaseActivity {
     }
 
 
-    public void openWhatsApp(String number, String message){
+    public void openWhatsApp(String number, String message) {
         try {
-            String text ="00966"+ message;// Replace with your message.
+            String text = "00966" + message;// Replace with your message.
 
             String toNumber = PhoneNumberUtils.stripSeparators(number); // Replace with mobile phone number without +Sign or leading zeros, but with country code
             //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
 
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + toNumber + "&text=" + text));
             startActivity(intent);
-        }
-        catch (Exception e){
-            Toast.makeText(this,"Whatsapp app not found on your device",Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Whatsapp app not found on your device", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -805,7 +759,7 @@ public class AddDetailsActivity extends AppBaseActivity {
             @Override
             public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {
                 GetUserProfileResponseModel responseModel = response.body();
-                if (response.isSuccessful() && responseModel.getData()!=null ) {
+                if (response.isSuccessful() && responseModel.getData() != null) {
                     Intent chatIntent = new Intent(AddDetailsActivity.this, ChatActivity.class);
 //                    chatIntent.putExtra(ChatActivity.AD_ID, group.getAdId());
 //                    chatIntent.putExtra(ChatActivity.AD_TITLE, group.getAdTitle());

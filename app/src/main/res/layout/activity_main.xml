@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,31 +7,32 @@
     tools:context=".activity.MainActivity">
 
     <LinearLayout
+        android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar_layout"
         android:orientation="vertical">
 
-<!--        <include layout="@layout/toolbar"-->
-<!--            android:id="@+id/toolbar_1"-->
-<!--            android:visibility="gone"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_width="match_parent"/>-->
+        <!--        <include layout="@layout/toolbar"-->
+        <!--            android:id="@+id/toolbar_1"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:layout_alignParentTop="true"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_width="match_parent"/>-->
 
-        <include layout="@layout/toolbar_other"
+        <include
             android:id="@+id/toolbar_2"
-            android:visibility="gone"
-            android:layout_alignParentTop="true"
+            layout="@layout/toolbar_other"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/d50"
-            android:layout_width="match_parent"/>
+            android:layout_alignParentTop="true"
+            android:visibility="gone" />
 
     </LinearLayout>
-    
+
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/drawer_layout"
         android:layout_below="@id/toolbar_layout">
 
         <RelativeLayout
@@ -153,180 +153,175 @@
             </androidx.cardview.widget.CardView>-->
 
             <FrameLayout
+                android:id="@+id/frame_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/frame_container"
-                android:layout_above="@id/bottom_menu"/>
+                android:layout_above="@id/bottom_menu" />
 
             <LinearLayout
+                android:id="@+id/bottom_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/bottom_menu"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/bg_bottom_bar"
-                android:weightSum="5"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:weightSum="5">
 
                 <LinearLayout
+                    android:id="@+id/home_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:gravity="center"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_selector_bottom_bar"
                     android:clickable="true"
                     android:focusable="true"
-                    android:id="@+id/home_btn"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:tint="@color/dark_slate_blue"
-                        android:padding="5dp"
-                        android:layout_marginTop="6dp"
                         android:id="@+id/icon_home"
-                        android:src="@drawable/ic_home"/>
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="6dp"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_home"
+                        app:tint="@color/app_bg" />
 
                     <TextView
+                        android:id="@+id/text_home"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/text_home"
-                        android:visibility="gone"
-                        android:textColor="@color/appColor"
-                        android:text="@string/home"/>
+                        android:text="@string/home"
+                        android:textColor="@color/app_bg" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/favourite_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:id="@+id/favourite_btn"
-                    android:gravity="center"
                     android:background="@drawable/bg_selector_bottom_bar"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/icon_favourite"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_marginTop="6dp"
                         android:padding="5dp"
                         android:src="@drawable/search"
                         app:tint="@color/light_steel_blue" />
 
                     <TextView
+                        android:id="@+id/text_favourite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/text_favourite"
-                        android:visibility="gone"
-                        android:textColor="@color/light_steel_blue"
-                        android:text="@string/favourites"/>
+                        android:text="@string/favourites"
+                        android:textColor="@color/light_steel_blue" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/notification_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/bg_selector_bottom_bar"
                     android:clickable="true"
                     android:focusable="true"
-                    android:id="@+id/notification_btn"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:id="@+id/icon_notif"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_marginTop="6dp"
                         android:padding="5dp"
-                        android:id="@+id/icon_notif"
-                        app:tint="@color/light_steel_blue"
-                        android:src="@drawable/ic_notifications"/>
+                        android:src="@drawable/ic_notifications"
+                        app:tint="@color/light_steel_blue" />
 
                     <TextView
+                        android:id="@+id/text_notif"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/text_notif"
-                        android:visibility="gone"
-                        android:textColor="@color/light_steel_blue"
-                        android:text="@string/notification"/>
+                        android:text="@string/notification"
+                        android:textColor="@color/light_steel_blue" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/message_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:background="@drawable/bg_selector_bottom_bar"
                     android:clickable="true"
                     android:focusable="true"
-                    android:id="@+id/message_btn"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/icon_message"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_marginTop="6dp"
                         android:padding="5dp"
-                        app:tint="@color/light_steel_blue"
-                        android:src="@drawable/ic_message"/>
+                        android:src="@drawable/ic_chat"
+                        app:tint="@color/light_steel_blue" />
 
                     <TextView
                         android:id="@+id/text_message"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:textColor="@color/light_steel_blue"
-                        android:text="@string/message"/>
+                        android:text="@string/message"
+                        android:textColor="@color/light_steel_blue" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/viewMoreBtn"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:id="@+id/viewMoreBtn"
                     android:background="@drawable/bg_selector_bottom_bar"
                     android:clickable="true"
                     android:focusable="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/ivViewMore"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:padding="5dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_marginTop="6dp"
-                        app:tint="@color/light_steel_blue"
-                        android:src="@drawable/ic_setting_selected"/>
+                        android:padding="5dp"
+                        android:src="@drawable/ic_menu"
+                        app:tint="@color/light_steel_blue" />
 
                     <TextView
                         android:id="@+id/tvViewMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:textColor="@color/light_steel_blue"
-                        android:text="@string/more"/>
+                        android:text="@string/more"
+                        android:textColor="@color/light_steel_blue" />
 
                 </LinearLayout>
 
@@ -335,36 +330,36 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="80dp"
-                android:visibility="gone"
+                android:layout_alignParentBottom="true"
                 android:layout_marginRight="30dp"
-                android:src="@drawable/ic_filter"/>
+                android:layout_marginBottom="80dp"
+                android:src="@drawable/ic_filter"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
-<!--        <com.google.android.material.navigation.NavigationView-->
-<!--            android:layout_width="250dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/navigation_view"-->
-<!--            android:layout_gravity="right">-->
-<!--            <include layout="@layout/navigation_layout"/>-->
+        <!--        <com.google.android.material.navigation.NavigationView-->
+        <!--            android:layout_width="250dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:id="@+id/navigation_view"-->
+        <!--            android:layout_gravity="right">-->
+        <!--            <include layout="@layout/navigation_layout"/>-->
 
-<!--        </com.google.android.material.navigation.NavigationView>-->
+        <!--        </com.google.android.material.navigation.NavigationView>-->
 
-<!--        <com.google.android.material.navigation.NavigationView-->
-<!--            android:layout_width="250dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/navigation_view_left"-->
-<!--            android:layout_gravity="left">-->
+        <!--        <com.google.android.material.navigation.NavigationView-->
+        <!--            android:layout_width="250dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:id="@+id/navigation_view_left"-->
+        <!--            android:layout_gravity="left">-->
 
-<!--            <include layout="@layout/navigation_left_layout"/>-->
+        <!--            <include layout="@layout/navigation_left_layout"/>-->
 
-<!--        </com.google.android.material.navigation.NavigationView>-->
+        <!--        </com.google.android.material.navigation.NavigationView>-->
 
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
-    
+
 </RelativeLayout>

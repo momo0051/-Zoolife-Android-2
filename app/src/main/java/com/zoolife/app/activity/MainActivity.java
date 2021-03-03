@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +26,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,16 +43,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.zoolife.app.R;
-import com.zoolife.app.ResponseModel.ShowComment.DataItem;
-import com.zoolife.app.ResponseModel.ShowComment.ViewCommentsResponseModel;
 import com.zoolife.app.ResponseModel.UpdateDeviceInfo.UpdateDeviceInfoResponse;
-import com.zoolife.app.adapter.CommentsAdapter;
-import com.zoolife.app.fragments.FavouriteFragment;
 import com.zoolife.app.fragments.HomeFragment;
 import com.zoolife.app.fragments.MessageFragment;
 import com.zoolife.app.fragments.NotificationFragment;
 import com.zoolife.app.fragments.ViewMoreFragment;
-import com.zoolife.app.models.CommentModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 import com.zoolife.app.utility.GPSTracker;
@@ -72,20 +64,20 @@ import retrofit2.Response;
 
 public class MainActivity extends AppBaseActivity {
 
-    ImageView icon_home,icon_favourite,icon_notif,icon_message,ivViewMore;
-    TextView text_home,text_favourite,text_notif,toolbar_title,text_message, tvUsername,tvViewMore;
+    ImageView icon_home, icon_favourite, icon_notif, icon_message, ivViewMore;
+    TextView text_home, text_favourite, text_notif, toolbar_title, text_message, tvUsername, tvViewMore;
     LinearLayout llHome, llSearch, llNotification, llMessage, llSetting;
-    NavigationView navigation_view,navigation_view_left;
+    NavigationView navigation_view, navigation_view_left;
     DrawerLayout drawerLayout;
     SharedPreferences sharedPreferences;
     String MYPREF = "MyPref";
     SharedPreferences.Editor editor;
     private GoogleApiClient googleApiClient;
     final static int REQUEST_LOCATION = 599;
-    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS=991;
+    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 991;
     LocationListener locationListener;
     LocationManager lm;
-    String latitude="",longitude="";
+    String latitude = "", longitude = "";
     String TAG = "MainActivityyyy";
 
 
@@ -94,7 +86,7 @@ public class MainActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences=getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(MYPREF, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         icon_home = findViewById(R.id.icon_home);
         icon_favourite = findViewById(R.id.icon_favourite);
@@ -123,17 +115,16 @@ public class MainActivity extends AppBaseActivity {
         setFragment(new HomeFragment());
 
 
-        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener()
-        {
+        findViewById(R.id.backBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 setFragment(new HomeFragment());
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
-                changeColor(llHome, icon_home,text_home);
-                resetColor(llSearch, icon_favourite,text_favourite);
-                resetColor(llNotification, icon_notif,text_notif);
-                resetColor(llMessage, icon_message,text_message);
+                changeColor(llHome, icon_home, text_home);
+                resetColor(llSearch, icon_favourite, text_favourite);
+                resetColor(llNotification, icon_notif, text_notif);
+                resetColor(llMessage, icon_message, text_message);
             }
         });
 
@@ -179,11 +170,11 @@ public class MainActivity extends AppBaseActivity {
                 toolbar_title.setText(getResources().getString(R.string.more));
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
                 setFragment(new ViewMoreFragment());
-                changeColor(llSetting, ivViewMore,tvViewMore);
-                resetColor(llSearch, icon_favourite,text_favourite);
-                resetColor(llNotification, icon_notif,text_notif);
-                resetColor(llMessage, icon_message,text_message);
-                resetColor(llHome, icon_home,text_home);
+                changeColor(llSetting, ivViewMore, tvViewMore);
+                resetColor(llSearch, icon_favourite, text_favourite);
+                resetColor(llNotification, icon_notif, text_notif);
+                resetColor(llMessage, icon_message, text_message);
+                resetColor(llHome, icon_home, text_home);
             }
         });
 
@@ -193,11 +184,11 @@ public class MainActivity extends AppBaseActivity {
 
                 setFragment(new HomeFragment());
                 findViewById(R.id.toolbar_2).setVisibility(View.GONE);
-                changeColor(llHome, icon_home,text_home);
-                resetColor(llSearch, icon_favourite,text_favourite);
-                resetColor(llNotification, icon_notif,text_notif);
-                resetColor(llMessage, icon_message,text_message);
-                resetColor(llSetting, ivViewMore,tvViewMore);
+                changeColor(llHome, icon_home, text_home);
+                resetColor(llSearch, icon_favourite, text_favourite);
+                resetColor(llNotification, icon_notif, text_notif);
+                resetColor(llMessage, icon_message, text_message);
+                resetColor(llSetting, ivViewMore, tvViewMore);
             }
         });
 
@@ -221,15 +212,15 @@ public class MainActivity extends AppBaseActivity {
             public void onClick(View view) {
 
                 //if(session.isLogin()) {
-                    toolbar_title.setText(getResources().getString(R.string.notification));
-                    findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
-                    setFragment(new NotificationFragment());
-                    resetColor(llHome, icon_home, text_home);
-                    resetColor(llSearch, icon_favourite, text_favourite);
-                    changeColor(llNotification, icon_notif, text_notif);
-                    resetColor(llMessage, icon_message, text_message);
-                    resetColor(llSetting, ivViewMore, tvViewMore);
-                }
+                toolbar_title.setText(getResources().getString(R.string.notification));
+                findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
+                setFragment(new NotificationFragment());
+                resetColor(llHome, icon_home, text_home);
+                resetColor(llSearch, icon_favourite, text_favourite);
+                changeColor(llNotification, icon_notif, text_notif);
+                resetColor(llMessage, icon_message, text_message);
+                resetColor(llSetting, ivViewMore, tvViewMore);
+            }
 //                else
 //                {
 //                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
@@ -241,7 +232,7 @@ public class MainActivity extends AppBaseActivity {
             @Override
             public void onClick(View view) {
 
-                if(session.isLogin()) {
+                if (session.isLogin()) {
 
                     toolbar_title.setText(getResources().getString(R.string.message));
                     findViewById(R.id.toolbar_2).setVisibility(View.VISIBLE);
@@ -251,8 +242,8 @@ public class MainActivity extends AppBaseActivity {
                     resetColor(llNotification, icon_notif, text_notif);
                     changeColor(llMessage, icon_message, text_message);
                     resetColor(llSetting, ivViewMore, tvViewMore);
-                }else {
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                } else {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             }
         });
@@ -272,17 +263,15 @@ public class MainActivity extends AppBaseActivity {
     }
 
 
-
-
-    public void changeColor(LinearLayout linearLayout, ImageView imageView, TextView textView){
+    public void changeColor(LinearLayout linearLayout, ImageView imageView, TextView textView) {
         linearLayout.setSelected(true);
-        imageView.setColorFilter(getResources().getColor(R.color.dark_slate_blue));
-        textView.setTextColor(getResources().getColor(R.color.appColor));
+        imageView.setColorFilter(getResources().getColor(R.color.app_bg));
+        textView.setTextColor(getResources().getColor(R.color.app_bg));
     }
 
-    public void resetColor(LinearLayout linearLayout, ImageView imageView, TextView textView){
+    public void resetColor(LinearLayout linearLayout, ImageView imageView, TextView textView) {
         linearLayout.setSelected(false);
-        imageView.setColorFilter(Color.rgb(176,196,222));
+        imageView.setColorFilter(getResources().getColor(R.color.light_steel_blue));
         textView.setTextColor(getResources().getColor(R.color.light_steel_blue));
     }
 
@@ -354,21 +343,20 @@ public class MainActivity extends AppBaseActivity {
 
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
-        }
-        else {
+        } else {
 
-            locationListener=new LocationListener() {
+            locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
 
                     if (location != null) {
                         longitude = String.valueOf(location.getLongitude());
                         latitude = String.valueOf(location.getLatitude());
-                        sharedPreferences.edit().putString("latitude",latitude+"").apply();
-                        sharedPreferences.edit().putString("longitude",longitude+"").apply();
+                        sharedPreferences.edit().putString("latitude", latitude + "").apply();
+                        sharedPreferences.edit().putString("longitude", longitude + "").apply();
 
-                        Log.d(TAG,"location :"+longitude+","+latitude);
-                        getAddresss(location.getLatitude(),location.getLongitude());
+                        Log.d(TAG, "location :" + longitude + "," + latitude);
+                        getAddresss(location.getLatitude(), location.getLongitude());
 
                     }
                 }
@@ -385,14 +373,13 @@ public class MainActivity extends AppBaseActivity {
 
                     if (location != null) {
                         longitude = String.valueOf(location.getLongitude());
-                        latitude =  String.valueOf(location.getLatitude());
+                        latitude = String.valueOf(location.getLatitude());
 
-                        sharedPreferences.edit().putString("latitude",latitude+"").apply();
-                        sharedPreferences.edit().putString("longitude",longitude+"").apply();
+                        sharedPreferences.edit().putString("latitude", latitude + "").apply();
+                        sharedPreferences.edit().putString("longitude", longitude + "").apply();
 
-                    }else
-                    {
-                        Log.d(TAG,"null location");
+                    } else {
+                        Log.d(TAG, "null location");
                     }
 
 
@@ -405,14 +392,14 @@ public class MainActivity extends AppBaseActivity {
             };
             lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             if (lm != null) {
-                if(lm.getAllProviders().contains(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                if (lm.getAllProviders().contains(LocationManager.GPS_PROVIDER) && lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 10, locationListener);
-                }else {
+                } else {
                     enableLoc();
                 }
             }
             if (lm != null) {
-                if(lm.getAllProviders().contains(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (lm.getAllProviders().contains(LocationManager.NETWORK_PROVIDER) && lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 3000, 10, locationListener);
                 }
             }
@@ -421,7 +408,7 @@ public class MainActivity extends AppBaseActivity {
 
     }
 
-    public void getAddresss(Double latitude,Double longitude){
+    public void getAddresss(Double latitude, Double longitude) {
         try {
             Geocoder geocoder;
             List<Address> addresses;
@@ -431,13 +418,13 @@ public class MainActivity extends AppBaseActivity {
 
             String address = addresses.get(0).getAddressLine(0) != null ? addresses.get(0).getAddressLine(0) : "";
             String city = addresses.get(0).getLocality() != null ? addresses.get(0).getLocality() : "";
-            String state = addresses.get(0).getAdminArea() !=null ? addresses.get(0).getAdminArea() : "";
-            String country = addresses.get(0).getCountryName() !=null ? addresses.get(0).getCountryName() : "";
-            String postalCode = addresses.get(0).getPostalCode() !=null ? addresses.get(0).getPostalCode() : "";
-            String knownName = addresses.get(0).getFeatureName() !=null ? addresses.get(0).getFeatureName() : "";
-            sharedPreferences.edit().putString("countryNameFromPhone",country).apply();
+            String state = addresses.get(0).getAdminArea() != null ? addresses.get(0).getAdminArea() : "";
+            String country = addresses.get(0).getCountryName() != null ? addresses.get(0).getCountryName() : "";
+            String postalCode = addresses.get(0).getPostalCode() != null ? addresses.get(0).getPostalCode() : "";
+            String knownName = addresses.get(0).getFeatureName() != null ? addresses.get(0).getFeatureName() : "";
+            sharedPreferences.edit().putString("countryNameFromPhone", country).apply();
             //  updateLocation(sharedPreferences.getString("countryNameFromPhone",""));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -447,7 +434,7 @@ public class MainActivity extends AppBaseActivity {
         checkPermissions();
     }
 
-    private void checkPermissions(){
+    private void checkPermissions() {
         int permissionLocation = ContextCompat.checkSelfPermission(MainActivity.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
         List<String> listPermissionsNeeded = new ArrayList<>();
@@ -457,7 +444,7 @@ public class MainActivity extends AppBaseActivity {
                 ActivityCompat.requestPermissions(this,
                         listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
             }
-        }else{
+        } else {
             readLocation();
         }
 
@@ -487,7 +474,7 @@ public class MainActivity extends AppBaseActivity {
         }
     }
 
-    public void getToken(){
+    public void getToken() {
 
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -499,11 +486,10 @@ public class MainActivity extends AppBaseActivity {
                         }
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
-                        Log.d(TAG,token);
-                        if(session.isLogin()) {
-                            updateDeviceInfo(session.getUserId(),token);
+                        Log.d(TAG, token);
+                        if (session.isLogin()) {
+                            updateDeviceInfo(session.getUserId(), token);
                         }
-
 
 
                     }
@@ -511,22 +497,22 @@ public class MainActivity extends AppBaseActivity {
 
     }
 
-    private void updateDeviceInfo(String userId,String deviceToken) {
+    private void updateDeviceInfo(String userId, String deviceToken) {
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UpdateDeviceInfoResponse> call=apiService.updateDeviceInfo("update-user-token",userId,deviceToken,"android");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<UpdateDeviceInfoResponse> call = apiService.updateDeviceInfo("update-user-token", userId, deviceToken, "android");
         call.enqueue(new Callback<UpdateDeviceInfoResponse>() {
             @Override
             public void onResponse(Call<UpdateDeviceInfoResponse> call, Response<UpdateDeviceInfoResponse> response) {
-                UpdateDeviceInfoResponse updateDeviceInfoResponse=response.body();
+                UpdateDeviceInfoResponse updateDeviceInfoResponse = response.body();
                 if (updateDeviceInfoResponse != null && !updateDeviceInfoResponse.isError()) {
-                    Log.d("Response",response.body().toString());
+                    Log.d("Response", response.body().toString());
                 }
             }
 
             @Override
             public void onFailure(Call<UpdateDeviceInfoResponse> call, Throwable t) {
-                Log.d("Failure",t.getMessage().toString());
+                Log.d("Failure", t.getMessage().toString());
             }
         });
     }

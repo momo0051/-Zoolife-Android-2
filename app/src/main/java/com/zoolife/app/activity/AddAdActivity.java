@@ -14,7 +14,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -37,14 +36,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.FileUtils;
-import com.zoolife.app.ResponseModel.Category.DataItem;
-import com.zoolife.app.ResponseModel.GetPost.GetPostResponseModel;
-import com.zoolife.app.ResponseModel.NoDataResponseModel;
-import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
-import com.zoolife.app.adapter.AdapterAdsImages;
-import com.zoolife.app.interfaces.ImageListener;
-import com.zoolife.app.models.SubCategoryModel;
-import com.zoolife.app.utility.Utils;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -54,9 +45,17 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.AddPost.AddPostResponseModel;
+import com.zoolife.app.ResponseModel.Category.DataItem;
+import com.zoolife.app.ResponseModel.GetPost.GetPostResponseModel;
+import com.zoolife.app.ResponseModel.NoDataResponseModel;
+import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
+import com.zoolife.app.adapter.AdapterAdsImages;
+import com.zoolife.app.interfaces.ImageListener;
 import com.zoolife.app.models.CategoryModel;
+import com.zoolife.app.models.SubCategoryModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
+import com.zoolife.app.utility.Utils;
 import com.zoolife.app.view.SquareImageView;
 
 import java.io.ByteArrayOutputStream;
@@ -90,7 +89,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     RecyclerView recyclerView;
     List<CategoryModel> categoryModelList;
     Spinner location_spinner, spinnerChoiceCategory, spinnerChoiceSubCategory;
-    Button adContinueBtn;
+    ImageButton adContinueBtn;
     Button adDeleteBtn;
     String[] categories = {"طيور", "مواشي", "حيوانات اليفة", "حيوانات بحرية", "غذاء الحيوانات", "العيادة البيطرية"};
     ProgressBar progress_circular;
@@ -106,7 +105,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     int phone = 0, message = 0, comment = 0;
     int cat, subCat, loc;
     Switch showPhone;
-    SquareImageView coverImage;
+    //    SquareImageView coverImage;
     SquareImageView tempImage;
     SquareImageView choiceItemImg1, choiceItemImg2, choiceItemImg3, choiceItemImg4;
     private static final String IMAGE_DIRECTORY = "/Zoo";
@@ -114,7 +113,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     ArrayList<String> filePaths = new ArrayList<>();
     String coverImgPath = "";
     boolean isCoverImg = false;
-    LinearLayout addImagesLyt;
+    //    LinearLayout addImagesLyt;
     RecyclerView adsImagesList;
     int PICK_IMAGE_MULTIPLE = 11;
 
@@ -151,9 +150,9 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
         // Spinner element
         progress_circular = findViewById(R.id.progress_circular);
-        coverImage = findViewById(R.id.coverImg);
+//        coverImage = findViewById(R.id.coverImg);
         adsImagesList = findViewById(R.id.add_imagesRV);
-        addImagesLyt = findViewById(R.id.adImagesContainer);
+//        addImagesLyt = findViewById(R.id.adImagesContainer);
         choiceItemImg1 = findViewById(R.id.choiceItemImg1);
         choiceItemImg2 = findViewById(R.id.choiceItemImg2);
         choiceItemImg3 = findViewById(R.id.choiceItemImg3);
@@ -163,8 +162,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         choiceItemImg2.setOnClickListener(this);
         choiceItemImg3.setOnClickListener(this);
         choiceItemImg4.setOnClickListener(this);
-        coverImage.setOnClickListener(this);
-        addImagesLyt.setOnClickListener(this);
+//        coverImage.setOnClickListener(this);
+//        addImagesLyt.setOnClickListener(this);
 
 
         showPhone = findViewById(R.id.showPhone);
@@ -179,10 +178,9 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     phone = 1;
-                }
-                else{
+                } else {
                     phone = 0;
                 }
             }
@@ -190,10 +188,9 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         cb2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bl) {
-                if(bl){
+                if (bl) {
                     message = 1;
-                }
-                else{
+                } else {
                     message = 0;
                 }
             }
@@ -202,10 +199,9 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         cb3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean bl) {
-                if(bl){
+                if (bl) {
                     comment = 1;
-                }
-                else{
+                } else {
                     comment = 0;
                 }
             }
@@ -321,6 +317,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
             adDeleteBtn.setVisibility(View.GONE);
             imagesDelete.setVisibility(View.GONE);
         }
+
+        showImages(adsImages);
     }
 
     int count = 0;
@@ -328,7 +326,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void setCategorySpinner() {
         List<String> categories = new ArrayList<>();
         HashMap<Integer, String> hashMap = new HashMap<>();
-        if( AppBaseActivity.categories!=null) {
+        if (AppBaseActivity.categories != null) {
             for (DataItem categoryItem : AppBaseActivity.categories.getData()) {
                 categories.add(categoryItem.getTitle());
                 categoryList.add(categoryItem);
@@ -861,9 +859,10 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void showImages(List<Uri> images) {
 //        addImagesLyt.setVisibility(View.GONE);
         adsImagesList.setVisibility(View.VISIBLE);
-        adapterAdsImages = new AdapterAdsImages(images, this, this);
+        adapterAdsImages = new AdapterAdsImages(images, this, this, this, this);
         adsImagesList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adsImagesList.setAdapter(adapterAdsImages);
+        adsImagesList.smoothScrollToPosition(images.size());
     }
 
     public String saveImage(Bitmap myBitmap) {
@@ -913,7 +912,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
                 isCoverImg = false;
                 break;
             case R.id.coverImg:
-                tempImage = coverImage;
+                tempImage = (SquareImageView) v;
                 isCoverImg = true;
                 break;
             case R.id.adImagesContainer:
@@ -974,7 +973,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetPostResponseModel> call = apiService.getPostWithLogin("get-item", editId,session.getEmail());
+        Call<GetPostResponseModel> call = apiService.getPostWithLogin("get-item", editId, session.getEmail());
         call.enqueue(new Callback<GetPostResponseModel>() {
             @Override
             public void onResponse(Call<GetPostResponseModel> call, Response<GetPostResponseModel> response) {
@@ -1022,8 +1021,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void deleteApi(String id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<NoDataResponseModel> call=apiService.deleteItem("delete-item", session.getEmail(), id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<NoDataResponseModel> call = apiService.deleteItem("delete-item", session.getEmail(), id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
             public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {
@@ -1046,8 +1045,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void deleteImages(String id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<NoDataResponseModel> call=apiService.deleteItemImage("delete-item-image", id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<NoDataResponseModel> call = apiService.deleteItemImage("delete-item-image", id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
             public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {
@@ -1094,7 +1093,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
             if (result != null) {
                 File dir = new File(getFilesDir(), "Images");
-                if(!dir.exists()){
+                if (!dir.exists()) {
                     dir.mkdir();
                 }
                 File destination = new File(dir, fileName);

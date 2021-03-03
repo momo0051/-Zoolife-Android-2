@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<FrameLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/d60"
-                android:background="#009FE3"
+                android:background="#fff"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
@@ -31,10 +32,10 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="@dimen/d25"
-                        android:layout_height="@dimen/d25"
+                        android:layout_width="@dimen/d30"
+                        android:layout_height="@dimen/d30"
                         android:layout_gravity="center"
-                        android:src="@drawable/right_arrow" />
+                        android:src="@drawable/ic_back_icon" />
 
                 </RelativeLayout>
 
@@ -46,55 +47,61 @@
 
                     <TextView
                         android:id="@+id/toolbar_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:gravity="center"
                         android:text="@string/my_favourite"
                         android:textAlignment="center"
                         android:textAllCaps="true"
-                        android:textColor="@color/white"
+                        android:textColor="@color/app_bg"
                         android:textSize="20sp"
                         android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="@dimen/d4"
+                        android:layout_marginEnd="@dimen/d8"
+                        android:layout_marginBottom="@dimen/d4"
+                        android:layout_toEndOf="@+id/toolbar_title"
+                        android:src="@drawable/ic_heart_filled"
+                        app:tint="@color/app_bg" />
                 </RelativeLayout>
 
 
             </RelativeLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-
-
-
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/fav_data_rv"
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scrollbars="none"
-                        android:paddingLeft="@dimen/dt10"
-                        android:paddingRight="@dimen/dt10"
-                        android:background="@color/white"
-                        />
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/fav_data_rv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:paddingLeft="@dimen/dt10"
+                            android:paddingRight="@dimen/dt10"
+                            android:scrollbars="none" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
     </RelativeLayout>
@@ -105,5 +112,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </FrameLayout>

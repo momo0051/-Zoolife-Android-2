@@ -3,7 +3,7 @@
     android:id="@+id/subCategoryLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_selector_category"
+    android:background="@drawable/bg_selector_sub_category"
     android:layout_marginLeft="@dimen/d5"
     android:layout_marginRight="@dimen/d5"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -14,7 +14,8 @@
         android:orientation="horizontal">
 
             <TextView
-                android:padding="@dimen/d10"
+                android:paddingStart="@dimen/d10"
+                android:paddingEnd="@dimen/d10"
                 android:minWidth="@dimen/d100"
                 android:id="@+id/tvSubCategory"
                 android:layout_width="wrap_content"
