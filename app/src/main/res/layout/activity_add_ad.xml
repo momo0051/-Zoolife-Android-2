@@ -384,7 +384,7 @@
                                 android:textStyle="bold" />
 
 
-                            <!--                                <CheckBox-->
+                            <!--                                <androidx.appcompat.widget.AppCompatCheckBox-->
                             <!--                                    android:id="@+id/phoneCB"-->
                             <!--                                    android:layout_width="wrap_content"-->
                             <!--                                    android:layout_height="wrap_content"-->
@@ -399,7 +399,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <CheckBox
+                                <androidx.appcompat.widget.AppCompatCheckBox
                                     android:id="@+id/phoneCB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -411,7 +411,8 @@
                                     android:layout_height="20dp"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:src="@drawable/ic_phone_icon" />
+                                    android:src="@drawable/ic_phone_icon"
+                                    app:tint="@color/app_bg" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -419,16 +420,45 @@
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
                                     android:text="رقم الهاتف"
-                                    android:textColor="@color/slate_blue" />
+                                    android:textColor="@color/app_bg" />
                             </LinearLayout>
-
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <CheckBox
+                                <androidx.appcompat.widget.AppCompatCheckBox
+                                    android:id="@+id/commentCB"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:button="@drawable/customcb" />
+
+                                <ImageView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="5dp"
+                                    android:src="@drawable/ic_comment_icon"
+                                    app:tint="@color/app_bg" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginStart="5dp"
+                                    android:text="تعليقات"
+                                    android:textColor="@color/app_bg" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <androidx.appcompat.widget.AppCompatCheckBox
                                     android:id="@+id/messageCB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -448,37 +478,7 @@
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
                                     android:text="الرسائل"
-                                    android:textColor="@color/slate_blue" />
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <CheckBox
-                                    android:id="@+id/commentCB"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="start"
-                                    android:button="@drawable/customcb" />
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_gravity="center"
-                                    android:layout_marginStart="5dp"
-                                    android:src="@drawable/ic_comment_icon" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginStart="5dp"
-                                    android:text="تعليقات"
-                                    android:textColor="@color/slate_blue" />
-
+                                    android:textColor="@color/app_bg" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -486,7 +486,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal">
 
-                                <CheckBox
+                                <androidx.appcompat.widget.AppCompatCheckBox
                                     android:id="@+id/whatsappCB"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -498,7 +498,7 @@
                                     android:layout_height="20dp"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:src="@drawable/ic_whatsapp_icon" />
+                                    android:src="@drawable/ic_wtap" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -506,7 +506,7 @@
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
                                     android:text="تعليقات"
-                                    android:textColor="@color/slate_blue" />
+                                    android:textColor="@color/app_bg" />
 
                             </LinearLayout>
 

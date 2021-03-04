@@ -54,7 +54,7 @@
             android:maxLines="2"
             android:paddingStart="@dimen/dt10"
             android:text="title"
-            android:textColor="@color/appColor"
+            android:textColor="@color/app_bg"
             android:textSize="20sp" />
 
 
@@ -72,6 +72,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                app:tint="@color/app_bg"
                 android:src="@drawable/ic_account_icon" />
 
             <TextView
@@ -98,6 +99,7 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
+                app:tint="@color/app_bg"
                 android:src="@drawable/ic_location_icon" />
 
             <TextView
@@ -121,6 +123,7 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                app:tint="@color/app_bg"
                 android:layout_gravity="center"
                 android:layout_marginEnd="5dp"
                 android:src="@drawable/ic_clock" />
@@ -164,6 +167,7 @@
                     android:visibility="visible">
 
                     <ImageView
+                        app:tint="@color/app_bg"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"

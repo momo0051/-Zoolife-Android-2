@@ -31,6 +31,7 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_o_t_p_verification);
+
         initializeUi();
         setListeners();
 
@@ -40,6 +41,13 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
          otpTV.setText(otp1);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     @Override public void onClick(View v) {
         if (v.getId() == R.id.otpTV) {
            // Toast.makeText(this, otpView.getText(), Toast.LENGTH_SHORT).show();

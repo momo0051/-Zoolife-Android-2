@@ -21,8 +21,6 @@ public class AboutUsActivity extends AppBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
 
-        setLightStatusBar();
-
         llFacebook = findViewById(R.id.ll_facebook);
         llInsta = findViewById(R.id.ll_insta);
         llTiktok = findViewById(R.id.ll_tiktok);
@@ -82,6 +80,12 @@ public class AboutUsActivity extends AppBaseActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
     }
 
     public void openLink(String url) {

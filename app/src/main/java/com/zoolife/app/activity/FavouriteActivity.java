@@ -1,12 +1,10 @@
-package com.zoolife.app.fragments;
+package com.zoolife.app.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,7 +19,6 @@ import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.Articles.AllArticlesResponseModel;
 import com.zoolife.app.ResponseModel.Articles.ArticleDataItem;
 import com.zoolife.app.adapter.ArticlesAdapter;
-import com.zoolife.app.adapter.ExploreAdapter;
 import com.zoolife.app.models.ArticlesModel;
 import com.zoolife.app.models.ExploreModels;
 import com.zoolife.app.network.ApiConstant;
@@ -42,10 +39,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FavouriteFragment#newInstance} factory method to
+ * Use the {@link } factory method to
  * create an instance of this fragment.
  */
-public class FavouriteFragment extends Fragment {
+public class FavouriteActivity extends AppBaseActivity {
 
     private static final String TAG = "FavouriteFragment";
 
@@ -67,53 +64,41 @@ public class FavouriteFragment extends Fragment {
     private EditText etSearch;
 
     ProgressBar progress_circular;
-    private static Retrofit retrofit = null ;
+    private static Retrofit retrofit = null;
 
-    public FavouriteFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavouriteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavouriteFragment newInstance(String param1, String param2) {
-        FavouriteFragment fragment = new FavouriteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    /**
+//     * Use this factory method to create a new instance of
+//     * this fragment using the provided parameters.
+//     *
+//     * @param param1 Parameter 1.
+//     * @param param2 Parameter 2.
+//     * @return A new instance of fragment FavouriteFragment.
+//     */
+//    // TODO: Rename and change types and number of parameters
+//    public static FavouriteFragment newInstance(String param1, String param2) {
+//        FavouriteFragment fragment = new FavouriteFragment();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+        setContentView(R.layout.fragment_favourite);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_favourite, container, false);
-        articleRecyclerview = view.findViewById(R.id.favourite_rv);
-        progress_circular = view.findViewById(R.id.article_pbar);
+        articleRecyclerview = findViewById(R.id.favourite_rv);
+        progress_circular = findViewById(R.id.article_pbar);
 
-        backBtn = view.findViewById(R.id.fav_back_btn);
-        etSearch = view.findViewById(R.id.et_search);
+        backBtn = findViewById(R.id.fav_back_btn);
+        etSearch = findViewById(R.id.et_search);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().onBackPressed();
+                finish();
             }
         });
 
@@ -133,19 +118,19 @@ public class FavouriteFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() > 0) {
+                if (s.length() > 0) {
 //                    dataListFiltered = dataList.forEach(articlesModel -> );
-                    if(dataList.size()>0) {
+                    if (dataList.size() > 0) {
                         dataListFiltered.clear();
-                        for(int m = 0; m <dataList.size();m++){
-                            if(dataList.get(m).title.toLowerCase().contains(s.toString().toLowerCase())) {
+                        for (int m = 0; m < dataList.size(); m++) {
+                            if (dataList.get(m).title.toLowerCase().contains(s.toString().toLowerCase())) {
                                 dataListFiltered.add(dataList.get(m));
                             }
                         }
-                        if(dataListFiltered.size()>0) {
-                            articlesAdapter = new ArticlesAdapter(getActivity(), dataListFiltered);
+                        if (dataListFiltered.size() > 0) {
+                            articlesAdapter = new ArticlesAdapter(FavouriteActivity.this, dataListFiltered);
                             articleRecyclerview.setAdapter(articlesAdapter);
-                            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(FavouriteActivity.this, 2);
                             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                                 @Override
                                 public int getSpanSize(int position) {
@@ -155,11 +140,10 @@ public class FavouriteFragment extends Fragment {
                             articleRecyclerview.setLayoutManager(gridLayoutManager);
 
                             articlesAdapter.notifyDataSetChanged();
-                        }
-                        else{
-                            articlesAdapter = new ArticlesAdapter(getActivity(), dataList);
+                        } else {
+                            articlesAdapter = new ArticlesAdapter(FavouriteActivity.this, dataList);
                             articleRecyclerview.setAdapter(articlesAdapter);
-                            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(FavouriteActivity.this, 2);
                             gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                                 @Override
                                 public int getSpanSize(int position) {
@@ -171,18 +155,16 @@ public class FavouriteFragment extends Fragment {
                             articlesAdapter.notifyDataSetChanged();
 //                        Toast.makeText(this,"Nothing found",Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else{
+                    } else {
                         dataListFiltered.clear();
 
                     }
 //                    field2.setText("");
-                }
-                else{
+                } else {
                     dataListFiltered.clear();
-                    articlesAdapter = new ArticlesAdapter(getActivity(), dataList);
+                    articlesAdapter = new ArticlesAdapter(FavouriteActivity.this, dataList);
                     articleRecyclerview.setAdapter(articlesAdapter);
-                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(FavouriteActivity.this, 2);
                     gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                         @Override
                         public int getSpanSize(int position) {
@@ -193,17 +175,22 @@ public class FavouriteFragment extends Fragment {
 
                     articlesAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
-        return view;
+//        return view;
     }
-    public Retrofit getClient(){
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
+    public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -231,34 +218,32 @@ public class FavouriteFragment extends Fragment {
     }
 
 
-
     private void getAllArticles() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= getClient().create(ApiService.class);
-        Call<AllArticlesResponseModel> call=apiService.getAllArticles("all_articles");
+        ApiService apiService = getClient().create(ApiService.class);
+        Call<AllArticlesResponseModel> call = apiService.getAllArticles("all_articles");
         call.enqueue(new Callback<AllArticlesResponseModel>() {
             @Override
             public void onResponse(Call<AllArticlesResponseModel> call, Response<AllArticlesResponseModel> response) {
                 AllArticlesResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
                     dataList = new ArrayList<>();
                     Log.d(TAG, "onResponse: true");
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++)
-                    {
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
                         ArticleDataItem articleDataItem = responseModel.getData().get(i);
                         dataList.add(new ArticlesModel(articleDataItem.getImage1(), articleDataItem.getImage2(), articleDataItem.getImage3(), articleDataItem.getId(), articleDataItem.getTitle(), articleDataItem.getDescription(), articleDataItem.getDate(), articleDataItem.getStatus()));
 
                     }
 
 
-                    if(dataList.size()>0) {
-                        articlesAdapter = new ArticlesAdapter(getActivity(), dataList);
+                    if (dataList.size() > 0) {
+                        articlesAdapter = new ArticlesAdapter(FavouriteActivity.this, dataList);
                         articleRecyclerview.setAdapter(articlesAdapter);
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
+                        GridLayoutManager gridLayoutManager = new GridLayoutManager(FavouriteActivity.this, 2);
                         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                             @Override
                             public int getSpanSize(int position) {
@@ -270,7 +255,7 @@ public class FavouriteFragment extends Fragment {
                         articlesAdapter.notifyDataSetChanged();
                     }
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -279,9 +264,9 @@ public class FavouriteFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AllArticlesResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-                Log.d(TAG, "onFailure: true"+t.getMessage());
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(FavouriteActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onFailure: true" + t.getMessage());
                 progress_circular.setVisibility(View.GONE);
             }
         });

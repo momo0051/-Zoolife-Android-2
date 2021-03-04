@@ -39,14 +39,20 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <TextView
         android:id="@+id/add_delivery"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_2"
+        android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/d10"
+        android:background="@drawable/bg_btn_blue"
+        android:clickable="true"
         android:gravity="center_horizontal"
-        android:src="@drawable/add_post" />
+        android:padding="@dimen/d10"
+        android:text="+اضافة اعلان توصيل"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/delivery_recyclerview"

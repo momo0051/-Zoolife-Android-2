@@ -97,6 +97,12 @@ public class SignUpActivity extends AppBaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     private boolean isValid() {
         if (editFullName.getText().toString().equals("")){
             editFullName.setError("أدخل اسمًا صالحًا");

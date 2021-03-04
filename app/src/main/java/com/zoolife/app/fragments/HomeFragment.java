@@ -19,11 +19,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -38,6 +36,7 @@ import com.zoolife.app.ResponseModel.SearchPost.SearchResponseModel;
 import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
 import com.zoolife.app.SortedPostActivity;
 import com.zoolife.app.activity.AddAdActivity;
+import com.zoolife.app.activity.FavouriteActivity;
 import com.zoolife.app.activity.LoginActivity;
 import com.zoolife.app.adapter.AdSliderAdapter;
 import com.zoolife.app.adapter.CategoryAdapter;
@@ -176,11 +175,15 @@ public class HomeFragment extends Fragment {
         searchPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment someFragment = new FavouriteFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, someFragment); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
+
+                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+                startActivity(intent);
+
+//                Fragment someFragment = new FavouriteFragment();
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frame_container, someFragment); // give your fragment container id in first parameter
+//                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+//                transaction.commit();
             }
         });
 
@@ -213,7 +216,7 @@ public class HomeFragment extends Fragment {
         });
 
         ViewPager viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setBackgroundResource(R.drawable.ripple_effect_white_bg);
+//        viewPager.setBackgroundResource(R.drawable.ripple_effect_white_bg);
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) viewPager.getLayoutParams();
         lp.bottomMargin = 100;
         viewPager.setLayoutParams(lp);
@@ -283,7 +286,7 @@ public class HomeFragment extends Fragment {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
 //                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
                     }
 
                 } else {
@@ -328,10 +331,7 @@ public class HomeFragment extends Fragment {
                     if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
-                        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
-//                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
-//                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
-//                        recyclerView.addItemDecoration(itemDecoration);
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
 //                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
 
@@ -388,10 +388,7 @@ public class HomeFragment extends Fragment {
                     } else {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
-                        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
-//                        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
-//                        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
-//                        recyclerView.addItemDecoration(itemDecoration);
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
 //                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         homeAdapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), "No Ad for this category", Toast.LENGTH_SHORT).show();
@@ -485,10 +482,10 @@ public class HomeFragment extends Fragment {
 
                     homeAdapter = new HomeAdapter(getActivity(), arrayList);
                     recyclerView.setAdapter(homeAdapter);
-                    recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
-//                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
-//                    ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
-//                    recyclerView.addItemDecoration(itemDecoration);
+                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
+                    ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
+                    recyclerView.addItemDecoration(itemDecoration);
 //                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 

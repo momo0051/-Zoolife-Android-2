@@ -2,9 +2,6 @@ package com.zoolife.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.zoolife.app.R;
 import com.zoolife.app.activity.ArticleDetailActivity;
-import com.zoolife.app.activity.DeliveryOrderActivity;
 import com.zoolife.app.models.ArticlesModel;
-import com.zoolife.app.models.DeliveryModel;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,7 +31,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @NonNull
     @Override
     public ArticlesAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View articleResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_explore_grid, parent, false);
+        View articleResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_article_grid, parent, false);
         return new ArticlesAdapter.MyViewHolder(articleResultView);
     }
 
@@ -68,7 +63,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         });
 
 
-
     }
 
     @Override
@@ -76,7 +70,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         return data.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
 
         ImageView image1;

@@ -82,11 +82,11 @@
                 <com.denzcoskun.imageslider.ImageSlider
                     android:id="@+id/slider"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/d200"
+                    android:layout_height="300dp"
                     android:layout_marginTop="30dp"
                     android:clipChildren="false"
                     app:auto_cycle="true"
-                    app:corner_radius="140"
+                    app:corner_radius="100"
                     app:delay="0"
                     app:error_image="@drawable/placeholder"
                     app:period="1000"
@@ -183,7 +183,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/search_post"

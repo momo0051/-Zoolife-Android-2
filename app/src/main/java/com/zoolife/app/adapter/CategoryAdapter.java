@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zoolife.app.R;
-import com.zoolife.app.activity.SearchActivity;
 import com.zoolife.app.fragments.HomeFragment;
 import com.zoolife.app.models.CategoryModel;
 
@@ -29,8 +28,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     CategoryModel current;
     int row_index = -1;
     HomeFragment homeFragment;
-    SearchActivity searchActivity;
-
 
     public CategoryAdapter(Context context, List<CategoryModel> data, HomeFragment homeFragment) {
         this.context = context;

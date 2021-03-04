@@ -49,7 +49,8 @@ public class AppBaseActivity extends AppCompatActivity {
             view.setSystemUiVisibility(flags);
         }
 
-        findViewById(R.id.toolbar_2).setBackgroundColor(Color.WHITE);
+        View toolbar = findViewById(R.id.toolbar_2);
+        if (toolbar != null) toolbar.setBackgroundColor(Color.WHITE);
         getWindow().setStatusBarColor(Color.WHITE);
     }
 

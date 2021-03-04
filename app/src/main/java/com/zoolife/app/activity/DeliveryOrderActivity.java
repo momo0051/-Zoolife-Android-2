@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -43,7 +44,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
     RecyclerView deliveryRecyclerview;
     ProgressBar progress_circular;
     List<DeliveryModel> dataList;
-    ImageView addDelivery;
+    TextView addDelivery;
     DeliveryAdapter homeAdapter;
 
 
@@ -65,8 +66,6 @@ public class DeliveryOrderActivity extends AppBaseActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(DeliveryOrderActivity.this);
         ViewGroup viewGroup = findViewById(android.R.id.content);
-
-        setLightStatusBar();
 
         deliveryRecyclerview = findViewById(R.id.delivery_recyclerview);
         btnSearchBack = findViewById(R.id.btn_back);
@@ -141,6 +140,11 @@ public class DeliveryOrderActivity extends AppBaseActivity {
         getAllDelivery();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
 
     public void addDelivery(String itemTitle, String city) {
         progress_circular.setVisibility(View.VISIBLE);

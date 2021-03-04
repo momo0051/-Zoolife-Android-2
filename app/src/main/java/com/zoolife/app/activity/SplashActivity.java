@@ -71,6 +71,12 @@ public class SplashActivity extends AppBaseActivity {
         checkGoHome();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     Runnable runnable = new Runnable() {
         @Override
         public void run() {

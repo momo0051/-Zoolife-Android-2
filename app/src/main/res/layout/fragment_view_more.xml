@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -16,12 +15,22 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/iv_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginVertical="36dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_title_icon" />
+
             <LinearLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#009FE3"
-                android:gravity="center">
+                android:gravity="center"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:id="@+id/back"
@@ -73,15 +82,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/plus"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_plus" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/all_post_img"
                         android:text="@string/add_ad"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -92,6 +100,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                 </RelativeLayout>
@@ -99,7 +108,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
                 <RelativeLayout
                     android:id="@+id/favouriteLayout"
@@ -118,15 +127,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_heart"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_heart" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/item5"
                         android:text="@string/favourite_ad"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -136,6 +144,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                 </RelativeLayout>
@@ -143,7 +152,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
                 <RelativeLayout
                     android:id="@+id/myAdsLayout"
@@ -162,15 +171,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_user"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_account" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/item3"
                         android:text="@string/my_ads"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -180,6 +188,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                 </RelativeLayout>
@@ -187,7 +196,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
                 <!--        <RelativeLayout
                             android:id="@+id/changeCityLayout"
@@ -214,7 +223,6 @@
                                 android:layout_height="26dp"
                                 android:id="@+id/user_img"
                                 android:layout_marginLeft="10dp"
-                                app:tint="#009FE3"
                                 android:layout_alignParentRight="true"
                                 android:src="@drawable/pin"/>
 
@@ -223,7 +231,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/change_city"
-                                android:textColor="@color/black"
+                                android:textColor="@color/app_bg"
                                 android:textSize="18sp"
                                 android:layout_toLeftOf="@id/user_img"/>
 
@@ -232,7 +240,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/light_grey"
+                            android:background="@color/app_bg"
                             tools:visibility="gone" />-->
 
 
@@ -255,6 +263,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                     <ImageView
@@ -263,15 +272,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/shopping_bag"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_del" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/orderimg"
                         android:text="@string/order_delivery"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -279,7 +287,7 @@
                 <!--        <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/light_grey"
+                            android:background="@color/app_bg"
                             tools:visibility="gone" />
 
                         <RelativeLayout
@@ -310,15 +318,14 @@
                                 android:layout_height="26dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginLeft="10dp"
-                                android:src="@drawable/choice"
-                                app:tint="#009FE3" />
+                                android:src="@drawable/choice" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toLeftOf="@id/add_img"
                                 android:text="@string/order_vet_consultant"
-                                android:textColor="@color/black"
+                                android:textColor="@color/app_bg"
                                 android:textSize="18sp" />
 
                         </RelativeLayout>
@@ -326,7 +333,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/light_grey"
+                            android:background="@color/app_bg"
                             tools:visibility="gone" />
 
                         <RelativeLayout
@@ -357,15 +364,14 @@
                                 android:layout_height="26dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_marginLeft="10dp"
-                                android:src="@drawable/exclamation"
-                                app:tint="#009FE3" />
+                                android:src="@drawable/exclamation" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_toLeftOf="@id/item4"
                                 android:text="@string/report_missing_pet"
-                                android:textColor="@color/black"
+                                android:textColor="@color/app_bg"
                                 android:textSize="18sp" />
 
                         </RelativeLayout>-->
@@ -373,7 +379,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
                 <RelativeLayout
                     android:id="@+id/bannedAdsLayout"
@@ -394,6 +400,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                     <ImageView
@@ -402,15 +409,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/alert"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_alert" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/item7"
                         android:text="@string/banned_ads"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -418,7 +424,7 @@
                 <!--        <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/light_grey"
+                            android:background="@color/app_bg"
                             tools:visibility="gone" />
 
                         <RelativeLayout
@@ -448,7 +454,6 @@
                                 android:layout_height="26dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_alignParentRight="true"
-                                app:tint="#009FE3"
                                 android:src="@drawable/ban"/>
 
                             <TextView
@@ -456,7 +461,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/black_list"
                                 android:textSize="18sp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/app_bg"
                                 android:layout_toLeftOf="@id/item"/>
 
                         </RelativeLayout>-->
@@ -464,7 +469,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
                 <RelativeLayout
                     android:id="@+id/tNcLayout"
@@ -485,6 +490,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                     <ImageView
@@ -493,15 +499,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/docs"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_doc" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/item6"
                         android:text="@string/policy_terms"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -509,7 +514,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
 
                 <RelativeLayout
@@ -531,6 +536,7 @@
                         android:layout_marginTop="@dimen/d5"
                         android:layout_marginEnd="@dimen/d15"
                         android:src="@drawable/left_arrow"
+                        android:visibility="gone"
                         app:tint="@color/gray" />
 
                     <ImageView
@@ -539,15 +545,14 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/callus"
-                        app:tint="#009FE3" />
+                        android:src="@drawable/ic_more_phone" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/item8"
                         android:text="@string/call_us"
-                        android:textColor="@color/black"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -555,7 +560,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/app_bg" />
 
                 <RelativeLayout
                     android:id="@+id/logoutLayout"
@@ -574,8 +579,7 @@
                         android:layout_height="26dp"
                         android:layout_alignParentRight="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/ic_logout"
-                        app:tint="@color/red" />
+                        android:src="@drawable/ic_more_logout" />
 
                     <TextView
                         android:id="@+id/logoutTV"
@@ -583,7 +587,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/logout"
                         android:text="@string/logout"
-                        android:textColor="@color/red"
+                        android:textColor="@color/app_bg"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -595,7 +599,8 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="25dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

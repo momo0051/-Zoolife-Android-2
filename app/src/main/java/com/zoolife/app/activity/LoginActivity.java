@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.facebook.stetho.json.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.zoolife.app.R;
@@ -59,7 +57,6 @@ public class LoginActivity extends AppBaseActivity {
         ivCross.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -111,6 +108,12 @@ public class LoginActivity extends AppBaseActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
     }
 
     private boolean isValid() {
