@@ -59,6 +59,12 @@ public class ForgotPassword extends AppBaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }

@@ -6,37 +6,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.tabs.TabLayout;
 import com.zoolife.app.R;
-import com.zoolife.app.ResponseModel.GetFavourites.Datum;
 import com.zoolife.app.ResponseModel.GetFavourites.GetFavouritesResponse;
-import com.zoolife.app.ResponseModel.UserPost.DataItem;
-import com.zoolife.app.ResponseModel.UserPost.UserAllPostResponseModel;
-import com.zoolife.app.adapter.AdSliderAdapter;
-import com.zoolife.app.adapter.CategoryAdapter;
 import com.zoolife.app.adapter.FavouriteAdapter;
-import com.zoolife.app.adapter.MyPostAdapter;
-import com.zoolife.app.adapter.NewSubCategoryAdapter;
-import com.zoolife.app.adapter.SubCategoryAdapter;
-import com.zoolife.app.models.HomeModel;
-import com.zoolife.app.models.ImageData;
-import com.zoolife.app.models.SubCategoryModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -81,8 +61,7 @@ public class MyFavouritesActivity extends AppBaseActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void forceRTLIfSupported()
-    {
+    public void forceRTLIfSupported() {
         Objects.requireNonNull(this).getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
@@ -90,17 +69,17 @@ public class MyFavouritesActivity extends AppBaseActivity {
     private void getAllFavourites() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<GetFavouritesResponse> call=apiService.favItembyUser(session.getUserId());
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<GetFavouritesResponse> call = apiService.favItembyUser( session.getUserId());
         call.enqueue(new Callback<GetFavouritesResponse>() {
             @Override
             public void onResponse(Call<GetFavouritesResponse> call, Response<GetFavouritesResponse> response) {
                 progress_circular.setVisibility(View.GONE);
-                Log.d("Response",response.body().toString());
+                Log.d("Response", response.body().toString());
                 GetFavouritesResponse responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
 
-                    if(responseModel.getData().size()>0) {
+                    if (responseModel.getData().size() > 0) {
                         homeAdapter = new FavouriteAdapter(MyFavouritesActivity.this, responseModel.getData());
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -19,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -29,7 +29,6 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.android.material.tabs.TabLayout;
 import com.zoolife.app.R;
-import com.zoolife.app.ResponseModel.AddPost.AddPostResponseModel;
 import com.zoolife.app.ResponseModel.AllPost.AllPostResponseModel;
 import com.zoolife.app.ResponseModel.AllPost.DataItem;
 import com.zoolife.app.ResponseModel.Category.CategoryResponseModel;
@@ -38,8 +37,8 @@ import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
 import com.zoolife.app.Session;
 import com.zoolife.app.SortedPostActivity;
 import com.zoolife.app.activity.AddAdActivity;
+import com.zoolife.app.activity.FavouriteActivity;
 import com.zoolife.app.activity.LoginActivity;
-import com.zoolife.app.activity.SearchActivity;
 import com.zoolife.app.adapter.AdSliderAdapter;
 import com.zoolife.app.adapter.CategoryAdapter;
 import com.zoolife.app.adapter.HomeAdapter;
@@ -54,19 +53,16 @@ import com.zoolife.app.models.related_ad_home.RelatedAdHomeModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiConstant;
 import com.zoolife.app.network.ApiService;
-import com.zoolife.app.utility.Utils;
+import com.zoolife.app.utility.ItemOffsetDecoration;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -117,7 +113,7 @@ public class HomeFragment extends Fragment {
     Spinner spinner;
     EditText searchET;
     RecyclerView subCategoryRecyclerView, newSubCategoryRecyclerView;
-    LinearLayout linSubCategory;
+    LinearLayout linSubCategory, dotsLayout;
     String[] cities = {"", "كل المدن", "الرياض", "الشرقية", "جدة", "مكة", "ينبع", "حفر الباطن", "المدينة", "الطائف", "تبوك", "القصيم", "حائل", "ابها", "الباحة", "جيزان", "نجران", "الجوف", "عرعر", "الكويت", "الأمارات", "البحرين"};
     ImageSlider imageSlider;
     private static Retrofit retrofit = null;
@@ -161,6 +157,10 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.home_data_rv);
         imageSlider = view.findViewById(R.id.slider);
 
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
+        recyclerView.addItemDecoration(itemDecoration);
+
 //        searchET = view.findViewById(R.id.searchET);
         searchingIcon = view.findViewById(R.id.searching_icon);
         searchingIcon.setOnClickListener(new View.OnClickListener() {
@@ -176,11 +176,15 @@ public class HomeFragment extends Fragment {
         searchPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment someFragment = new FavouriteFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_container, someFragment); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
+
+                Intent intent = new Intent(getActivity(), FavouriteActivity.class);
+                startActivity(intent);
+
+//                Fragment someFragment = new FavouriteFragment();
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                transaction.replace(R.id.frame_container, someFragment); // give your fragment container id in first parameter
+//                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+//                transaction.commit();
             }
         });
 
@@ -211,6 +215,12 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+//        viewPager.setBackgroundResource(R.drawable.ripple_effect_white_bg);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) viewPager.getLayoutParams();
+        lp.bottomMargin = 100;
+        viewPager.setLayoutParams(lp);
 
 
         return view;
@@ -276,7 +286,8 @@ public class HomeFragment extends Fragment {
                     if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
                     }
 
                 } else {
@@ -321,7 +332,8 @@ public class HomeFragment extends Fragment {
                     if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     }
 
                 } else {
@@ -380,7 +392,8 @@ public class HomeFragment extends Fragment {
                     } else {
                         homeAdapter = new HomeAdapter(getActivity(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         homeAdapter.notifyDataSetChanged();
                         Toast.makeText(getContext(), "No Ad for this category", Toast.LENGTH_SHORT).show();
                     }
@@ -475,8 +488,11 @@ public class HomeFragment extends Fragment {
 
                     homeAdapter = new HomeAdapter(getActivity(), arrayList);
                     recyclerView.setAdapter(homeAdapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+                    recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2, LinearLayoutManager.VERTICAL, false));
+                    int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
+                    ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
+                    recyclerView.addItemDecoration(itemDecoration);
+//                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
                 } else {
                     // infoDialog("Server Error.");
@@ -498,7 +514,7 @@ public class HomeFragment extends Fragment {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
-        Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
+        Call<SubCategoryResponseModel> call = apiService.getSubCategory( cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
             public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {

@@ -53,4 +53,13 @@
 
     <string name="firebase_server_key" translatable="false">AAAAarKgHyI:APA91bEucI6EaFo6UlFyLM7YMqdS1xiXVZYlX7ReH7wDQDUHhDx7NCmcnBu7ti3fDTzrk0TjfQ1Zo0wQyk_fgGBd3DOJ7CFM8VqanY1j6nNAXiFMzjvtjhAH3LWavPAovNMXY9c6z5X7</string>
 
+    <string name="splash_text">عالم الحيوان بين يديك</string>
+    <string name="hi_there">أهلا</string>
+    <string name="we_are_happy">نحن سعداء أن نراكم مرة أخرى من فضلك ,دعنا نسجل الدخول أولا</string>
+    <string name="please_let_sign_up">يسعدنا أن نر أنك تريد الانضمام إلينا من ,دعنا نشترك أولا</string>
+    <string name="next">التالي</string>
+    <string name="welcome_back">مرحبا بعودتك</string>
+    <string name="log_in">تسجيل الدخول</string>
+    <string name="otp_message_1">لقد أرسلنا لك  رمز الوصول عبر الرسائل القصيرة للتحقق من رقم الهاتف المحمول  <b>e-mail!</b></string>
+    <string name="otp_message_2">ادخل الرمز هنا </string>
 </resources>

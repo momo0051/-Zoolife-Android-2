@@ -66,7 +66,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
         .placeholder(R.drawable.placeholder)
         .into(holder.itemImage);
 
-        holder.itemView.setOnClickListener(v -> {
+        holder.singleCLick.setOnClickListener(v -> {
             if (context != null) {
                 Intent addDetailsIntent = new Intent(context, AddDetailsActivity.class);
                 addDetailsIntent.putExtra("from", "Home");
@@ -86,7 +86,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView itemImage,itemFavImage;
+        ImageView itemImage;
         TextView itemTitle,itemPOstedDate,itemPostedBy,itemLocation;
         LinearLayout singleCLick;
 
@@ -94,7 +94,6 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             super(itemView);
             singleCLick = itemView.findViewById(R.id.single_click);
             itemImage = itemView.findViewById(R.id.item_image);
-            itemFavImage = itemView.findViewById(R.id.item_fav_image);
             itemTitle = itemView.findViewById(R.id.item_title);
             itemPOstedDate = itemView.findViewById(R.id.item_posted_on);
             itemPostedBy = itemView.findViewById(R.id.item_user_postedby);

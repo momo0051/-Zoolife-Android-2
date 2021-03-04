@@ -1,24 +1,20 @@
 package com.zoolife.app.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.zoolife.app.R;
-import com.zoolife.app.adapter.ArticleImageAdapter;
-import com.zoolife.app.models.ArticlesModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArticleDetailActivity extends AppCompatActivity {
+public class ArticleDetailActivity extends AppBaseActivity {
 
     String image1, image2, image3, title, description, date;
     TextView articleTitle, articleDescription, articleDate;
@@ -34,7 +30,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_detail);
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             image1 = extras.getString("image1");
             image2 = extras.getString("image2");
             image3 = extras.getString("image3");
@@ -73,6 +69,13 @@ public class ArticleDetailActivity extends AppCompatActivity {
 
 //        ArticleImageAdapter articleImageAdapter = new ArticleImageAdapter(ArticleDetailActivity.this, imageList);
 //        articleViewPager.setAdapter(articleImageAdapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
 
 
     }

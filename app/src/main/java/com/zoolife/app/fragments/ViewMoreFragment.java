@@ -3,21 +3,20 @@ package com.zoolife.app.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.zoolife.app.R;
 import com.zoolife.app.activity.AboutUsActivity;
 import com.zoolife.app.activity.AddAdActivity;
-import com.zoolife.app.activity.LoginActivity;
 import com.zoolife.app.activity.DeliveryOrderActivity;
+import com.zoolife.app.activity.LoginActivity;
 import com.zoolife.app.activity.MissingActivity;
 import com.zoolife.app.activity.MyFavouritesActivity;
 import com.zoolife.app.activity.MyPostsActivity;
@@ -41,7 +40,6 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
     TextView logoutTV;
 
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -50,8 +48,8 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    RelativeLayout searchLayout, loginLayout, usernameLayout, addAdLayout, myAdsLayout,ordervetLayout,myAccountLayout;
-    RelativeLayout orderLayout, favouriteLayout, tNcLayout, bannedAdsLayout, callUsLayout,changeCityLayout, logoutLayout,back;
+    RelativeLayout searchLayout, loginLayout, usernameLayout, addAdLayout, myAdsLayout, ordervetLayout, myAccountLayout;
+    RelativeLayout orderLayout, favouriteLayout, tNcLayout, bannedAdsLayout, callUsLayout, changeCityLayout, logoutLayout, back;
 
     public static ViewMoreFragment newInstance(String param1, String param2) {
         ViewMoreFragment fragment = new ViewMoreFragment();
@@ -84,9 +82,9 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
         tNcLayout = view.findViewById(R.id.tNcLayout);
         bannedAdsLayout = view.findViewById(R.id.bannedAdsLayout);
         callUsLayout = view.findViewById(R.id.callUsLayout);
-        ordervetLayout = view.findViewById(R.id.ordervetLayout);
-        myAccountLayout = view.findViewById(R.id.myAccountLayout);
-        changeCityLayout = view.findViewById(R.id.changeCityLayout);
+//        ordervetLayout = view.findViewById(R.id.ordervetLayout);
+//        myAccountLayout = view.findViewById(R.id.myAccountLayout);
+//        changeCityLayout = view.findViewById(R.id.changeCityLayout);
         orderLayout = view.findViewById(R.id.orderLayout);
         back = view.findViewById(R.id.back);
 
@@ -96,7 +94,6 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
                 getActivity().onBackPressed();
             }
         });
-
 
 
         callUsLayout.setOnClickListener(new View.OnClickListener() {
@@ -109,9 +106,7 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
         });
 
 
-
-        if(!session.isLogin())
-        {
+        if (!session.isLogin()) {
             logoutTV.setText("تسجيل الدخول");
         }
 
@@ -119,13 +114,11 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
         bannedAdsLayout.setOnClickListener(this);
 
 
-        ordervetLayout.setOnClickListener(this);
-        myAccountLayout.setOnClickListener(this);
-        changeCityLayout.setOnClickListener(this);
+//        ordervetLayout.setOnClickListener(this);
+//        myAccountLayout.setOnClickListener(this);
+//        changeCityLayout.setOnClickListener(this);
         orderLayout.setOnClickListener(this);
         favouriteLayout.setOnClickListener(this);
-
-
 
 
         logoutLayout.setOnClickListener(new View.OnClickListener() {
@@ -137,22 +130,19 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-        addAdLayout.setOnClickListener(new View.OnClickListener()
-        {
+        addAdLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(session.isLogin()) {
+                if (session.isLogin()) {
                     Intent intent = new Intent(getActivity(), AddAdActivity.class);
                     startActivity(intent);
-                }else
-                {
-                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
             }
         });
-        myAdsLayout.setOnClickListener(new View.OnClickListener()
-        {
+        myAdsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (session.isLogin())
@@ -163,13 +153,11 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
         });
 
 
-
         return view;
     }
 
 
-    public void showAlert()
-    {
+    public void showAlert() {
         AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
         builder1.setMessage("قريبا!");
         builder1.setCancelable(true);
@@ -191,45 +179,46 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.tNcLayout:
                 Intent intent = new Intent(getActivity(), PDFViewActivity.class);
                 intent.putExtra("file", "terms_and_policy");
+                intent.putExtra("title", "Terms And Policy");
                 getActivity().startActivity(intent);
                 break;
             case R.id.bannedAdsLayout:
                 Intent intent1 = new Intent(getActivity(), PDFViewActivity.class);
                 intent1.putExtra("file", "banned");
+                intent1.putExtra("title", "Banned");
                 getActivity().startActivity(intent1);
                 break;
             case R.id.favouriteLayout:
-                if(session.isLogin()) {
+                if (session.isLogin()) {
                     Intent favIntent = new Intent(getActivity(), MyFavouritesActivity.class);
                     startActivity(favIntent);
-                }else {
-                    startActivity(new Intent(getActivity(),LoginActivity.class));
+                } else {
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
                 }
                 break;
             case R.id.orderLayout:
 //                if(session.isLogin()) {
-                    Intent favIntent = new Intent(getActivity(), DeliveryOrderActivity.class);
-                    startActivity(favIntent);
+                Intent favIntent = new Intent(getActivity(), DeliveryOrderActivity.class);
+                startActivity(favIntent);
 //                }else {
 //                    startActivity(new Intent(getActivity(), LoginActivity.class));
 //                }
                 break;
-            case R.id.myAccountLayout:
-                Fragment fragment = new MissingActivity();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(fragment.getClass().getSimpleName()).commit();
-
-                break;
-            case R.id.ordervetLayout:
-
-            case R.id.changeCityLayout:
-                showAlert();
-                break;
+//            case R.id.myAccountLayout:
+//                Fragment fragment = new MissingActivity();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.fragment_frame, fragment, fragment.getClass().getSimpleName()).addToBackStack(fragment.getClass().getSimpleName()).commit();
+//
+//                break;
+//            case R.id.ordervetLayout:
+//
+//            case R.id.changeCityLayout:
+//                showAlert();
+//                break;
         }
     }
 }

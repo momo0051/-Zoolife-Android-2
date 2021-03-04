@@ -25,6 +25,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.zoolife.app.R;
 import com.zoolife.app.activity.AddDetailsActivity;
 import com.zoolife.app.models.HomeModel;
@@ -58,10 +59,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         current = data.get(position);
 //        holder.setIsRecyclable(true);
         if(current.priority.equals("0") ||  current.priority==null){
-            holder.singleCLick.setBackground(context.getResources().getDrawable(R.color.white_smoke));
-
+            holder.itemImage.setBorderColor(context.getResources().getColor(R.color.transparent));
+//            holder.singleCLick.setBackground(context.getResources().getDrawable(R.color.white_smoke));
         }else{
-            holder.singleCLick.setBackground(context.getResources().getDrawable(R.drawable.border_yellow));
+            holder.itemImage.setBorderColor(context.getResources().getColor(R.color.yellow));
+//            holder.singleCLick.setBackground(context.getResources().getDrawable(R.drawable.border_yellow));
         }
         holder.itemTitle.setText(current.title);
 //        holder.itemPOstedDate.setText(parseDate(current.postedDate));
@@ -116,7 +118,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView itemImage,itemFavImage;
+        RoundedImageView itemImage;
+        ImageView itemFavImage;
         TextView itemTitle,itemPOstedDate,itemPostedBy,itemLocation;
         LinearLayout singleCLick;
         LinearLayout item_user_postedby_layout;

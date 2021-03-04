@@ -275,4 +275,6 @@
 
     <color name="colorControlNormal">#eeeeee</color>
     <color name="colorControlActivated">#eeeeee</color>
+
+    <color name="bg_edit_field">#EBF2EE</color>
 </resources>

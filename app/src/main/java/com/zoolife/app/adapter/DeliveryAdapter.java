@@ -239,7 +239,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
             itemTitle = itemView.findViewById(R.id.delivery_item_title);
             username = itemView.findViewById(R.id.item_username);
             callIcon = itemView.findViewById(R.id.call_icon);
-            chatIcon = itemView.findViewById(R.id.chat_icon);
+            chatIcon = itemView.findViewById(R.id.chat_box);
             deleteIcon = itemView.findViewById(R.id.delivery_delete_icon);
             whatsappBtn = itemView.findViewById(R.id.whatsapp_icon);
 

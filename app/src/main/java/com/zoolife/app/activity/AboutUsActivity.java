@@ -1,7 +1,5 @@
 package com.zoolife.app.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +11,11 @@ import android.widget.Toast;
 
 import com.zoolife.app.R;
 
-import static com.blankj.utilcode.util.ActivityUtils.startActivity;
+public class AboutUsActivity extends AppBaseActivity {
 
-public class AboutUsActivity extends AppCompatActivity {
-
-    LinearLayout llFacebook, llInsta, llTiktok, llSnap, llTwitter;
+    ImageView llFacebook, llInsta, llTiktok, llSnap, llTwitter, llTelegram;
     LinearLayout llWhatsapp1, llWhatsapp2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +26,7 @@ public class AboutUsActivity extends AppCompatActivity {
         llTiktok = findViewById(R.id.ll_tiktok);
         llSnap = findViewById(R.id.ll_snap);
         llTwitter = findViewById(R.id.ll_twitter);
+        llTelegram = findViewById(R.id.ll_twitter);
 
         findViewById(R.id.back).setOnClickListener(v -> onBackPressed());
 
@@ -69,7 +67,7 @@ public class AboutUsActivity extends AppCompatActivity {
         llWhatsapp1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openWhatsApp("+966591114156","");
+                openWhatsApp("+966591114156", "");
             }
         });
 
@@ -77,19 +75,25 @@ public class AboutUsActivity extends AppCompatActivity {
         llWhatsapp2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openWhatsApp("+966551180030","");
+                openWhatsApp("+966551180030", "");
             }
         });
 
 
     }
 
-    public void openLink(String url){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
+    public void openLink(String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(browserIntent);
     }
 
-    public void openWhatsApp(String number, String message){
+    public void openWhatsApp(String number, String message) {
         try {
             String text = message;// Replace with your message.
 
@@ -98,11 +102,10 @@ public class AboutUsActivity extends AppCompatActivity {
 
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + toNumber + "&text=" + text));
             startActivity(intent);
-        }
-        catch (Exception e){
-            Toast.makeText(this,"Whatsapp app not found on your device",Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Whatsapp app not found on your device", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

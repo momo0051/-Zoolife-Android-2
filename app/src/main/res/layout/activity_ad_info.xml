@@ -782,7 +782,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:src="@drawable/ic_item1"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="fitXY"/>
 
                     </LinearLayout>
 
@@ -809,7 +809,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:src="@drawable/ic_item1"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="fitXY"/>
 
                     </LinearLayout>
 
@@ -836,7 +836,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:src="@drawable/ic_item1"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="fitXY"/>
 
                     </LinearLayout>
 
@@ -874,7 +874,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:src="@drawable/ic_item1"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="fitXY"/>
 
                     </LinearLayout>
 
@@ -901,7 +901,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:src="@drawable/ic_item1"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="fitXY"/>
 
                     </LinearLayout>
 
@@ -928,7 +928,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
                             android:src="@drawable/ic_item1"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="fitXY"/>
 
                     </LinearLayout>
 
