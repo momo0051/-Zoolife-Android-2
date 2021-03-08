@@ -17,13 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.squareup.picasso.Picasso;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.AddComment.AddCommentResponseModel;
@@ -31,6 +26,7 @@ import com.zoolife.app.ResponseModel.AddPost.AddPostResponseModel;
 import com.zoolife.app.ResponseModel.FavModel.FavResponseModel;
 import com.zoolife.app.ResponseModel.GetPost.GetPostResponseModel;
 import com.zoolife.app.ResponseModel.GetUserProfile.GetUserProfileResponseModel;
+import com.zoolife.app.ResponseModel.NoDataResponseModel;
 import com.zoolife.app.ResponseModel.ShowComment.DataItem;
 import com.zoolife.app.ResponseModel.ShowComment.ViewCommentsResponseModel;
 import com.zoolife.app.adapter.CommentsAdapter;
@@ -40,7 +36,6 @@ import com.zoolife.app.models.CommentModel;
 import com.zoolife.app.models.ImageModel;
 import com.zoolife.app.models.RelatedAdModel;
 import com.zoolife.app.network.ApiClient;
-import com.zoolife.app.network.ApiConstant;
 import com.zoolife.app.network.ApiService;
 import com.zoolife.app.utility.ItemOffsetDecoration;
 import com.zoolife.app.utility.TimeShow;
@@ -49,16 +44,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class AddDetailsActivity extends AppBaseActivity {
     EditText commentET;
@@ -287,9 +280,10 @@ public class AddDetailsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetPostResponseModel> call = session.getUsername() != null && !session.getUsername().equalsIgnoreCase("") ?
+       /* Call<GetPostResponseModel> call = session.getUsername() != null && !session.getUsername().equalsIgnoreCase("") ?
                 apiService.getPostWithLogin("get-item", add_id, session.getEmail())
-                : apiService.getPost("get-item", add_id);
+                : apiService.getPost("get-item", add_id);*/
+        Call<GetPostResponseModel> call = apiService.getItem(Integer.parseInt(session.getUserId()), Integer.parseInt(add_id));
         call.enqueue(new Callback<GetPostResponseModel>() {
             @Override
             public void onResponse(Call<GetPostResponseModel> call, Response<GetPostResponseModel> response) {
@@ -377,7 +371,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
                     if (!responseModel.getData().getImgUrl().isEmpty()) {
                         adImage.setVisibility(View.VISIBLE);
-                        adImageUrl = "https://api.zoolifeshop.com/api/assets/images/" + responseModel.getData().getImgUrl();
+                        adImageUrl = responseModel.getData().getImgUrl();
                         Glide
                                 .with(getApplicationContext())
                                 .load(adImageUrl)
@@ -433,6 +427,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<GetPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -444,7 +439,7 @@ public class AddDetailsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<AddCommentResponseModel> call = apiService.addComment( Integer.parseInt(session.getUserId()), Integer.parseInt(add_id), comment);
+        Call<AddCommentResponseModel> call = apiService.addComment(Integer.parseInt(session.getUserId()), Integer.parseInt(add_id), comment);
         call.enqueue(new Callback<AddCommentResponseModel>() {
             @Override
             public void onResponse(Call<AddCommentResponseModel> call, Response<AddCommentResponseModel> response) {
@@ -459,6 +454,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AddCommentResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -470,7 +466,7 @@ public class AddDetailsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<FavResponseModel> call = apiService.doFavAd("toggle", session.getUserId(), add_id, "" + isLike);
+        Call<FavResponseModel> call = apiService.favoruitItem(session.getUserId(), Integer.parseInt(add_id), isLike);
         call.enqueue(new Callback<FavResponseModel>() {
             @Override
             public void onResponse(Call<FavResponseModel> call, Response<FavResponseModel> response) {
@@ -485,6 +481,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<FavResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -496,16 +493,16 @@ public class AddDetailsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<AddCommentResponseModel> call = apiService.updateLikeStatus("likes", Integer.parseInt(session.getUserId()), Integer.parseInt(add_id), isLikeAll ? "1" : "0");
-        call.enqueue(new Callback<AddCommentResponseModel>() {
+        Call<NoDataResponseModel> call = apiService.likeItem(Integer.parseInt(add_id), Integer.parseInt(session.getUserId()));
+        call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
-            public void onResponse(Call<AddCommentResponseModel> call, Response<AddCommentResponseModel> response) {
+            public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {
 
 
                 icLike.setClickable(true);
                 icLike.setEnabled(true);
 
-                AddCommentResponseModel responseModel = response.body();
+                NoDataResponseModel responseModel = response.body();
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
@@ -515,8 +512,8 @@ public class AddDetailsActivity extends AppBaseActivity {
             }
 
             @Override
-            public void onFailure(Call<AddCommentResponseModel> call, Throwable t) {
-
+            public void onFailure(Call<NoDataResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 icLike.setClickable(true);
                 icLike.setEnabled(true);
 
@@ -528,7 +525,7 @@ public class AddDetailsActivity extends AppBaseActivity {
     }
 
 
-    public Retrofit getClient() {
+    /*public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -553,13 +550,13 @@ public class AddDetailsActivity extends AppBaseActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;
-    }
+    }*/
 
 
     private void reportPost(String input) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<AddPostResponseModel> call = apiService.reportApi("report", add_id, session.getUserId(), input);
         call.enqueue(new Callback<AddPostResponseModel>() {
             @Override
@@ -579,6 +576,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AddPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -593,7 +591,7 @@ public class AddDetailsActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<ViewCommentsResponseModel> call = apiService.viewComments("list-by-item", add_id);
+        Call<ViewCommentsResponseModel> call = apiService.listCommentByItem(add_id);
         call.enqueue(new Callback<ViewCommentsResponseModel>() {
             @Override
             public void onResponse(Call<ViewCommentsResponseModel> call, Response<ViewCommentsResponseModel> response) {
@@ -634,6 +632,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<ViewCommentsResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -650,7 +649,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 //                String username = responseModel.getData().getPhone().equals(session.getPhone()) ? session.getPhone() : responseModel.getData().getPhone();
 
                 ApiService apiService = ApiClient.getClient().create(ApiService.class);
-                Call<GetUserProfileResponseModel> call = apiService.getUserProfile(  responseModel.getData().getId());
+                Call<GetUserProfileResponseModel> call = apiService.getUserProfile(responseModel.getData().getId());
                 call.enqueue(new Callback<GetUserProfileResponseModel>() {
                     @Override
                     public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {
@@ -674,6 +673,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
                     @Override
                     public void onFailure(Call<GetUserProfileResponseModel> call, Throwable t) {
+                        t.printStackTrace();
                         Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                         progress_circular.setVisibility(View.GONE);
                     }
@@ -778,6 +778,7 @@ public class AddDetailsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<GetUserProfileResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(AddDetailsActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

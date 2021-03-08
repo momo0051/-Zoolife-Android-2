@@ -30,11 +30,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.blankj.utilcode.util.FileUtils;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -70,6 +65,10 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -291,7 +290,11 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 //                        d = 1;
 //                    }
                     try {
-                        addPost();
+                        if (editMode) {
+                            updatePost();
+                        } else {
+                            addPost();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -330,7 +333,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
             for (DataItem categoryItem : AppBaseActivity.categories.getData()) {
                 categories.add(categoryItem.getTitle());
                 categoryList.add(categoryItem);
-                hashMap.put(Integer.parseInt(categoryItem.getId()), categoryItem.getTitle());
+                hashMap.put(categoryItem.getId(), categoryItem.getTitle());
             }
         }
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
@@ -352,7 +355,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
                             cat = val;
                         }
                     }
-                    getSubCategory(Integer.parseInt(selectedCatItem.getId()));
+                    getSubCategory(selectedCatItem.getId());
                 }
             }
 
@@ -380,8 +383,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     public void getSubCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
-        Call<SubCategoryResponseModel> call = apiService.getSubCategory( cat_id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
             public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {
@@ -429,6 +432,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onFailure(Call<SubCategoryResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(AddAdActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -445,7 +449,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         } else if (category.isEmpty()) {
             Toast.makeText(getApplicationContext(), "اختر الفئة", Toast.LENGTH_LONG).show();
             return false;
-        } else if (sub_category.isEmpty()) {
+        } else if (sub_category == null || sub_category.isEmpty()) {
             Toast.makeText(getApplicationContext(), "حدد الفئة الفرعية", Toast.LENGTH_LONG).show();
             return false;
         } else if (titleET.getText().toString().isEmpty()) {
@@ -491,22 +495,17 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
             MultipartBody.Builder builder = new MultipartBody.Builder();
             builder.setType(MultipartBody.FORM);
-
-            if (editMode) {
-                builder.addFormDataPart("pass", "update-item");
-                builder.addFormDataPart("id", id);
-            } else {
-                builder.addFormDataPart("pass", "add-item");
-            }
-
+            builder.addFormDataPart("user_id", session.getUserId());
+            builder.addFormDataPart("fromUserId", session.getUserId());
+            builder.addFormDataPart("priority", "1");
             builder.addFormDataPart("username", session.getEmail());
             builder.addFormDataPart("location", location1);
-            builder.addFormDataPart("title", titleET.getText().toString());
-            builder.addFormDataPart("description", descriptionET.getText().toString());
+            builder.addFormDataPart("itemTitle", titleET.getText().toString());
+            builder.addFormDataPart("itemDesc", descriptionET.getText().toString());
             builder.addFormDataPart("category", "" + cat);
-            builder.addFormDataPart("sub_category", "" + subCat);
+            builder.addFormDataPart("subCategory", "" + subCat);
             builder.addFormDataPart("showComments", "" + comment);
-            builder.addFormDataPart("showPhone", "" + phone);
+            builder.addFormDataPart("showPhoneNumber", "" + phone);
             builder.addFormDataPart("showMessage", "" + message);
             builder.addFormDataPart("city", location1);
             builder.addFormDataPart("country", "المملكة العربية السعودية");
@@ -552,6 +551,86 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
                 @Override
                 public void onFailure(Call<AddPostResponseModel> call, Throwable t) {
+                    t.printStackTrace();
+                    String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    progress_circular.setVisibility(View.GONE);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updatePost() {
+        try {
+            progress_circular.setVisibility(View.VISIBLE);
+
+            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+
+            MultipartBody.Builder builder = new MultipartBody.Builder();
+            builder.setType(MultipartBody.FORM);
+
+            builder.addFormDataPart("item_id", id);
+            builder.addFormDataPart("user_id", session.getUserId());
+            builder.addFormDataPart("fromUserId", session.getUserId());
+            builder.addFormDataPart("priority", "1");
+            builder.addFormDataPart("username", session.getEmail());
+            builder.addFormDataPart("location", location1);
+            builder.addFormDataPart("itemTitle", titleET.getText().toString());
+            builder.addFormDataPart("itemDesc", descriptionET.getText().toString());
+            builder.addFormDataPart("category", "" + cat);
+            builder.addFormDataPart("subCategory", "" + subCat);
+            builder.addFormDataPart("showComments", "" + comment);
+            builder.addFormDataPart("showPhoneNumber", "" + phone);
+            builder.addFormDataPart("showMessage", "" + message);
+            builder.addFormDataPart("city", location1);
+            builder.addFormDataPart("country", "المملكة العربية السعودية");
+
+            if (adsImagesPath.size() == 0) {
+
+                File coverImgFile = new File(getFilesDir(), "placeholder.png");
+                builder.addFormDataPart("imgUrl", "placeholder.png", RequestBody.create(MediaType.parse("multipart/form-data"), coverImgFile));
+            } else {
+                File coverImgFile = Utils.prepareFilePart(AddAdActivity.this, adsImagesPath.get(0));
+//            File coverImgFile = new File(adsImagesPath.get(0).getPath());
+                builder.addFormDataPart("imgUrl", coverImgFile.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), coverImgFile));
+
+                for (int i = 0; i < adsImagesPath.size(); i++) {
+                    if (i != 0) {
+                        File file = Utils.prepareFilePart(AddAdActivity.this, adsImagesPath.get(i));
+//                    File file = new File(adsImagesPath.get(i));
+                        builder.addFormDataPart("images[]", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
+                    }
+                }
+            }
+
+
+            MultipartBody requestBody = builder.build();
+
+
+            Call<NoDataResponseModel> call = apiService.updatePost(requestBody);
+            call.enqueue(new Callback<NoDataResponseModel>() {
+                @Override
+                public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {
+                    NoDataResponseModel responseModel = response.body();
+                    if (responseModel != null && !responseModel.isError()) {
+                        progress_circular.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_LONG).show();
+                        finish();
+
+                    } else {
+                        // infoDialog("Server Error.");
+                        progress_circular.setVisibility(View.GONE);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<NoDataResponseModel> call, Throwable t) {
+                    t.printStackTrace();
                     String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                     Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                     progress_circular.setVisibility(View.GONE);
@@ -957,6 +1036,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(getApplicationContext(), "" + t, Toast.LENGTH_LONG).show();
 
             }
@@ -973,7 +1053,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetPostResponseModel> call = apiService.getPostWithLogin("get-item", editId, session.getEmail());
+        Call<GetPostResponseModel> call = apiService.getItem(Integer.parseInt(session.getUserId()), Integer.parseInt(editId));
         call.enqueue(new Callback<GetPostResponseModel>() {
             @Override
             public void onResponse(Call<GetPostResponseModel> call, Response<GetPostResponseModel> response) {
@@ -998,7 +1078,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
                         cb3.setChecked(true);
                     }
 
-                    new DownloadFile("https://api.zoolifeshop.com/api/assets/images/" + responseModel.getData().getImgUrl(), responseModel.getData().getImgUrl()).execute();
+                    new DownloadFile(responseModel.getData().getImgUrl(), "Image0").execute();
 //                    adsImages.add(Uri.parse("https://api.zoolifeshop.com/api/assets/images/" + responseModel.getData().getImgUrl()));
 //                    adsImagesPath.add(Uri.parse("https://api.zoolifeshop.com/api/assets/images/" + responseModel.getData().getImgUrl()));
                     for (int i = 0; i < responseModel.getData().getImages().size(); i++) {
@@ -1012,6 +1092,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onFailure(Call<GetPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(AddAdActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
@@ -1036,6 +1117,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
             @Override
             public void onFailure(Call<NoDataResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(AddAdActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
@@ -1046,17 +1128,21 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<NoDataResponseModel> call = apiService.deleteItemImage("delete-item-image", id);
+        Call<NoDataResponseModel> call = apiService.deleteItemImage(id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
             public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {
                 NoDataResponseModel responseModel = response.body();
                 progress_circular.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_SHORT).show();
+                if (adapterAdsImages != null) {
+                    adapterAdsImages.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onFailure(Call<NoDataResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(AddAdActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }

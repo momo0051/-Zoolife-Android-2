@@ -9,9 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -19,18 +16,21 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.GetFavourites.Datum;
 import com.zoolife.app.activity.AddDetailsActivity;
-import com.zoolife.app.models.HomeModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyViewHolder> {
     Context context;
     List<Datum> data;
     Datum current;
-    public FavouriteAdapter(Context context, List<Datum> data){
+
+    public FavouriteAdapter(Context context, List<Datum> data) {
         this.context = context;
         this.data = data;
     }
@@ -38,7 +38,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_favourite,parent,false);
+        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_favourite, parent, false);
         return new MyViewHolder(searchResultView);
     }
 
@@ -53,18 +53,18 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             holder.singleCLick.setBackgroundColor(context.getResources().getColor(R.color.white));
         }*/
         holder.itemTitle.setText(current.getItemTitle());
-        holder.itemPOstedDate.setText(parseDate(current.getCo()));
+       // holder.itemPOstedDate.setText(parseDate(current.getCreatedAt()));
         holder.itemLocation.setText(current.getCity());
 
         RequestOptions requestOptions = new RequestOptions();
         requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(16));
         Glide
-        .with(context)
-        .load("https://api.zoolifeshop.com/api/assets/images/" + current.getItemImage())
-        .centerCrop()
-         .apply(requestOptions)
-        .placeholder(R.drawable.placeholder)
-        .into(holder.itemImage);
+                .with(context)
+                .load(current.getItemImage())
+                .centerCrop()
+                .apply(requestOptions)
+                .placeholder(R.drawable.placeholder)
+                .into(holder.itemImage);
 
         holder.singleCLick.setOnClickListener(v -> {
             if (context != null) {
@@ -76,18 +76,19 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
         });
 
     }
+
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    public void setEvenData(){
+    public void setEvenData() {
 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView itemImage;
-        TextView itemTitle,itemPOstedDate,itemPostedBy,itemLocation;
+        TextView itemTitle, itemPOstedDate, itemPostedBy, itemLocation;
         LinearLayout singleCLick;
 
         public MyViewHolder(@NonNull View itemView) {

@@ -1,35 +1,63 @@
 package com.zoolife.app.ResponseModel.UserPost;
 
-import java.util.List;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserAllPostResponseModel{
+import java.util.List;
 
-	@SerializedName("message")
-	private String message;
 
-	@SerializedName("data")
-	private List<DataItem> data;
+public class UserAllPostResponseModel {
 
-	@SerializedName("error")
-	private boolean error;
+    @SerializedName("status")
+    @Expose
+    private int status;
+    @SerializedName("data")
+    @Expose
+    private List<DataItem> data;
+    @SerializedName("error")
+    @Expose
+    private boolean error;
 
-	@SerializedName("status")
-	private int status;
+    /**
+     * No args constructor for use in serialization
+     */
+    public UserAllPostResponseModel() {
+    }
 
-	public List<DataItem> getData(){
-		return data;
-	}
+    /**
+     * @param data
+     * @param error
+     * @param status
+     */
+    public UserAllPostResponseModel(int status, List<DataItem> data, boolean error) {
+        super();
+        this.status = status;
+        this.data = data;
+        this.error = error;
+    }
 
-	public boolean isError(){
-		return error;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	public int getStatus(){
-		return status;
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public List<DataItem> getData() {
+        return data;
+    }
+
+    public void setData(List<DataItem> data) {
+        this.data = data;
+    }
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
 }

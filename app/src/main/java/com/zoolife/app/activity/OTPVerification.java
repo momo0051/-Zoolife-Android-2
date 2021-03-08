@@ -76,7 +76,7 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
     private void verifyOTP(String otp) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<OTPResponseModel> call = apiService.otpVerify(email1, otp);
         call.enqueue(new Callback<OTPResponseModel>() {
             @Override
@@ -115,6 +115,7 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<OTPResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(OTPVerification.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);

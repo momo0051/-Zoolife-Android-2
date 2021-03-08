@@ -3,10 +3,11 @@ package com.zoolife.app.ResponseModel.GetPost;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.zoolife.app.models.RelatedAdModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Data implements Parcelable {
 
@@ -44,10 +45,10 @@ public class Data implements Parcelable {
 	private String area;
 
 	@SerializedName("images")
-	private List<Object> images;
+	private List<String> images;
 
 
-	@SerializedName("related-add")
+	@SerializedName("related_add")
 	private List<RelatedAdModel> relatedAdImages;
 
 	@SerializedName("lng")
@@ -234,7 +235,7 @@ public class Data implements Parcelable {
 		return area;
 	}
 
-	public List<Object> getImages(){
+	public List<String> getImages(){
 		return images;
 	}
 
@@ -519,9 +520,9 @@ public class Data implements Parcelable {
 		this.id = in.readString();
 		this.lat = in.readString();
 		this.area = in.readString();
-		this.images = new ArrayList<Object>();
+		this.images = new ArrayList<String>();
 		this.relatedAdImages = new ArrayList<RelatedAdModel>();
-		in.readList(this.images, Object.class.getClassLoader());
+		in.readList(this.images, String.class.getClassLoader());
 		this.lng = in.readString();
 		this.totalAbuses = in.readInt();
 		this.previewImgUrl = in.readString();

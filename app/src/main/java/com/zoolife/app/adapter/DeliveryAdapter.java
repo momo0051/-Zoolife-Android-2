@@ -183,6 +183,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 
             @Override
             public void onFailure(Call<GetUserProfileResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

@@ -1,13 +1,13 @@
 package com.zoolife.app.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.zoolife.app.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MessageConversationActivity extends AppCompatActivity {
 
@@ -18,11 +18,9 @@ public class MessageConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_conversation);
 
-        backMessageBtn = (RelativeLayout)findViewById(R.id.backMessageBtn);
+        backMessageBtn = (RelativeLayout) findViewById(R.id.backMessageBtn);
 
-        backMessageBtn.setOnClickListener(new View.OnClickListener()
-
-        {
+        backMessageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

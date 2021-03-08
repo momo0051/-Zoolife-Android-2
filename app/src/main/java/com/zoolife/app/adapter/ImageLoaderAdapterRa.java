@@ -1,35 +1,29 @@
 package com.zoolife.app.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.zoolife.app.R;
 import com.zoolife.app.activity.AddDetailsActivity;
-import com.zoolife.app.models.ImageModel;
 import com.zoolife.app.models.RelatedAdModel;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ImageLoaderAdapterRa extends RecyclerView.Adapter<ImageLoaderAdapterRa.MyViewHolder> {
     Context context;
     List<RelatedAdModel> data;
 
-    public ImageLoaderAdapterRa(Context context, List<RelatedAdModel> data){
+    public ImageLoaderAdapterRa(Context context, List<RelatedAdModel> data) {
         this.context = context;
         this.data = data;
     }
@@ -37,7 +31,7 @@ public class ImageLoaderAdapterRa extends RecyclerView.Adapter<ImageLoaderAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_image,parent,false);
+        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_image, parent, false);
         return new MyViewHolder(searchResultView);
     }
 
@@ -53,9 +47,9 @@ public class ImageLoaderAdapterRa extends RecyclerView.Adapter<ImageLoaderAdapte
         }*/
 
         Glide.with(context)
-                .load("https://api.zoolifeshop.com/api/assets/images/"+current.getImgUrl())
+                .load(current.getImgUrl())
                 .fitCenter()
-                .transform(new CenterCrop(),new RoundedCorners(10))
+                .transform(new CenterCrop(), new RoundedCorners(10))
                 .placeholder(R.drawable.placeholder)
                 .into(holder.imageView);
 
@@ -95,16 +89,17 @@ public class ImageLoaderAdapterRa extends RecyclerView.Adapter<ImageLoaderAdapte
         });
 
     }
+
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    public void setEvenData(){
+    public void setEvenData() {
 
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
 
         public MyViewHolder(@NonNull View itemView) {

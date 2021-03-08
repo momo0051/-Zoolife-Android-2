@@ -357,6 +357,7 @@ public class ChatActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<GetUserProfileResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(ChatActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

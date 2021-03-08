@@ -136,7 +136,7 @@ public class LoginActivity extends AppBaseActivity {
         String username = editTextUserName.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<JsonObject> call = apiService.signIn( username, password);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -189,6 +189,7 @@ public class LoginActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
 

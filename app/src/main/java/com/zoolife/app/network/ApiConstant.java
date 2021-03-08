@@ -11,6 +11,6 @@ public class ApiConstant {
     public static String BASE_URL6 = "http://zoolife.manage.zoolifeshop.com/api/";
 
 
-    public static String BASE_URL_7 = "http://newzoolifeapi.zoolifeshop.com/";
+    public static String MAIN_BASE_URL = "https://newzoolifeapi.zoolifeshop.com/";
 
 }

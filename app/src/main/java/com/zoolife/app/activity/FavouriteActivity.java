@@ -10,32 +10,25 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.Articles.AllArticlesResponseModel;
 import com.zoolife.app.ResponseModel.Articles.ArticleDataItem;
 import com.zoolife.app.adapter.ArticlesAdapter;
 import com.zoolife.app.models.ArticlesModel;
 import com.zoolife.app.models.ExploreModels;
-import com.zoolife.app.network.ApiConstant;
+import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -190,7 +183,7 @@ public class FavouriteActivity extends AppBaseActivity {
         setLightStatusBar();
     }
 
-    public Retrofit getClient() {
+    /*public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -215,14 +208,14 @@ public class FavouriteActivity extends AppBaseActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;
-    }
+    }*/
 
 
     private void getAllArticles() {
         progress_circular.setVisibility(View.VISIBLE);
 
         Log.e("TAG", "All Articales Called");
-        ApiService apiService = getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<AllArticlesResponseModel> call = apiService.getAllArticles("all_articles");
         call.enqueue(new Callback<AllArticlesResponseModel>() {
             @Override
@@ -265,6 +258,7 @@ public class FavouriteActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AllArticlesResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(FavouriteActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d(TAG, "onFailure: true" + t.getMessage());

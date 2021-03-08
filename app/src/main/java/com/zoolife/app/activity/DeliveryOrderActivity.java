@@ -16,10 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.UserPost.DataItem;
 import com.zoolife.app.ResponseModel.UserPost.UserAllPostResponseModel;
@@ -32,6 +28,9 @@ import com.zoolife.app.network.ApiService;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -158,7 +157,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
-                    Toast.makeText(DeliveryOrderActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(DeliveryOrderActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
 
 
                 } else {
@@ -171,6 +170,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<UserAllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -182,7 +182,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call = apiService.deleteDelivery("delete-delivery", session.getEmail(), id);
+        Call<UserAllPostResponseModel> call = apiService.deleteDelivery(session.getUserId(), id);
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
             public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {
@@ -190,7 +190,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
-                    Toast.makeText(DeliveryOrderActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(DeliveryOrderActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
                     getAllDelivery();
                     homeAdapter.notifyDataSetChanged();
 
@@ -205,6 +205,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<UserAllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -216,7 +217,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call = apiService.getAllDelivery("get-all-delivery", session.getEmail());
+        Call<UserAllPostResponseModel> call = apiService.getAllDelivery(session.getUserId());
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
             public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {
@@ -230,7 +231,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
                     for (int i = 0; i < responseModel.getData().size(); i++) {
 //                        if (responseModel.getData().get(i).getEmail().equals(session.getEmail())){
                         DataItem HomeModel = responseModel.getData().get(i);
-                        dataList.add(new DeliveryModel(HomeModel.getItemTitle(), HomeModel.getCity(), HomeModel.getUsername(), HomeModel.getPhone(), HomeModel.getEmail(), HomeModel.getId()));
+                        dataList.add(new DeliveryModel(HomeModel.getItemTitle(), HomeModel.getCity(), HomeModel.getUsername(), HomeModel.getPhone(), HomeModel.getEmail(), String.valueOf(HomeModel.getId())));
 //                        }
 
                     }
@@ -259,6 +260,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<UserAllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d(TAG, "onFailure: true" + t.getMessage());
@@ -266,6 +268,5 @@ public class DeliveryOrderActivity extends AppBaseActivity {
             }
         });
     }
-
 
 }

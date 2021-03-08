@@ -9,33 +9,24 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.zoolife.app.R;
+import com.zoolife.app.adapter.NotificationAdapter;
+import com.zoolife.app.models.notification.NotificationModel;
+import com.zoolife.app.network.ApiClient;
+import com.zoolife.app.network.ApiService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.zoolife.app.R;
-import com.zoolife.app.ResponseModel.Notifications.NotificationsResponseModel;
-import com.zoolife.app.adapter.NotificationAdapter;
-import com.zoolife.app.models.notification.NotificationModel;
-import com.zoolife.app.network.ApiClient;
-import com.zoolife.app.network.ApiConstant;
-import com.zoolife.app.network.ApiService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import static com.zoolife.app.activity.AppBaseActivity.session;
 
@@ -121,7 +112,7 @@ public class NotificationFragment extends Fragment {
     }
 
 
-    public Retrofit getClient(){
+   /* public Retrofit getClient(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -146,13 +137,13 @@ public class NotificationFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit;
-    }
+    }*/
 
 
     public void getNotifications(String username) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= getClient().create(ApiService.class);
+        ApiService apiService= ApiClient.getClient().create(ApiService.class);
         Call<NotificationModel> call=apiService.getAllNotify(session.getUserId());
         call.enqueue(new Callback<NotificationModel>() {
             @Override
@@ -192,6 +183,7 @@ public class NotificationFragment extends Fragment {
 
             @Override
             public void onFailure(Call<NotificationModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
                // Toast.makeText(getActivity(),t.getMessage(),Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);

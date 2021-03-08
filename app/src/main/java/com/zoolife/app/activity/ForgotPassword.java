@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.Reset.ResetResponseModel;
-import com.zoolife.app.ResponseModel.SignInResponse.SignInResponseModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
@@ -73,7 +72,7 @@ public class ForgotPassword extends AppBaseActivity {
     private void resetPassword(String email) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<JsonObject> call = apiService.resetPassword(email);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -104,6 +103,7 @@ public class ForgotPassword extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(ForgotPassword.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);

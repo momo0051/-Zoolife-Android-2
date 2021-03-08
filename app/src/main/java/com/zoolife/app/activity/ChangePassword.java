@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.ChangePassword.ChangePasswordResponseModel;
-import com.zoolife.app.ResponseModel.Reset.ResetResponseModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
@@ -46,8 +45,8 @@ public class ChangePassword extends AppBaseActivity {
     private void changePassword() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
-        Call<ChangePasswordResponseModel> call = apiService.updatePassword(editTextPassword.getText().toString(), session.getEmail());
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<ChangePasswordResponseModel> call = apiService.updatePassword(editTextPassword.getText().toString(), session.getPhone());
         Log.e("TAG", "Change Pass " + editTextPassword.getText().toString() + " Phone " + session.getEmail());
         call.enqueue(new Callback<ChangePasswordResponseModel>() {
             @Override
@@ -70,6 +69,7 @@ public class ChangePassword extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<ChangePasswordResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);

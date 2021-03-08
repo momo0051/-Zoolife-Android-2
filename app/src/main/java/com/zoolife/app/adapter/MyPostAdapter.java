@@ -1,7 +1,5 @@
 package com.zoolife.app.adapter;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,28 +10,22 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.NoDataResponseModel;
-import com.zoolife.app.ResponseModel.UserPost.DataItem;
-import com.zoolife.app.ResponseModel.UserPost.UserAllPostResponseModel;
 import com.zoolife.app.Session;
 import com.zoolife.app.activity.AddAdActivity;
-import com.zoolife.app.activity.AddDetailsActivity;
 import com.zoolife.app.activity.MyPostsActivity;
 import com.zoolife.app.models.HomeModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,7 +38,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
     HomeModel current;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
 
-    public MyPostAdapter(MyPostsActivity activity, List<HomeModel> data, ProgressBar activityProgressBar, Session session){
+    public MyPostAdapter(MyPostsActivity activity, List<HomeModel> data, ProgressBar activityProgressBar, Session session) {
         this.activity = activity;
         this.data = data;
         this.activityProgressBar = activityProgressBar;
@@ -81,16 +73,15 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
         holder.itemLocation.setText(current.location);
 
         Glide.with(activity)
-                .load("https://api.zoolifeshop.com/api/assets/images/" + current.image)
+                .load(current.image)
                 .centerCrop()
                 .placeholder(R.drawable.placeholder)
                 .into(holder.itemImage);
 
-        holder.singleCLick.setOnClickListener(new View.OnClickListener()
-        {
+        holder.singleCLick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (activity!=null) {
+                if (activity != null) {
 //                    Intent intent = new Intent(context, AddDetailsActivity.class);
 //                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                    intent.putExtra("id", current.id);
@@ -126,7 +117,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
         return data.size();
     }
 
-    public void setEvenData(){
+    public void setEvenData() {
 
     }
 
@@ -151,8 +142,8 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
     }
 
     private void deleteApi(String id) {
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<NoDataResponseModel> call=apiService.deleteItem( session.getUserId(), id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<NoDataResponseModel> call = apiService.deleteItem(session.getUserId(), id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
             public void onResponse(Call<NoDataResponseModel> call, Response<NoDataResponseModel> response) {
@@ -163,6 +154,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
 
             @Override
             public void onFailure(Call<NoDataResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 Toast.makeText(activity, t.getMessage(), Toast.LENGTH_LONG).show();
                 activityProgressBar.setVisibility(View.GONE);
             }

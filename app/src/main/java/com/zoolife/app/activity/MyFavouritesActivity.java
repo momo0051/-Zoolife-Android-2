@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.GetFavourites.GetFavouritesResponse;
 import com.zoolife.app.adapter.FavouriteAdapter;
@@ -19,6 +16,8 @@ import com.zoolife.app.network.ApiService;
 
 import java.util.Objects;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,7 +69,7 @@ public class MyFavouritesActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetFavouritesResponse> call = apiService.favItembyUser( session.getUserId());
+        Call<GetFavouritesResponse> call = apiService.favItembyUser(session.getUserId());
         call.enqueue(new Callback<GetFavouritesResponse>() {
             @Override
             public void onResponse(Call<GetFavouritesResponse> call, Response<GetFavouritesResponse> response) {
@@ -89,6 +88,7 @@ public class MyFavouritesActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<GetFavouritesResponse> call, Throwable t) {
+//              t.printStackTrace();
 //                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
 //                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);

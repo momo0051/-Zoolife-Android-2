@@ -1,14 +1,7 @@
 package com.zoolife.app.activity;
 
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +33,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +60,7 @@ public class MyPostsActivity extends AppBaseActivity {
     CategoryAdapter categoryAdapter;
     List<HomeModel> homeModelList;
     List<SubCategoryModel> subCategoryList;
-    RecyclerView recyclerView,category_rv;
+    RecyclerView recyclerView, category_rv;
     ViewPager adSliderViewPager;
     AdSliderAdapter adSliderAdapter;
     List<ImageData> items = new ArrayList<>();
@@ -73,9 +70,9 @@ public class MyPostsActivity extends AppBaseActivity {
     RelativeLayout citiesCv;
     Spinner spinner;
     EditText searchET;
-    RecyclerView subCategoryRecyclerView,newSubCategoryRecyclerView;
+    RecyclerView subCategoryRecyclerView, newSubCategoryRecyclerView;
     LinearLayout linSubCategory;
-    String[] cities = {"","كل المدن", "الرياض", "الشرقية", "جدة","مكة", "ينبع", "حفر الباطن", "المدينة", "الطائف", "تبوك", "القصيم", "حائل", "ابها", "الباحة", "جيزان", "نجران", "الجوف", "عرعر", "الكويت", "الأمارات", "البحرين"};
+    String[] cities = {"", "كل المدن", "الرياض", "الشرقية", "جدة", "مكة", "ينبع", "حفر الباطن", "المدينة", "الطائف", "تبوك", "القصيم", "حائل", "ابها", "الباحة", "جيزان", "نجران", "الجوف", "عرعر", "الكويت", "الأمارات", "البحرين"};
 
     List<HomeModel> dataList;
 
@@ -123,8 +120,7 @@ public class MyPostsActivity extends AppBaseActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void forceRTLIfSupported()
-    {
+    public void forceRTLIfSupported() {
         Objects.requireNonNull(this).getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
@@ -132,30 +128,31 @@ public class MyPostsActivity extends AppBaseActivity {
     private void getAllPost() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call=apiService.getPostbyUser(session.getEmail());
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<UserAllPostResponseModel> call = apiService.getPostbyUser(session.getUserId());
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
             public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {
                 UserAllPostResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
                     dataList = new ArrayList<>();
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++)
-                    {
-                        DataItem HomeModel = responseModel.getData().get(i);
-                        dataList.add(new HomeModel(HomeModel.getItemTitle(),HomeModel.getCreateAt(),HomeModel.getCity(),HomeModel.getFromUserId(),HomeModel.getImgUrl(),HomeModel.getId(),HomeModel.getPriority()));
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
+                        DataItem dataItem = responseModel.getData().get(i);
+                        System.out.println("Username-->" + dataItem.getUsername());
+                        dataList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreatedAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), String.valueOf(dataItem.getId()), dataItem.getPriority()));
+
                     }
 
-                    if(dataList.size()>0) {
+                    if (dataList.size() > 0) {
                         homeAdapter = new MyPostAdapter(MyPostsActivity.this, dataList, progress_circular, session);
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                     }
 
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -164,8 +161,9 @@ public class MyPostsActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<UserAllPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });

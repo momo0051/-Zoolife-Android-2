@@ -140,6 +140,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
 
                 @Override
                 public void onFailure(Call<GetUserProfileResponseModel> call, Throwable t) {
+                    t.printStackTrace();
                     Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });

@@ -1,9 +1,5 @@
 package com.zoolife.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +18,9 @@ import com.zoolife.app.network.ApiService;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +35,7 @@ public class SortedPostActivity extends AppCompatActivity {
     ImageView searchImageBtn;
     ProgressBar progress_circular;
     ArrayList<HomeModel> arrayList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +46,7 @@ public class SortedPostActivity extends AppCompatActivity {
         searchingLayout = findViewById(R.id.searching_layout);
         recyclerView = findViewById(R.id.search_recyclerview);
         btnSearchBack = (ImageView) findViewById(R.id.btnSearchBack);
-        btnSearchBack.setOnClickListener(new View.OnClickListener(){
+        btnSearchBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SortedPostActivity.this.finish();
@@ -62,14 +62,13 @@ public class SortedPostActivity extends AppCompatActivity {
         else
             searchingLayout.setVisibility(View.VISIBLE);
 
-        if (searchingLayout.getVisibility() == View.VISIBLE){
+        if (searchingLayout.getVisibility() == View.VISIBLE) {
             searchImageBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (searchbarEdittext.getText().toString().equals("")){
+                    if (searchbarEdittext.getText().toString().equals("")) {
                         Toast.makeText(getApplicationContext(), "Enter a Keyword to search", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         getAllPost(searchbarEdittext.getText().toString());
                     }
                 }
@@ -80,21 +79,21 @@ public class SortedPostActivity extends AppCompatActivity {
 
 
         homeAdapter = new HomeAdapter(getApplicationContext(), arrayList);
-                        recyclerView.setAdapter(homeAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(homeAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
     private void getAllPost(String name) {
 
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call=apiService.getAllPost("get-all-item");
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
                 AllPostResponseModel responseModel = response.body();
-                if (responseModel!=null && !responseModel.isError()) {
+                if (responseModel != null && !responseModel.isError()) {
 
 
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
@@ -103,34 +102,27 @@ public class SortedPostActivity extends AppCompatActivity {
                     progress_circular.setVisibility(View.GONE);
 
 
-                    for(int i=0 ; i<responseModel.getData().size() ; i++) {
-                        if (responseModel.getData().get(i).getItemTitle().toLowerCase().contains(name.toLowerCase())){
+                    for (int i = 0; i < responseModel.getData().size(); i++) {
+                        if (responseModel.getData().get(i).getItemTitle().toLowerCase().contains(name.toLowerCase())) {
                             DataItem dataItem = responseModel.getData().get(i);
-                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt() ,dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(),dataItem.getPriority()));
+                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreatedAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), String.valueOf(dataItem.getId()), dataItem.getPriority()));
 
                         }
                     }
 
 
-
-
-
-
-                    if(arrayList.size() > 0) {
+                    if (arrayList.size() > 0) {
                         homeAdapter = new HomeAdapter(getApplicationContext(), arrayList);
                         recyclerView.setAdapter(homeAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-                    }
-                    else{
+                    } else {
                         Toast.makeText(getApplicationContext(), "No Post found with the keyword!", Toast.LENGTH_SHORT).show();
 //                        homeAdapter.notifyDataSetChanged();
                     }
 
 
-
-
-                }else {
+                } else {
                     // infoDialog("Server Error.");
                     progress_circular.setVisibility(View.GONE);
                 }
@@ -139,8 +131,9 @@ public class SortedPostActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });

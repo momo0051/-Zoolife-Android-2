@@ -1,9 +1,5 @@
 package com.zoolife.app.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +16,9 @@ import com.zoolife.app.network.ApiService;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +31,7 @@ public class FullCommentActivity extends AppCompatActivity {
     CommentsAdapter commentsAdapter;
     RecyclerView fullCommentRecyclerview;
     String add_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +53,8 @@ public class FullCommentActivity extends AppCompatActivity {
     private void viewComments() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<ViewCommentsResponseModel> call=apiService.viewComments("list-by-item",add_id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<ViewCommentsResponseModel> call = apiService.listCommentByItem(add_id);
         call.enqueue(new Callback<ViewCommentsResponseModel>() {
             @Override
             public void onResponse(Call<ViewCommentsResponseModel> call, Response<ViewCommentsResponseModel> response) {
@@ -62,27 +62,25 @@ public class FullCommentActivity extends AppCompatActivity {
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
-                    if (responseModel!=null && !responseModel.isError()) {
+                    if (responseModel != null && !responseModel.isError()) {
                         progress_circular.setVisibility(View.GONE);
 
                         ArrayList<CommentModel> arrayList = new ArrayList<>();
 
-                        for(int i=0 ; i<responseModel.getData().size() ; i++)
-                        {
+                        for (int i = 0; i < responseModel.getData().size(); i++) {
                             DataItem dataItem = responseModel.getData().get(i);
-                            arrayList.add(new CommentModel(dataItem.getMessage(),dataItem.getId(), dataItem.getUserFullname(), dataItem.getCo()));
+                            arrayList.add(new CommentModel(dataItem.getMessage(), dataItem.getId(), dataItem.getUserFullname(), dataItem.getCo()));
                         }
-                        if(arrayList.size()>0) {
+                        if (arrayList.size() > 0) {
                             commentsAdapter = new CommentsAdapter(getApplicationContext(), arrayList);
                             fullCommentRecyclerview.setAdapter(commentsAdapter);
                             fullCommentRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         }
-                    }else {
+                    } else {
                         // infoDialog("Server Error.");
                         progress_circular.setVisibility(View.GONE);
                     }
-                }
-                else{
+                } else {
                     progress_circular.setVisibility(View.GONE);
                     Toast.makeText(FullCommentActivity.this, "No Comments", Toast.LENGTH_SHORT).show();
                 }
@@ -91,8 +89,9 @@ public class FullCommentActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ViewCommentsResponseModel> call, Throwable t) {
-                String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
             }
         });

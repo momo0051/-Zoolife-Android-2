@@ -12,32 +12,24 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.AllPost.AllPostResponseModel;
 import com.zoolife.app.ResponseModel.AllPost.DataItem;
 import com.zoolife.app.adapter.HomeAdapter;
 import com.zoolife.app.models.HomeModel;
 import com.zoolife.app.network.ApiClient;
-import com.zoolife.app.network.ApiConstant;
 import com.zoolife.app.network.ApiService;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -127,7 +119,7 @@ public class MissingActivity extends Fragment {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
+        Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
@@ -140,9 +132,9 @@ public class MissingActivity extends Fragment {
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
 
                     for (int i = 0; i < responseModel.getData().size(); i++) {
-                        if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat_id))) {
+                        if (responseModel.getData().get(i).getCategory() == cat_id) {
                             DataItem dataItem = responseModel.getData().get(i);
-                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
+                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreatedAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), String.valueOf(dataItem.getId()), dataItem.getPriority()));
                         }
                     }
 
@@ -163,6 +155,7 @@ public class MissingActivity extends Fragment {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -176,7 +169,7 @@ public class MissingActivity extends Fragment {
 
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
+        Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
@@ -189,10 +182,10 @@ public class MissingActivity extends Fragment {
                     ArrayList<HomeModel> arrayList = new ArrayList<>();
 
                     for (int i = 0; i < responseModel.getData().size(); i++) {
-                        if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat_id))) {
-                            if (responseModel.getData().get(i).getSubCategory().equals(String.valueOf(sub_cat_id))) {
+                        if (responseModel.getData().get(i).getCategory() == cat_id) {
+                            if (responseModel.getData().get(i).getSubCategory() == sub_cat_id) {
                                 DataItem dataItem = responseModel.getData().get(i);
-                                arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
+                                arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreatedAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), String.valueOf(dataItem.getId()), dataItem.getPriority()));
 
                             }
                         }
@@ -220,6 +213,7 @@ public class MissingActivity extends Fragment {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -227,8 +221,8 @@ public class MissingActivity extends Fragment {
         });
     }
 
-
-    public Retrofit getClient() {
+//OLD DEPRECATED CODE AFTER API CHANGE
+    /*public Retrofit getClient() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -254,5 +248,5 @@ public class MissingActivity extends Fragment {
                 .build();
         return retrofit;
     }
-
+*/
 }

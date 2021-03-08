@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,13 +21,10 @@ import android.widget.ToggleButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.zoolife.app.R;
-import com.zoolife.app.ResponseModel.Reset.ResetResponseModel;
 import com.zoolife.app.ResponseModel.SignupResponseModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 import com.zoolife.app.utility.LocaleHelper;
-
-import org.json.JSONObject;
 
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import retrofit2.Call;
@@ -141,7 +137,7 @@ public class SignUpActivity extends AppBaseActivity {
         String email = editTextEmail.getText().toString();
         String fullname = editFullName.getText().toString();
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
 //        Call<JsonObject> call=apiService.signUp("register",fullname,email,contactNumber,password);
         Call<JsonObject> call = apiService.signUp(fullname, email, contactNumber, password);
         call.enqueue(new Callback<JsonObject>() {
@@ -171,6 +167,7 @@ public class SignUpActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Log.d(TAG, strr);
 //                Toast.makeText(SignUpActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();

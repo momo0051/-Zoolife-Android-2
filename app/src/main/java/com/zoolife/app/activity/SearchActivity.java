@@ -18,10 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.AllPost.AllPostResponseModel;
 import com.zoolife.app.ResponseModel.AllPost.DataItem;
@@ -40,6 +36,9 @@ import com.zoolife.app.utility.LocaleHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import io.github.inflationx.viewpump.ViewPumpContextWrapper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -193,7 +192,7 @@ public class SearchActivity extends AppBaseActivity {
     private void getCategory() {
 
 //        ApiService apiService = ApiClient.getClientZoo().create(ApiService.class);
-        ApiService apiService= ApiClient.getClientWitNewURL().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<CategoryResponseModel> call = apiService.getCategory();
         call.enqueue(new Callback<CategoryResponseModel>() {
             @Override
@@ -210,7 +209,7 @@ public class SearchActivity extends AppBaseActivity {
                     for (int i = 0; i < responseModel.getData().size(); i++) {
 
                         com.zoolife.app.ResponseModel.Category.DataItem categoryModel = responseModel.getData().get(i);
-                        arrayList.add(new CategoryModel(categoryModel.getTitle(), categoryModel.getImgUnSelected(), categoryModel.getId()));
+                        arrayList.add(new CategoryModel(categoryModel.getTitle(), categoryModel.getImgUnSelected(), String.valueOf(categoryModel.getId())));
                         mainCategory[i + 1] = categoryModel.getTitle();
 
                     }
@@ -260,6 +259,7 @@ public class SearchActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<CategoryResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
 //                progress_circular.setVisibility(View.GONE);
@@ -269,8 +269,8 @@ public class SearchActivity extends AppBaseActivity {
 
     public void getSubCategory(int cat_id) {
 
-        ApiService apiService = ApiClient.getClientWitNewURL().create(ApiService.class);
-        Call<SubCategoryResponseModel> call = apiService.getSubCategory( cat_id);
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
             public void onResponse(Call<SubCategoryResponseModel> call, Response<SubCategoryResponseModel> response) {
@@ -326,6 +326,7 @@ public class SearchActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<SubCategoryResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -337,7 +338,7 @@ public class SearchActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
+        Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
@@ -354,14 +355,14 @@ public class SearchActivity extends AppBaseActivity {
                         Toast.makeText(SearchActivity.this, "Please Select City!", Toast.LENGTH_SHORT).show();
                     else {
                         for (int i = 0; i < responseModel.getData().size(); i++) {
-                            if (responseModel.getData().get(i).getCategory() != null) {
-                                if (responseModel.getData().get(i).getCategory().equals(String.valueOf(cat))) {
-                                    if (responseModel.getData().get(i).getSubCategory() != null) {
-                                        if (responseModel.getData().get(i).getSubCategory().equals(String.valueOf(sub_cat))) {
+                            if (responseModel.getData().get(i).getCategory() != 0) {
+                                if (responseModel.getData().get(i).getCategory() == cat) {
+                                    if (responseModel.getData().get(i).getSubCategory() != 0) {
+                                        if (responseModel.getData().get(i).getSubCategory() == sub_cat) {
                                             if (responseModel.getData().get(i).getCity() != null) {
                                                 if (responseModel.getData().get(i).getCity().equals(spinner.getSelectedItem())) {
                                                     DataItem dataItem = responseModel.getData().get(i);
-                                                    arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
+                                                    arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreatedAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), String.valueOf(dataItem.getId()), dataItem.getPriority()));
 
                                                 }
                                             }
@@ -401,6 +402,7 @@ public class SearchActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
@@ -412,7 +414,7 @@ public class SearchActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<AllPostResponseModel> call = apiService.getAllPost("get-all-item");
+        Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
             public void onResponse(Call<AllPostResponseModel> call, Response<AllPostResponseModel> response) {
@@ -429,7 +431,7 @@ public class SearchActivity extends AppBaseActivity {
 
                         for (int i = 0; i < responseModel.getData().size(); i++) {
                             DataItem dataItem = responseModel.getData().get(i);
-                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreateAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), dataItem.getId(), dataItem.getPriority()));
+                            arrayList.add(new HomeModel(dataItem.getItemTitle(), dataItem.getCreatedAt(), dataItem.getCity(), dataItem.getUsername(), dataItem.getImgUrl(), String.valueOf(dataItem.getId()), dataItem.getPriority()));
                         }
 
                         if (arrayList.size() > 0) {
@@ -450,6 +452,7 @@ public class SearchActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<AllPostResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(SearchActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);

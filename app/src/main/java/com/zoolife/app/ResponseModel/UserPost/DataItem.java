@@ -1,392 +1,441 @@
 package com.zoolife.app.ResponseModel.UserPost;
 
-import java.util.List;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DataItem{
+import java.util.List;
+
+public class DataItem {
+
+
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("priority")
+    @Expose
+    private String priority;
+    @SerializedName("allowComments")
+    @Expose
+    private int allowComments;
+    @SerializedName("fromUserId")
+    @Expose
+    private int fromUserId;
+    @SerializedName("category")
+    @Expose
+    private int category;
+    @SerializedName("subCategory")
+    @Expose
+    private int subCategory;
+    @SerializedName("likesCount")
+    @Expose
+    private int likesCount;
+    @SerializedName("itemTitle")
+    @Expose
+    private String itemTitle;
+    @SerializedName("itemDesc")
+    @Expose
+    private String itemDesc;
+    @SerializedName("imgUrl")
+    @Expose
+    private String imgUrl;
+    @SerializedName("area")
+    @Expose
+    private String area;
+    @SerializedName("country")
+    @Expose
+    private String country;
+    @SerializedName("city")
+    @Expose
+    private String city;
+    @SerializedName("showPhoneNumber")
+    @Expose
+    private int showPhoneNumber;
+    @SerializedName("showMessage")
+    @Expose
+    private int showMessage;
+    @SerializedName("showComments")
+    @Expose
+    private int showComments;
+    @SerializedName("showWhatsapp")
+    @Expose
+    private int showWhatsapp;
+    @SerializedName("phoneViewsCount")
+    @Expose
+    private int phoneViewsCount;
+    @SerializedName("modifyAt")
+    @Expose
+    private int modifyAt;
+    @SerializedName("removeAt")
+    @Expose
+    private int removeAt;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("favrtitem_status")
+    @Expose
+    private String favrtitemStatus;
+    @SerializedName("likeitem_status")
+    @Expose
+    private String likeitemStatus;
+    @SerializedName("report_status")
+    @Expose
+    private String reportStatus;
+    @SerializedName("username")
+    @Expose
+    private String username;
+    @SerializedName("user_id")
+    @Expose
+    private int userId;
+    @SerializedName("device_token")
+    @Expose
+    private String deviceToken;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+    @SerializedName("images")
+    @Expose
+    private List<String> images = null;
+    @SerializedName("related_add")
+    @Expose
+    private List<RelatedAdd> relatedAdd = null;
+
+
+    /**
+     * No args constructor for use in serialization
+     */
+    public DataItem() {
+    }
+
+    /**
+     * @param country
+     * @param subCategory
+     * @param itemTitle
+     * @param city
+     * @param showPhoneNumber
+     * @param showMessage
+     * @param likeitemStatus
+     * @param favrtitemStatus
+     * @param likesCount
+     * @param createdAt
+     * @param id
+     * @param modifyAt
+     * @param showComments
+     * @param email
+     * @param updatedAt
+     * @param area
+     * @param images
+     * @param showWhatsapp
+     * @param fromUserId
+     * @param reportStatus
+     * @param relatedAdd
+     * @param priority
+     * @param itemDesc
+     * @param userId
+     * @param deviceToken
+     * @param imgUrl
+     * @param allowComments
+     * @param phone
+     * @param removeAt
+     * @param category
+     * @param phoneViewsCount
+     * @param username
+     */
+    public DataItem(int id, String priority, int allowComments, int fromUserId, int category, int subCategory, int likesCount, String itemTitle, String itemDesc, String imgUrl, String area, String country, String city, int showPhoneNumber, int showMessage, int showComments, int showWhatsapp, int phoneViewsCount, int modifyAt, int removeAt, String updatedAt, String createdAt, String favrtitemStatus, String likeitemStatus, String reportStatus, String username, int userId, String deviceToken, String email, String phone, List<String> images, List<RelatedAdd> relatedAdd) {
+        super();
+        this.id = id;
+        this.priority = priority;
+        this.allowComments = allowComments;
+        this.fromUserId = fromUserId;
+        this.category = category;
+        this.subCategory = subCategory;
+        this.likesCount = likesCount;
+        this.itemTitle = itemTitle;
+        this.itemDesc = itemDesc;
+        this.imgUrl = imgUrl;
+        this.area = area;
+        this.country = country;
+        this.city = city;
+        this.showPhoneNumber = showPhoneNumber;
+        this.showMessage = showMessage;
+        this.showComments = showComments;
+        this.showWhatsapp = showWhatsapp;
+        this.phoneViewsCount = phoneViewsCount;
+        this.modifyAt = modifyAt;
+        this.removeAt = removeAt;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+        this.favrtitemStatus = favrtitemStatus;
+        this.likeitemStatus = likeitemStatus;
+        this.reportStatus = reportStatus;
+        this.username = username;
+        this.userId = userId;
+        this.deviceToken = deviceToken;
+        this.email = email;
+        this.phone = phone;
+        this.images = images;
+        this.relatedAdd = relatedAdd;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public int getAllowComments() {
+        return allowComments;
+    }
+
+    public void setAllowComments(int allowComments) {
+        this.allowComments = allowComments;
+    }
+
+    public int getFromUserId() {
+        return fromUserId;
+    }
+
+    public void setFromUserId(int fromUserId) {
+        this.fromUserId = fromUserId;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public int getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(int subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public int getLikesCount() {
+        return likesCount;
+    }
+
+    public void setLikesCount(int likesCount) {
+        this.likesCount = likesCount;
+    }
+
+    public String getItemTitle() {
+        return itemTitle;
+    }
+
+    public void setItemTitle(String itemTitle) {
+        this.itemTitle = itemTitle;
+    }
+
+    public String getItemDesc() {
+        return itemDesc;
+    }
+
+    public void setItemDesc(String itemDesc) {
+        this.itemDesc = itemDesc;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getShowPhoneNumber() {
+        return showPhoneNumber;
+    }
+
+    public void setShowPhoneNumber(int showPhoneNumber) {
+        this.showPhoneNumber = showPhoneNumber;
+    }
+
+    public int getShowMessage() {
+        return showMessage;
+    }
+
+    public void setShowMessage(int showMessage) {
+        this.showMessage = showMessage;
+    }
+
+    public int getShowComments() {
+        return showComments;
+    }
+
+    public void setShowComments(int showComments) {
+        this.showComments = showComments;
+    }
+
+    public int getShowWhatsapp() {
+        return showWhatsapp;
+    }
+
+    public void setShowWhatsapp(int showWhatsapp) {
+        this.showWhatsapp = showWhatsapp;
+    }
+
+    public int getPhoneViewsCount() {
+        return phoneViewsCount;
+    }
+
+    public void setPhoneViewsCount(int phoneViewsCount) {
+        this.phoneViewsCount = phoneViewsCount;
+    }
+
+    public int getModifyAt() {
+        return modifyAt;
+    }
+
+    public void setModifyAt(int modifyAt) {
+        this.modifyAt = modifyAt;
+    }
+
+    public int getRemoveAt() {
+        return removeAt;
+    }
+
+    public void setRemoveAt(int removeAt) {
+        this.removeAt = removeAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getFavrtitemStatus() {
+        return favrtitemStatus;
+    }
+
+    public void setFavrtitemStatus(String favrtitemStatus) {
+        this.favrtitemStatus = favrtitemStatus;
+    }
+
+    public String getLikeitemStatus() {
+        return likeitemStatus;
+    }
+
+    public void setLikeitemStatus(String likeitemStatus) {
+        this.likeitemStatus = likeitemStatus;
+    }
+
+    public String getReportStatus() {
+        return reportStatus;
+    }
+
+    public void setReportStatus(String reportStatus) {
+        this.reportStatus = reportStatus;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public List<RelatedAdd> getRelatedAdd() {
+        return relatedAdd;
+    }
+
+    public void setRelatedAdd(List<RelatedAdd> relatedAdd) {
+        this.relatedAdd = relatedAdd;
+    }
 
-
-	@SerializedName("priority")
-	private String priority;
-
-	@SerializedName("username")
-	private String username;
-
-	@SerializedName("email")
-	private String email;
-
-	@SerializedName("country")
-	private String country;
-
-	@SerializedName("subCategory")
-	private String subCategory;
-
-	@SerializedName("itemContent")
-	private String itemContent;
-
-	@SerializedName("rating")
-	private String rating;
-
-	@SerializedName("reviewsCount")
-	private String reviewsCount;
-
-	@SerializedName("likesCount")
-	private String likesCount;
-
-	@SerializedName("price")
-	private String price;
-
-	@SerializedName("rejectedAt")
-	private String rejectedAt;
-
-	@SerializedName("id")
-	private String id;
-
-	@SerializedName("lat")
-	private Object lat;
-
-	@SerializedName("area")
-	private String area;
-
-	@SerializedName("images")
-	private List<Object> images;
-
-	@SerializedName("lng")
-	private Object lng;
-
-	@SerializedName("previewImgUrl")
-	private String previewImgUrl;
-
-	@SerializedName("viewsCount")
-	private String viewsCount;
-
-	@SerializedName("soldAt")
-	private String soldAt;
-
-	@SerializedName("inactiveAt")
-	private String inactiveAt;
-
-	@SerializedName("gifUrl")
-	private String gifUrl;
-
-	@SerializedName("phoneNumber")
-	private String phoneNumber;
-
-	@SerializedName("phone")
-	private String phone;
-
-	@SerializedName("removeAt")
-	private String removeAt;
-
-	@SerializedName("moderatedAt")
-	private String moderatedAt;
-
-	@SerializedName("itemType")
-	private String itemType;
-
-	@SerializedName("itemTitle")
-	private String itemTitle;
-
-	@SerializedName("city")
-	private String city;
-
-	@SerializedName("sharesCount")
-	private String sharesCount;
-
-	@SerializedName("showPhoneNumber")
-	private String showPhoneNumber;
-
-	@SerializedName("showMessage")
-	private String showMessage;
-
-	@SerializedName("reportsCount")
-	private String reportsCount;
-
-	@SerializedName("createAt")
-	private String createAt;
-
-	@SerializedName("videoUrl")
-	private String videoUrl;
-
-	@SerializedName("moderatedId")
-	private String moderatedId;
-
-	@SerializedName("appType")
-	private String appType;
-
-	@SerializedName("currency")
-	private String currency;
-
-	@SerializedName("modifyAt")
-	private String modifyAt;
-
-	@SerializedName("showComments")
-	private String showComments;
-
-	@SerializedName("previewVideoImgUrl")
-	private String previewVideoImgUrl;
-
-	@SerializedName("previewGifUrl")
-	private String previewGifUrl;
-
-	@SerializedName("fromUserId")
-	private String fromUserId;
-
-	@SerializedName("imagesCount")
-	private String imagesCount;
-
-	@SerializedName("u_agent")
-	private String uAgent;
-
-	@SerializedName("categoryTitle")
-	private String categoryTitle;
-
-	@SerializedName("itemDesc")
-	private String itemDesc;
-
-	@SerializedName("imgUrl")
-	private String imgUrl;
-
-	@SerializedName("allowComments")
-	private String allowComments;
-
-	@SerializedName("commentsCount")
-	private String commentsCount;
-
-	@SerializedName("category")
-	private String category;
-
-	@SerializedName("phoneViewsCount")
-	private String phoneViewsCount;
-
-	@SerializedName("ip_addr")
-	private String ipAddr;
-
-	@SerializedName("itemUrl")
-	private String itemUrl;
-
-	@SerializedName("rejectedId")
-	private String rejectedId;
-
-
-	public String getPriority() {
-		return priority;
-	}
-
-	public void setPriority(String priority) {
-		this.priority = priority;
-	}
-
-
-	public String getCountry(){
-		return country;
-	}
-
-	public String getSubCategory(){
-		return subCategory;
-	}
-
-	public String getItemContent(){
-		return itemContent;
-	}
-
-	public String getRating(){
-		return rating;
-	}
-
-	public String getReviewsCount(){
-		return reviewsCount;
-	}
-
-	public String getLikesCount(){
-		return likesCount;
-	}
-
-	public String getPrice(){
-		return price;
-	}
-
-	public String getRejectedAt(){
-		return rejectedAt;
-	}
-
-	public String getId(){
-		return id;
-	}
-
-	public Object getLat(){
-		return lat;
-	}
-
-	public String getArea(){
-		return area;
-	}
-
-	public List<Object> getImages(){
-		return images;
-	}
-
-	public Object getLng(){
-		return lng;
-	}
-
-	public String getPreviewImgUrl(){
-		return previewImgUrl;
-	}
-
-	public String getViewsCount(){
-		return viewsCount;
-	}
-
-	public String getSoldAt(){
-		return soldAt;
-	}
-
-	public String getInactiveAt(){
-		return inactiveAt;
-	}
-
-	public String getGifUrl(){
-		return gifUrl;
-	}
-
-	public String getPhoneNumber(){
-		return phoneNumber;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public String getRemoveAt(){
-		return removeAt;
-	}
-
-	public String getModeratedAt(){
-		return moderatedAt;
-	}
-
-	public String getItemType(){
-		return itemType;
-	}
-
-	public String getItemTitle(){
-		return itemTitle;
-	}
-
-	public String getCity(){
-		return city;
-	}
-
-	public String getSharesCount(){
-		return sharesCount;
-	}
-
-	public String getShowPhoneNumber(){
-		return showPhoneNumber;
-	}
-
-	public String getShowMessage(){
-		return showMessage;
-	}
-
-	public String getReportsCount(){
-		return reportsCount;
-	}
-
-	public String getCreateAt(){
-		return createAt;
-	}
-
-	public String getVideoUrl(){
-		return videoUrl;
-	}
-
-	public String getModeratedId(){
-		return moderatedId;
-	}
-
-	public String getAppType(){
-		return appType;
-	}
-
-	public String getCurrency(){
-		return currency;
-	}
-
-	public String getModifyAt(){
-		return modifyAt;
-	}
-
-	public String getShowComments(){
-		return showComments;
-	}
-
-	public String getPreviewVideoImgUrl(){
-		return previewVideoImgUrl;
-	}
-
-	public String getPreviewGifUrl(){
-		return previewGifUrl;
-	}
-
-	public String getFromUserId(){
-		return fromUserId;
-	}
-
-	public String getImagesCount(){
-		return imagesCount;
-	}
-
-	public String getUAgent(){
-		return uAgent;
-	}
-
-	public String getCategoryTitle(){
-		return categoryTitle;
-	}
-
-	public String getItemDesc(){
-		return itemDesc;
-	}
-
-	public String getImgUrl(){
-		return imgUrl;
-	}
-
-	public String getAllowComments(){
-		return allowComments;
-	}
-
-	public String getCommentsCount(){
-		return commentsCount;
-	}
-
-	public String getCategory(){
-		return category;
-	}
-
-	public String getPhoneViewsCount(){
-		return phoneViewsCount;
-	}
-
-	public String getIpAddr(){
-		return ipAddr;
-	}
-
-	public String getItemUrl(){
-		return itemUrl;
-	}
-
-	public String getRejectedId(){
-		return rejectedId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
 }

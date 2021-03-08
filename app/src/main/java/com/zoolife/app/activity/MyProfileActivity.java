@@ -425,6 +425,7 @@ public class MyProfileActivity extends AppBaseActivity {
 
             @Override
             public void onFailure(Call<UpdateProfileResponseModel> call, Throwable t) {
+                t.printStackTrace();
                 String strr = t.getMessage()!=null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
