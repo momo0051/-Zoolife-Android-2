@@ -51,7 +51,7 @@
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:gravity="center"
-                        android:text="ZOOLIFE"
+                        android:text="إعلاناتي"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/app_bg"
@@ -178,6 +178,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@color/white"
+                            android:paddingLeft="@dimen/dt10"
+                            android:paddingRight="@dimen/dt10"
                             android:scrollbars="none" />
 
                     </LinearLayout>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -47,15 +48,13 @@ public class DeliveryOrderActivity extends AppBaseActivity {
     TextView addDelivery;
     DeliveryAdapter homeAdapter;
 
-
     List<Group> groupsList;
-
 
     EditText deliveryDesc;
     Spinner deliveryCitySpinner;
     ArrayAdapter aa;
     String itemTitle, city;
-    ImageView addDeliveryBtn;
+    Button addDeliveryBtn;
     String[] cities = {"اختيار موقع", "الشرقية", "جدة", "البحرين", "الأمارات", "الكويت", "عرعر", "الجوف", "نجران", "جيزان", "الباحة", "ابها", "حائل", "القصيم", "تبوك", "الطائف", "المدينة", "حفر الباطن", "ينبع", "مكة", "الرياض"};
 
 

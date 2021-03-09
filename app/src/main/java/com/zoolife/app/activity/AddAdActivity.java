@@ -35,6 +35,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.blankj.utilcode.util.FileUtils;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -77,9 +81,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.zoolife.app.activity.AppBaseActivity.session;
-
-public class AddAdActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, ImageListener {
+public class AddAdActivity extends AppBaseActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, ImageListener {
 
     private boolean editMode = false;
 
@@ -319,6 +321,12 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         }
 
         showImages(adsImages);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
     }
 
     int count = 0;
@@ -693,7 +701,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported() {
+    public void forceRTLIfSupported() {
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 

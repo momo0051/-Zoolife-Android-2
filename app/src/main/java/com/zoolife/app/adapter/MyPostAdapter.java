@@ -3,6 +3,8 @@ package com.zoolife.app.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.zoolife.app.R;
@@ -80,9 +85,18 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
         holder.itemPostedBy.setText(current.username);
         holder.itemLocation.setText(current.location);
 
+        RequestOptions requestOptions = new RequestOptions();
+        Resources r = activity.getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                18,
+                r.getDisplayMetrics()
+        );
+        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners((int) px));
         Glide.with(activity)
                 .load("https://api.zoolifeshop.com/api/assets/images/" + current.image)
                 .centerCrop()
+                .apply(requestOptions)
                 .placeholder(R.drawable.placeholder)
                 .into(holder.itemImage);
 

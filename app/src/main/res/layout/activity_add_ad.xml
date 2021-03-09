@@ -110,7 +110,6 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
                                         android:text="موقعك"
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
@@ -350,6 +349,7 @@
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
+                            <!--                            android:hint="أضف عنوان الأعلان"-->
                             <EditText
                                 android:id="@+id/titleET"
                                 android:layout_width="match_parent"
@@ -357,19 +357,27 @@
                                 android:layout_marginTop="@dimen/dt10"
                                 android:background="@drawable/bg_spinner"
                                 android:elevation="5dp"
-                                android:hint="أضف عنوان الأعلان"
                                 android:padding="@dimen/dt10"
                                 android:singleLine="true" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginTop="@dimen/dt25"
+                                android:text="اكتب وصفك هنا"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+
+                            <!--                            android:hint="اكتب وصفك هنا"-->
                             <EditText
                                 android:id="@+id/descriptionET"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/d150"
-                                android:layout_marginTop="@dimen/dt20"
+                                android:layout_marginTop="@dimen/dt10"
                                 android:background="@drawable/bg_spinner"
                                 android:elevation="5dp"
                                 android:gravity="start"
-                                android:hint="اكتب وصفك هنا"
                                 android:padding="@dimen/dt10" />
 
 
@@ -567,16 +575,18 @@
 
                         <Button
                             android:id="@+id/adDeleteBtn"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_marginHorizontal="@dimen/dt20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dt20"
                             android:layout_marginBottom="@dimen/dt20"
                             android:background="@drawable/white_round_boder"
-                            android:backgroundTint="@color/dark_red"
                             android:text="حذف الاعلان"
                             android:textColor="@color/white"
                             android:textSize="17sp"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            app:backgroundTint="@color/dark_red"
+                            tools:visibility="visible" />
 
                     </LinearLayout>
 

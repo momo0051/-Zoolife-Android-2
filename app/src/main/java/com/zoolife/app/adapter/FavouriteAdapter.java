@@ -2,6 +2,8 @@ package com.zoolife.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,11 +55,17 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             holder.singleCLick.setBackgroundColor(context.getResources().getColor(R.color.white));
         }*/
         holder.itemTitle.setText(current.getItemTitle());
-        holder.itemPOstedDate.setText(parseDate(current.getCo()));
+         holder.itemPOstedDate.setText(parseDate(current.getCo()));
         holder.itemLocation.setText(current.getCity());
 
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(16));
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                18,
+                r.getDisplayMetrics()
+        );
+        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners((int) px));
         Glide
         .with(context)
         .load("https://api.zoolifeshop.com/api/assets/images/" + current.getItemImage())

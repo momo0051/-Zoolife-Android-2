@@ -282,6 +282,12 @@ public class AddDetailsActivity extends AppBaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     private void fetchAd(String add_id) {
 
         progress_circular.setVisibility(View.VISIBLE);

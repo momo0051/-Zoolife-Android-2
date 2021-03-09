@@ -24,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FullCommentActivity extends AppCompatActivity {
+public class FullCommentActivity extends AppBaseActivity {
     private static final String TAG = "FullCommentActivity";
 
     ImageView btnSearchBack;
@@ -48,6 +48,12 @@ public class FullCommentActivity extends AppCompatActivity {
 
         add_id = getIntent().getStringExtra("id");
         viewComments();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
     }
 
     private void viewComments() {

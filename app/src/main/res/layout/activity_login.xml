@@ -48,14 +48,14 @@
                     android:src="@drawable/ic_cross_red" />
             </RelativeLayout>
 
-<!--            <ImageView-->
-<!--                android:id="@+id/iv_main"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginHorizontal="10dp"-->
-<!--                android:layout_marginVertical="10dp"-->
-<!--                android:adjustViewBounds="true"-->
-<!--                android:src="@drawable/ic_title_icon" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_main"-->
+            <!--                android:layout_width="100dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginHorizontal="10dp"-->
+            <!--                android:layout_marginVertical="10dp"-->
+            <!--                android:adjustViewBounds="true"-->
+            <!--                android:src="@drawable/ic_title_icon" />-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                 android:fontFamily="sans-serif-black"
                 android:text="@string/welcome_back"
                 android:textColor="@color/app_bg"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:visibility="visible" />
 
@@ -77,7 +77,7 @@
                 android:fontFamily="sans-serif-black"
                 android:text="@string/we_are_happy"
                 android:textColor="@color/light_slate_gray"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,7 +87,8 @@
                 android:fontFamily="sans-serif-black"
                 android:text="@string/please_let_sign_up"
                 android:textColor="@color/light_slate_gray"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -131,6 +132,7 @@
                 tools:ignore="MissingPrefix" />
 
             <!--        android:hint="ادخل البريد الإلكتروني"-->
+            <!--            android:hint="ادخل كلمة رقم الهاتف"-->
             <EditText
                 android:id="@+id/editTextUserName"
                 android:layout_width="match_parent"
@@ -139,7 +141,6 @@
                 android:background="@drawable/bg_input_field"
                 android:elevation="5dp"
                 android:gravity="end"
-                android:hint="ادخل كلمة رقم الهاتف"
                 android:inputType="phone"
                 android:minWidth="@dimen/d40"
                 android:padding="@dimen/d15"
@@ -155,9 +156,8 @@
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/d20"
-            android:layout_weight="0.20"
             android:gravity="center"
             android:orientation="vertical"
             android:weightSum="1"
@@ -188,13 +188,13 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
+                <!--                android:hint="ادخل كلمة المرور"-->
                 <EditText
                     android:id="@+id/editTextPassword"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="0.91"
                     android:background="@null"
-                    android:hint="ادخل كلمة المرور"
                     android:inputType="textPassword"
                     android:minWidth="@dimen/d60"
                     android:paddingHorizontal="@dimen/d15"
@@ -231,17 +231,21 @@
             android:singleLine="true"
             android:text="هل نسيت كلمة المرور ؟"
             android:textColor="@color/light_slate_gray"
-            android:textSize="13sp"
+            android:textSize="16sp"
             tools:ignore="MissingPrefix" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/d20"
             android:layout_weight="0.5"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:weightSum="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
@@ -291,12 +295,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="@dimen/d20"
                 android:singleLine="true"
                 android:text="ليس لديك حساب؟ سجل"
                 android:textColor="@color/light_slate_gray"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 tools:ignore="MissingPrefix" />
 
         </LinearLayout>
