@@ -77,11 +77,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
                         android:prompt="@string/main_category" />
-
 
                 </LinearLayout>
 
@@ -93,7 +90,6 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-
                     <EditText
                         android:id="@+id/add_delivery_desc"
                         android:layout_width="match_parent"
@@ -101,10 +97,10 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:background="@color/transparent"
+                        android:gravity="center_vertical"
                         android:hint="عنوان الاعلان"
                         android:inputType="text"
                         android:textColor="@color/black" />
-
 
                 </LinearLayout>
 
