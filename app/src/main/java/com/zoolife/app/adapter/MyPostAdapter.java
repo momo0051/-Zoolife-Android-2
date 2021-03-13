@@ -1,6 +1,8 @@
 package com.zoolife.app.adapter;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.zoolife.app.R;
@@ -21,6 +26,7 @@ import com.zoolife.app.activity.MyPostsActivity;
 import com.zoolife.app.models.HomeModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
+import com.zoolife.app.utility.TimeShow;
 
 import java.util.List;
 
@@ -68,13 +74,24 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
             holder.singleCLick.setBackgroundColor(context.getResources().getColor(R.color.white));
         }*/
         holder.itemTitle.setText(current.title);
-        holder.itemPOstedDate.setText(current.postedDate);
+        TimeShow timeShow = new TimeShow();
+        holder.itemPOstedDate.setText(timeShow.covertTimeToText(activity, current.postedDate));
         holder.itemPostedBy.setText(current.username);
         holder.itemLocation.setText(current.location);
+
+        RequestOptions requestOptions = new RequestOptions();
+        Resources r = activity.getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                18,
+                r.getDisplayMetrics()
+        );
+        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners((int) px));
 
         Glide.with(activity)
                 .load(current.image)
                 .centerCrop()
+                .apply(requestOptions)
                 .placeholder(R.drawable.placeholder)
                 .into(holder.itemImage);
 
@@ -91,6 +108,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
                     Intent intent = new Intent(activity, AddAdActivity.class);
                     intent.putExtra("edit", true);
                     intent.putExtra("editId", current.id);
+                    intent.putExtra("priority", current.priority);
 
                     activity.position = position;
 
@@ -142,7 +160,7 @@ public class MyPostAdapter extends RecyclerView.Adapter<MyPostAdapter.MyViewHold
     }
 
     private void deleteApi(String id) {
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(activity).create(ApiService.class);
         Call<NoDataResponseModel> call = apiService.deleteItem(session.getUserId(), id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override

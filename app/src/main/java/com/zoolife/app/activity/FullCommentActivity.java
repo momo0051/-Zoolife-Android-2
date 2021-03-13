@@ -16,14 +16,13 @@ import com.zoolife.app.network.ApiService;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FullCommentActivity extends AppCompatActivity {
+public class FullCommentActivity extends AppBaseActivity {
     private static final String TAG = "FullCommentActivity";
 
     ImageView btnSearchBack;
@@ -50,10 +49,16 @@ public class FullCommentActivity extends AppCompatActivity {
         viewComments();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     private void viewComments() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<ViewCommentsResponseModel> call = apiService.listCommentByItem(add_id);
         call.enqueue(new Callback<ViewCommentsResponseModel>() {
             @Override
@@ -69,7 +74,7 @@ public class FullCommentActivity extends AppCompatActivity {
 
                         for (int i = 0; i < responseModel.getData().size(); i++) {
                             DataItem dataItem = responseModel.getData().get(i);
-                            arrayList.add(new CommentModel(dataItem.getMessage(), dataItem.getId(), dataItem.getUserFullname(), dataItem.getCo()));
+                            arrayList.add(new CommentModel(dataItem.getMessage(), String.valueOf(dataItem.getId()), dataItem.getUsername(), dataItem.getCo()));
                         }
                         if (arrayList.size() > 0) {
                             commentsAdapter = new CommentsAdapter(getApplicationContext(), arrayList);

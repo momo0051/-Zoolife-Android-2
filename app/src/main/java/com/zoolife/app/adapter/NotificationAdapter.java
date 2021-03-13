@@ -8,12 +8,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.zoolife.app.R;
 import com.zoolife.app.activity.AddDetailsActivity;
-import com.zoolife.app.models.HomeModel;
 import com.zoolife.app.models.NotificationModel;
 import com.zoolife.app.utility.TimeShow;
 
@@ -25,22 +21,25 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
 
     Context context;
     List<NotificationModel> data;
     NotificationModel current;
 
-    public NotificationAdapter(Context context, List<NotificationModel> data){
+    public NotificationAdapter(Context context, List<NotificationModel> data) {
         this.context = context;
-        this.data=data;
+        this.data = data;
     }
 
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_notification,parent,false);
+        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_notification, parent, false);
         return new MyViewHolder(searchResultView);
     }
 
@@ -50,7 +49,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.title.setText(current.notif_title);
 //        holder.postedBy.setText(current.notif_posted);
         TimeShow timeShow = new TimeShow();
-        holder.postedBy.setText(timeShow.covertTimeToText(current.notif_posted));
+        holder.postedBy.setText(timeShow.covertTimeToText(context, current.notif_posted));
 
         holder.frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,19 +72,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return data.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView title,postedBy;
-        FrameLayout frameLayout;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.notif_title);
-            postedBy = itemView.findViewById(R.id.notif_posted);
-            frameLayout = itemView.findViewById(R.id.frame);
-        }
-    }
-
-    public String getDate(String dateTime){
+    public String getDate(String dateTime) {
         Locale loc = new Locale("ar");
         Locale.setDefault(loc);
 
@@ -106,6 +93,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
 //        System.out.println(pstFormat.format(date));
         return pstFormat.format(date);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView title, postedBy;
+        FrameLayout frameLayout;
+
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.notif_title);
+            postedBy = itemView.findViewById(R.id.notif_posted);
+            frameLayout = itemView.findViewById(R.id.frame);
+        }
     }
 
 

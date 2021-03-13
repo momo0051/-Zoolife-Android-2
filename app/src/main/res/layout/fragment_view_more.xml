@@ -59,6 +59,37 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:padding="@dimen/dt10">
+
+                <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                    android:id="@+id/lang_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    app:activeBgColor="@android:color/holo_blue_dark"
+                    app:activeTextColor="@android:color/white"
+                    app:cornerRadius="0dp"
+                    app:inactiveBgColor="@android:color/darker_gray"
+                    app:inactiveTextColor="@android:color/white"
+                    app:separatorColor="@color/gray_very_light"
+                    app:textToggleLeft="AR"
+                    app:textToggleRight="EN" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/app_bg" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -72,7 +103,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -80,14 +111,14 @@
                         android:id="@+id/all_post_img"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_plus" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/all_post_img"
+                        android:layout_toRightOf="@id/all_post_img"
                         android:text="@string/add_ad"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -117,7 +148,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -125,14 +156,14 @@
                         android:id="@+id/item5"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_heart" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/item5"
+                        android:layout_toRightOf="@id/item5"
                         android:text="@string/favourite_ad"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -161,7 +192,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -169,14 +200,14 @@
                         android:id="@+id/item3"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_account" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/item3"
+                        android:layout_toRightOf="@id/item3"
                         android:text="@string/my_ads"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -222,8 +253,8 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:id="@+id/user_img"
-                                android:layout_marginLeft="10dp"
-                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_alignParentLeft="true"
                                 android:src="@drawable/pin"/>
 
                             <TextView
@@ -233,7 +264,7 @@
                                 android:text="@string/change_city"
                                 android:textColor="@color/app_bg"
                                 android:textSize="18sp"
-                                android:layout_toLeftOf="@id/user_img"/>
+                                android:layout_toRightOf="@id/user_img"/>
 
                         </RelativeLayout>
 
@@ -251,7 +282,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -270,14 +301,14 @@
                         android:id="@+id/orderimg"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_del" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/orderimg"
+                        android:layout_toRightOf="@id/orderimg"
                         android:text="@string/order_delivery"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -316,14 +347,14 @@
                                 android:id="@+id/add_img"
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="10dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="10dp"
                                 android:src="@drawable/choice" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toLeftOf="@id/add_img"
+                                android:layout_toRightOf="@id/add_img"
                                 android:text="@string/order_vet_consultant"
                                 android:textColor="@color/app_bg"
                                 android:textSize="18sp" />
@@ -362,14 +393,14 @@
                                 android:id="@+id/item4"
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginLeft="10dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginRight="10dp"
                                 android:src="@drawable/exclamation" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_toLeftOf="@id/item4"
+                                android:layout_toRightOf="@id/item4"
                                 android:text="@string/report_missing_pet"
                                 android:textColor="@color/app_bg"
                                 android:textSize="18sp" />
@@ -388,7 +419,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -407,14 +438,14 @@
                         android:id="@+id/item7"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_alert" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/item7"
+                        android:layout_toRightOf="@id/item7"
                         android:text="@string/banned_ads"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -452,8 +483,8 @@
                                 android:id="@+id/item"
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10dp"
+                                android:layout_alignParentLeft="true"
                                 android:src="@drawable/ban"/>
 
                             <TextView
@@ -462,7 +493,7 @@
                                 android:text="@string/black_list"
                                 android:textSize="18sp"
                                 android:textColor="@color/app_bg"
-                                android:layout_toLeftOf="@id/item"/>
+                                android:layout_toRightOf="@id/item"/>
 
                         </RelativeLayout>-->
 
@@ -478,7 +509,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -497,14 +528,14 @@
                         android:id="@+id/item6"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_doc" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/item6"
+                        android:layout_toRightOf="@id/item6"
                         android:text="@string/policy_terms"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -524,7 +555,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -543,14 +574,14 @@
                         android:id="@+id/item8"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_phone" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/item8"
+                        android:layout_toRightOf="@id/item8"
                         android:text="@string/call_us"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />
@@ -569,7 +600,7 @@
                     android:background="@drawable/ripple_effect"
                     android:clickable="true"
                     android:focusable="true"
-                    android:gravity="right|center"
+                    android:gravity="left|center"
                     android:orientation="horizontal"
                     android:paddingRight="10dp">
 
@@ -577,15 +608,15 @@
                         android:id="@+id/logout"
                         android:layout_width="26dp"
                         android:layout_height="26dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="10dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginRight="10dp"
                         android:src="@drawable/ic_more_logout" />
 
                     <TextView
                         android:id="@+id/logoutTV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/logout"
+                        android:layout_toRightOf="@id/logout"
                         android:text="@string/logout"
                         android:textColor="@color/app_bg"
                         android:textSize="18sp" />

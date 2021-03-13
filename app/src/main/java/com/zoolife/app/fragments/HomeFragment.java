@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
 
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -256,7 +256,7 @@ public class HomeFragment extends Fragment {
     public void getAllPost() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
@@ -301,7 +301,7 @@ public class HomeFragment extends Fragment {
     public void getAllPostByCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllItembyCategory(cat_id, session.getCity(), 1, 0);
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
@@ -352,7 +352,7 @@ public class HomeFragment extends Fragment {
         progress_circular.setVisibility(View.VISIBLE);
         Log.d(TAG, "getAllPostBySubCategory: " + cat_id + " " + sub_cat_id);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
@@ -415,7 +415,7 @@ public class HomeFragment extends Fragment {
         progress_circular.setVisibility(View.VISIBLE);
         Log.e("TAG", "Get Category Category called");
 //        ApiService apiService = ApiClient.getClientZoo().create(ApiService.class);
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<CategoryResponseModel> call = apiService.getCategory();
         call.enqueue(new Callback<CategoryResponseModel>() {
             @Override
@@ -461,7 +461,7 @@ public class HomeFragment extends Fragment {
     private void getSearch(String searchText) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<SearchResponseModel> call = apiService.itemSearch(session.getUserId(), searchText);
         call.enqueue(new Callback<SearchResponseModel>() {
             @Override
@@ -510,7 +510,7 @@ public class HomeFragment extends Fragment {
     public void getSubCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
@@ -592,7 +592,7 @@ public class HomeFragment extends Fragment {
         try {
             progress_circular.setVisibility(View.VISIBLE);
 
-            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
 
 
             MultipartBody.Builder builder = new MultipartBody.Builder();

@@ -37,7 +37,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     Context context;
     List<HomeModel> data;
     HomeModel current;
-    public HomeAdapter(Context context, List<HomeModel> data){
+
+    public HomeAdapter(Context context, List<HomeModel> data) {
         this.context = context;
         this.data = data;
     }
@@ -45,7 +46,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_home,parent,false);
+        View searchResultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_item_home, parent, false);
         return new MyViewHolder(searchResultView);
     }
 
@@ -53,17 +54,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         current = data.get(position);
 //        holder.setIsRecyclable(true);
-        if(current.priority.equals("0") ||  current.priority==null){
+        if (current.priority.equals("0") || current.priority == null) {
             holder.itemImage.setBorderColor(context.getResources().getColor(R.color.transparent));
 //            holder.singleCLick.setBackground(context.getResources().getDrawable(R.color.white_smoke));
-        }else{
+        } else {
             holder.itemImage.setBorderColor(context.getResources().getColor(R.color.yellow));
 //            holder.singleCLick.setBackground(context.getResources().getDrawable(R.drawable.border_yellow));
         }
         holder.itemTitle.setText(current.title);
 //        holder.itemPOstedDate.setText(parseDate(current.postedDate));
         TimeShow timeShow = new TimeShow();
-        holder.itemPOstedDate.setText(timeShow.covertTimeToText(current.postedDate));
+        if (current.postedDate != null) {
+            holder.itemPOstedDate.setText(timeShow.covertTimeToText(context, current.postedDate));
+        }
 //        holder.itemPOstedDate.setText(parseDate(current.postedDate));
 
 //        holder.itemPostedBy.setText(timeShow.covertTimeToText(current.postedDate));
@@ -103,19 +106,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
                     })
                     .into(holder.itemImage);
     }
+
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    public void setEvenData(){
+    public void setEvenData() {
 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         RoundedImageView itemImage;
         ImageView itemFavImage;
-        TextView itemTitle,itemPOstedDate,itemPostedBy,itemLocation;
+        TextView itemTitle, itemPOstedDate, itemPostedBy, itemLocation;
         LinearLayout singleCLick;
         LinearLayout item_user_postedby_layout;
 
@@ -138,7 +142,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             if (context != null) {
                 HomeModel model = data.get(getAdapterPosition());
                 Intent intent = new Intent(context, AddDetailsActivity.class);
-                intent.putExtra("id", model.id);
+                intent.putExtra("id", String.valueOf(model.id));
                 intent.putExtra("from", "Home");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

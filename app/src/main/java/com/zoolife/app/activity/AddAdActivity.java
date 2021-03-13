@@ -66,7 +66,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.MediaType;
@@ -76,9 +75,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.zoolife.app.activity.AppBaseActivity.session;
-
-public class AddAdActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, ImageListener {
+public class AddAdActivity extends AppBaseActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, ImageListener {
 
     private boolean editMode = false;
 
@@ -100,8 +97,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     String sub_category;
     String category;
     EditText titleET, descriptionET;
-    CheckBox cb1, cb2, cb3;
-    int phone = 0, message = 0, comment = 0;
+    CheckBox cb1, cb2, cb3, cb4;
+    int phone = 0, message = 0, comment = 0, whatsApp = 0;
     int cat, subCat, loc;
     Switch showPhone;
     //    SquareImageView coverImage;
@@ -124,6 +121,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     List<String> imagesEncodedList = new ArrayList<>();
     AdapterAdsImages adapterAdsImages;
     List<String> sub_categories;
+    String priority = "0";
 
     private String id = "";
 
@@ -131,7 +129,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
 
         setContentView(R.layout.activity_add_ad);
         requestMultiplePermissions();
@@ -142,6 +140,8 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         if (getIntent() != null && getIntent().getBooleanExtra("edit", false)) {
             editMode = true;
             editId = getIntent().getStringExtra("editId");
+            priority = getIntent().getStringExtra("priority");
+
         }
 
         adDeleteBtn = findViewById(R.id.adDeleteBtn);
@@ -174,6 +174,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         cb1 = findViewById(R.id.phoneCB);
         cb2 = findViewById(R.id.messageCB);
         cb3 = findViewById(R.id.commentCB);
+        cb4 = findViewById(R.id.whatsappCB);
         cb1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -202,6 +203,16 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
                     comment = 1;
                 } else {
                     comment = 0;
+                }
+            }
+        });
+        cb4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    whatsApp = 1;
+                } else {
+                    whatsApp = 0;
                 }
             }
         });
@@ -324,6 +335,12 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         showImages(adsImages);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     int count = 0;
 
     private void setCategorySpinner() {
@@ -383,7 +400,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     public void getSubCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
@@ -490,14 +507,14 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         try {
             progress_circular.setVisibility(View.VISIBLE);
 
-            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
 
             MultipartBody.Builder builder = new MultipartBody.Builder();
             builder.setType(MultipartBody.FORM);
             builder.addFormDataPart("user_id", session.getUserId());
             builder.addFormDataPart("fromUserId", session.getUserId());
-            builder.addFormDataPart("priority", "1");
+            builder.addFormDataPart("priority", "0");
             builder.addFormDataPart("username", session.getEmail());
             builder.addFormDataPart("location", location1);
             builder.addFormDataPart("itemTitle", titleET.getText().toString());
@@ -507,6 +524,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
             builder.addFormDataPart("showComments", "" + comment);
             builder.addFormDataPart("showPhoneNumber", "" + phone);
             builder.addFormDataPart("showMessage", "" + message);
+            builder.addFormDataPart("showWhatsapp", "" + whatsApp);
             builder.addFormDataPart("city", location1);
             builder.addFormDataPart("country", "المملكة العربية السعودية");
 
@@ -567,7 +585,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
         try {
             progress_circular.setVisibility(View.VISIBLE);
 
-            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
 
             MultipartBody.Builder builder = new MultipartBody.Builder();
@@ -576,7 +594,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
             builder.addFormDataPart("item_id", id);
             builder.addFormDataPart("user_id", session.getUserId());
             builder.addFormDataPart("fromUserId", session.getUserId());
-            builder.addFormDataPart("priority", "1");
+            builder.addFormDataPart("priority", priority);
             builder.addFormDataPart("username", session.getEmail());
             builder.addFormDataPart("location", location1);
             builder.addFormDataPart("itemTitle", titleET.getText().toString());
@@ -772,7 +790,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void forceRTLIfSupported() {
+    public void forceRTLIfSupported() {
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
@@ -1014,7 +1032,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
 
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileToSend);
         MultipartBody.Part media = MultipartBody.Part.createFormData("images[]", FileUtils.getFileName(fileToSend), requestFile);
@@ -1052,7 +1070,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void fetchData() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<GetPostResponseModel> call = apiService.getItem(Integer.parseInt(session.getUserId()), Integer.parseInt(editId));
         call.enqueue(new Callback<GetPostResponseModel>() {
             @Override
@@ -1102,7 +1120,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void deleteApi(String id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<NoDataResponseModel> call = apiService.deleteItem(session.getUserId(), id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override
@@ -1127,7 +1145,7 @@ public class AddAdActivity extends AppCompatActivity implements AdapterView.OnIt
     private void deleteImages(String id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<NoDataResponseModel> call = apiService.deleteItemImage(id);
         call.enqueue(new Callback<NoDataResponseModel>() {
             @Override

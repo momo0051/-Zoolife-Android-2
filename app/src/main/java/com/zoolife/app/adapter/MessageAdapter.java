@@ -8,22 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.Timestamp;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.GetUserProfile.GetUserProfileResponseModel;
 import com.zoolife.app.Session;
-import com.zoolife.app.activity.AddDetailsActivity;
 import com.zoolife.app.activity.ChatActivity;
-import com.zoolife.app.activity.MessageConversationActivity;
 import com.zoolife.app.firebase.models.Group;
-import com.zoolife.app.models.MessageModels;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
@@ -33,6 +26,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -119,7 +114,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
             String username = group.getSenderPhone().equals(session.getPhone()) ? group.getRecipientPhone() : group.getSenderPhone();
             //String ID = group.getse().equals(session.getPhone()) ? group.getRecipientPhone() : group.getSenderPhone();
 
-            ApiService apiService = ApiClient.getClient().create(ApiService.class);
+            ApiService apiService = ApiClient.getClient(context).create(ApiService.class);
             Call<GetUserProfileResponseModel> call = apiService.getUserProfile(session.getUserId());
             call.enqueue(new Callback<GetUserProfileResponseModel>() {
                 @Override

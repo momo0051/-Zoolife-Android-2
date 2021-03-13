@@ -8,12 +8,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mukesh.OnOtpCompletionListener;
+import com.mukesh.OtpView;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.OTP.OTPResponseModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
-import com.mukesh.OnOtpCompletionListener;
-import com.mukesh.OtpView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,7 +76,7 @@ public class OTPVerification extends AppBaseActivity implements View.OnClickList
     private void verifyOTP(String otp) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<OTPResponseModel> call = apiService.otpVerify(email1, otp);
         call.enqueue(new Callback<OTPResponseModel>() {
             @Override

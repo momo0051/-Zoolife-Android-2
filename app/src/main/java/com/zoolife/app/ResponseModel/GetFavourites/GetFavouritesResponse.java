@@ -7,22 +7,32 @@ import java.util.List;
 
 public class GetFavouritesResponse {
 
-    @SerializedName("status")
-    @Expose
-    private int status;
     @SerializedName("error")
     @Expose
     private boolean error;
+    @SerializedName("status")
+    @Expose
+    private int status;
     @SerializedName("data")
     @Expose
     private List<Datum> data = null;
 
-    public int getStatus() {
-        return status;
+    /**
+     * No args constructor for use in serialization
+     */
+    public GetFavouritesResponse() {
     }
 
-    public void setStatus(int status) {
+    /**
+     * @param data
+     * @param error
+     * @param status
+     */
+    public GetFavouritesResponse(boolean error, int status, List<Datum> data) {
+        super();
+        this.error = error;
         this.status = status;
+        this.data = data;
     }
 
     public boolean isError() {
@@ -31,6 +41,14 @@ public class GetFavouritesResponse {
 
     public void setError(boolean error) {
         this.error = error;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public List<Datum> getData() {

@@ -45,7 +45,7 @@ public class SignUpActivity extends AppBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
         setContentView(R.layout.activity_sign_up);
 
         signupButton = (RelativeLayout) findViewById(R.id.signupButton);
@@ -137,7 +137,7 @@ public class SignUpActivity extends AppBaseActivity {
         String email = editTextEmail.getText().toString();
         String fullname = editFullName.getText().toString();
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
 //        Call<JsonObject> call=apiService.signUp("register",fullname,email,contactNumber,password);
         Call<JsonObject> call = apiService.signUp(fullname, email, contactNumber, password);
         call.enqueue(new Callback<JsonObject>() {

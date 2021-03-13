@@ -9,6 +9,9 @@
     <color name="selected_color">#DCDCDC</color>
     <color name="background_color">#D82E55A6</color>
 
+    <color name="light_blue_button">#1E90FF</color>
+    <color name="dark_blue_button">#D82E55A6</color>
+
     <color name="white">#FFFFFF</color>
     <color name="ivory">#FFFFF0</color>
     <color name="light_yellow">#FFFFE0</color>

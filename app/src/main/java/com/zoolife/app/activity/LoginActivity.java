@@ -43,7 +43,7 @@ public class LoginActivity extends AppBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
         setContentView(R.layout.activity_login);
 
         loginButton = (RelativeLayout) findViewById(R.id.loginButton);
@@ -136,8 +136,8 @@ public class LoginActivity extends AppBaseActivity {
         String username = editTextUserName.getText().toString();
         String password = editTextPassword.getText().toString();
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<JsonObject> call = apiService.signIn( username, password);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<JsonObject> call = apiService.signIn(username, password);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {

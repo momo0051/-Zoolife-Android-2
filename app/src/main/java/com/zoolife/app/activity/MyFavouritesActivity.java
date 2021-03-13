@@ -40,7 +40,7 @@ public class MyFavouritesActivity extends AppBaseActivity {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
 
         setContentView(R.layout.activity_my_fav);
 
@@ -59,6 +59,12 @@ public class MyFavouritesActivity extends AppBaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLightStatusBar();
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public void forceRTLIfSupported() {
         Objects.requireNonNull(this).getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
@@ -68,7 +74,7 @@ public class MyFavouritesActivity extends AppBaseActivity {
     private void getAllFavourites() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<GetFavouritesResponse> call = apiService.favItembyUser(session.getUserId());
         call.enqueue(new Callback<GetFavouritesResponse>() {
             @Override

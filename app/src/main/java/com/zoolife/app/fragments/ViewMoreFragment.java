@@ -9,18 +9,21 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import com.zoolife.app.R;
 import com.zoolife.app.activity.AboutUsActivity;
 import com.zoolife.app.activity.AddAdActivity;
 import com.zoolife.app.activity.DeliveryOrderActivity;
 import com.zoolife.app.activity.LoginActivity;
-import com.zoolife.app.activity.MissingActivity;
 import com.zoolife.app.activity.MyFavouritesActivity;
 import com.zoolife.app.activity.MyPostsActivity;
+import com.zoolife.app.activity.SplashActivity;
 import com.zoolife.app.adapter.PDFViewActivity;
+import com.zoolife.app.utility.LocaleHelper;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
+import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 
 import static com.zoolife.app.activity.AppBaseActivity.session;
 
@@ -43,6 +46,7 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ToggleSwitch languageSwitch;
 
     public ViewMoreFragment() {
         // Required empty public constructor
@@ -74,6 +78,13 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_more, container, false);
 
+        languageSwitch = view.findViewById(R.id.lang_toggle);
+        String lang = LocaleHelper.getLanguage(getContext());
+        if (lang.equals("ar")) {
+            languageSwitch.setCheckedTogglePosition(0);
+        } else {
+            languageSwitch.setCheckedTogglePosition(1);
+        }
         addAdLayout = view.findViewById(R.id.addAdLayout);
         favouriteLayout = view.findViewById(R.id.favouriteLayout);
         logoutLayout = view.findViewById(R.id.logoutLayout);
@@ -151,7 +162,19 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
                     startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
-
+        languageSwitch.setOnToggleSwitchChangeListener(new BaseToggleSwitch.OnToggleSwitchChangeListener() {
+            @Override
+            public void onToggleSwitchChangeListener(int position, boolean isChecked) {
+                if (position == 0) {
+                    LocaleHelper.setLocale(getActivity(), "ar");
+                } else {
+                    LocaleHelper.setLocale(getActivity(), "en");
+                }
+                getActivity().finish();
+                Intent intent = new Intent(getContext(), SplashActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -182,13 +205,13 @@ public class ViewMoreFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tNcLayout:
                 Intent intent = new Intent(getActivity(), PDFViewActivity.class);
-                intent.putExtra("file", "terms_and_policy");
+                intent.putExtra("file", "terms_and_policy_" + LocaleHelper.getLanguage(getActivity()));
                 intent.putExtra("title", "Terms And Policy");
                 getActivity().startActivity(intent);
                 break;
             case R.id.bannedAdsLayout:
                 Intent intent1 = new Intent(getActivity(), PDFViewActivity.class);
-                intent1.putExtra("file", "banned");
+                intent1.putExtra("file", "banned_" + LocaleHelper.getLanguage(getActivity()));
                 intent1.putExtra("title", "Banned");
                 getActivity().startActivity(intent1);
                 break;

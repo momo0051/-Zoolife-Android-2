@@ -2,6 +2,8 @@ package com.zoolife.app.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.GetFavourites.Datum;
 import com.zoolife.app.activity.AddDetailsActivity;
+import com.zoolife.app.utility.TimeShow;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,14 +56,25 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             holder.singleCLick.setBackgroundColor(context.getResources().getColor(R.color.white));
         }*/
         holder.itemTitle.setText(current.getItemTitle());
-       // holder.itemPOstedDate.setText(parseDate(current.getCreatedAt()));
+        // holder.itemPOstedDate.setText(parseDate(current.getCreatedAt()));
+//        holder.itemPOstedDate.setText(parseDate(current.getCo()));
         holder.itemLocation.setText(current.getCity());
+        holder.itemPostedBy.setText(current.getUsername());
+        TimeShow timeShow = new TimeShow();
+        holder.itemPOstedDate.setText(timeShow.covertTimeToText(context, current.getCreatedAt()));
 
         RequestOptions requestOptions = new RequestOptions();
-        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(16));
+
+        Resources r = context.getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                18,
+                r.getDisplayMetrics()
+        );
+        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners((int) px));
         Glide
                 .with(context)
-                .load(current.getItemImage())
+                .load(current.getImgUrl())
                 .centerCrop()
                 .apply(requestOptions)
                 .placeholder(R.drawable.placeholder)
@@ -70,7 +84,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.MyVi
             if (context != null) {
                 Intent addDetailsIntent = new Intent(context, AddDetailsActivity.class);
                 addDetailsIntent.putExtra("from", "Home");
-                addDetailsIntent.putExtra("id", current.getItemId());
+                addDetailsIntent.putExtra("id", String.valueOf(current.getId()));
                 context.startActivity(addDetailsIntent);
             }
         });

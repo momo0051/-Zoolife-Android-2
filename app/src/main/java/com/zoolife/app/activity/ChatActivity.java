@@ -2,7 +2,6 @@ package com.zoolife.app.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,14 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentChange;
@@ -47,13 +38,17 @@ import com.zoolife.app.firebase.models.Thread;
 import com.zoolife.app.firebase.models.User;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
-import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -104,7 +99,7 @@ public class ChatActivity extends AppBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
         setContentView(R.layout.activity_chat);
 
 
@@ -341,8 +336,8 @@ public class ChatActivity extends AppBaseActivity {
     }
 
     private void getUserProfileApi(final FirebaseUtils.OnCompleteCallback onCompleteCallback) {
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<GetUserProfileResponseModel> call = apiService.getUserProfile( adCreatedUser);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<GetUserProfileResponseModel> call = apiService.getUserProfile(adCreatedUser);
         call.enqueue(new Callback<GetUserProfileResponseModel>() {
             @Override
             public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {

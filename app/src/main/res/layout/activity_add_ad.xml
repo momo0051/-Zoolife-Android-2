@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="إضافة إعلان"
+                    android:text="@string/post_an_ad"
                     android:textColor="@color/app_bg"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -95,7 +95,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="end"
                                     android:layout_margin="@dimen/d10"
-                                    android:text="حذف الصور"
+                                    android:text="@string/delete_photos"
                                     android:textColor="@color/dark_red"
                                     android:textSize="@dimen/dt16"
                                     android:visibility="gone"
@@ -110,8 +110,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="end"
-                                        android:text="موقعك"
+                                        android:layout_gravity="start"
+                                        android:text="@string/location"
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
 
@@ -175,7 +175,7 @@
                                     android:layout_alignParentStart="true"
                                     android:layout_marginLeft="8dp"
                                     android:layout_weight="1"
-                                    android:text="إضافة صورة" />
+                                    android:text="@string/add_photo" />
 
                             </RelativeLayout>
 
@@ -243,7 +243,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginRight="16dp"
-                                android:text="الرجاء التأكد من المدخلات"
+                                android:text="@string/confirm_input"
                                 android:textColor="@color/error"
                                 android:visibility="gone" />
 
@@ -264,7 +264,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="start"
                                         android:layout_marginTop="@dimen/dt20"
-                                        android:text="الفئة"
+                                        android:text="@string/category"
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
 
@@ -310,7 +310,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="start"
                                         android:layout_marginTop="@dimen/dt20"
-                                        android:text="تصنيف فرعي"
+                                        android:text="@string/sub_category"
                                         android:textColor="@color/black"
                                         android:textStyle="bold" />
 
@@ -346,7 +346,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:layout_marginTop="@dimen/dt20"
-                                android:text="عنوان"
+                                android:text="@string/title"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
@@ -357,19 +357,28 @@
                                 android:layout_marginTop="@dimen/dt10"
                                 android:background="@drawable/bg_spinner"
                                 android:elevation="5dp"
-                                android:hint="أضف عنوان الأعلان"
+                                android:hint="@string/enter_title"
                                 android:padding="@dimen/dt10"
                                 android:singleLine="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:layout_marginTop="@dimen/dt25"
+                                android:text="@string/description"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
 
                             <EditText
                                 android:id="@+id/descriptionET"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/d150"
-                                android:layout_marginTop="@dimen/dt20"
+                                android:layout_marginTop="@dimen/dt10"
                                 android:background="@drawable/bg_spinner"
                                 android:elevation="5dp"
                                 android:gravity="start"
-                                android:hint="اكتب وصفك هنا"
+                                android:hint="@string/enter_description"
                                 android:padding="@dimen/dt10" />
 
 
@@ -379,7 +388,7 @@
                                 android:layout_gravity="start"
                                 android:layout_marginTop="@dimen/dt20"
                                 android:layout_marginBottom="14dp"
-                                android:text="التواصل مع البائع"
+                                android:text="@string/select_way_of_communication"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
@@ -419,7 +428,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:text="رقم الهاتف"
+                                    android:text="@string/phone_number"
                                     android:textColor="@color/app_bg" />
                             </LinearLayout>
 
@@ -448,7 +457,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:text="تعليقات"
+                                    android:text="@string/allow_comments"
                                     android:textColor="@color/app_bg" />
 
                             </LinearLayout>
@@ -477,7 +486,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:text="الرسائل"
+                                    android:text="@string/allow_messages"
                                     android:textColor="@color/app_bg" />
                             </LinearLayout>
 
@@ -505,7 +514,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:layout_marginStart="5dp"
-                                    android:text="تعليقات"
+                                    android:text="@string/allow_whatsapp"
                                     android:textColor="@color/app_bg" />
 
                             </LinearLayout>
@@ -516,7 +525,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="start"
                                 android:layout_marginTop="@dimen/dt20"
-                                android:text="إظهار رقم هاتفي"
+                                android:text="@string/show_my_number"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
                                 android:visibility="gone" />
@@ -563,20 +572,23 @@
                             android:adjustViewBounds="true"
                             android:background="@null"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/add_new_post" />
+                            android:src="@drawable/add_post" />
 
                         <Button
                             android:id="@+id/adDeleteBtn"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
+                            android:layout_gravity="center"
                             android:layout_marginHorizontal="@dimen/dt20"
+                            android:layout_marginTop="@dimen/dt20"
                             android:layout_marginBottom="@dimen/dt20"
                             android:background="@drawable/white_round_boder"
                             android:backgroundTint="@color/dark_red"
-                            android:text="حذف الاعلان"
+                            android:text="@string/delete_ad"
                             android:textColor="@color/white"
                             android:textSize="17sp"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            app:backgroundTint="@color/dark_red" />
 
                     </LinearLayout>
 

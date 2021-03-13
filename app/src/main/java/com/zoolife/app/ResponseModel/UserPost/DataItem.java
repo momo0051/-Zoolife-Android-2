@@ -58,7 +58,7 @@ public class DataItem {
     private int showComments;
     @SerializedName("showWhatsapp")
     @Expose
-    private int showWhatsapp;
+    private Object showWhatsapp;
     @SerializedName("phoneViewsCount")
     @Expose
     private int phoneViewsCount;
@@ -76,34 +76,34 @@ public class DataItem {
     private String createdAt;
     @SerializedName("favrtitem_status")
     @Expose
-    private String favrtitemStatus;
+    private int favrtitemStatus;
     @SerializedName("likeitem_status")
     @Expose
-    private String likeitemStatus;
+    private int likeitemStatus;
     @SerializedName("report_status")
     @Expose
-    private String reportStatus;
+    private int reportStatus;
     @SerializedName("username")
     @Expose
     private String username;
-    @SerializedName("user_id")
+    @SerializedName("userid")
     @Expose
-    private int userId;
+    private int userid;
     @SerializedName("device_token")
     @Expose
     private String deviceToken;
-    @SerializedName("email")
-    @Expose
-    private String email;
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("images")
+    @SerializedName("email")
     @Expose
-    private List<String> images = null;
+    private String email;
     @SerializedName("related_add")
     @Expose
     private List<RelatedAdd> relatedAdd = null;
+    @SerializedName("images")
+    @Expose
+    private List<Image> images = null;
 
 
     /**
@@ -121,6 +121,7 @@ public class DataItem {
      * @param showMessage
      * @param likeitemStatus
      * @param favrtitemStatus
+     * @param userid
      * @param likesCount
      * @param createdAt
      * @param id
@@ -136,7 +137,6 @@ public class DataItem {
      * @param relatedAdd
      * @param priority
      * @param itemDesc
-     * @param userId
      * @param deviceToken
      * @param imgUrl
      * @param allowComments
@@ -146,7 +146,7 @@ public class DataItem {
      * @param phoneViewsCount
      * @param username
      */
-    public DataItem(int id, String priority, int allowComments, int fromUserId, int category, int subCategory, int likesCount, String itemTitle, String itemDesc, String imgUrl, String area, String country, String city, int showPhoneNumber, int showMessage, int showComments, int showWhatsapp, int phoneViewsCount, int modifyAt, int removeAt, String updatedAt, String createdAt, String favrtitemStatus, String likeitemStatus, String reportStatus, String username, int userId, String deviceToken, String email, String phone, List<String> images, List<RelatedAdd> relatedAdd) {
+    public DataItem(int id, String priority, int allowComments, int fromUserId, int category, int subCategory, int likesCount, String itemTitle, String itemDesc, String imgUrl, String area, String country, String city, int showPhoneNumber, int showMessage, int showComments, Object showWhatsapp, int phoneViewsCount, int modifyAt, int removeAt, String updatedAt, String createdAt, int favrtitemStatus, int likeitemStatus, int reportStatus, String username, int userid, String deviceToken, String phone, String email, List<RelatedAdd> relatedAdd, List<Image> images) {
         super();
         this.id = id;
         this.priority = priority;
@@ -174,12 +174,12 @@ public class DataItem {
         this.likeitemStatus = likeitemStatus;
         this.reportStatus = reportStatus;
         this.username = username;
-        this.userId = userId;
+        this.userid = userid;
         this.deviceToken = deviceToken;
-        this.email = email;
         this.phone = phone;
-        this.images = images;
+        this.email = email;
         this.relatedAdd = relatedAdd;
+        this.images = images;
     }
 
     public int getId() {
@@ -310,11 +310,11 @@ public class DataItem {
         this.showComments = showComments;
     }
 
-    public int getShowWhatsapp() {
+    public Object getShowWhatsapp() {
         return showWhatsapp;
     }
 
-    public void setShowWhatsapp(int showWhatsapp) {
+    public void setShowWhatsapp(Object showWhatsapp) {
         this.showWhatsapp = showWhatsapp;
     }
 
@@ -358,27 +358,27 @@ public class DataItem {
         this.createdAt = createdAt;
     }
 
-    public String getFavrtitemStatus() {
+    public int getFavrtitemStatus() {
         return favrtitemStatus;
     }
 
-    public void setFavrtitemStatus(String favrtitemStatus) {
+    public void setFavrtitemStatus(int favrtitemStatus) {
         this.favrtitemStatus = favrtitemStatus;
     }
 
-    public String getLikeitemStatus() {
+    public int getLikeitemStatus() {
         return likeitemStatus;
     }
 
-    public void setLikeitemStatus(String likeitemStatus) {
+    public void setLikeitemStatus(int likeitemStatus) {
         this.likeitemStatus = likeitemStatus;
     }
 
-    public String getReportStatus() {
+    public int getReportStatus() {
         return reportStatus;
     }
 
-    public void setReportStatus(String reportStatus) {
+    public void setReportStatus(int reportStatus) {
         this.reportStatus = reportStatus;
     }
 
@@ -390,12 +390,12 @@ public class DataItem {
         this.username = username;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserid() {
+        return userid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 
     public String getDeviceToken() {
@@ -406,14 +406,6 @@ public class DataItem {
         this.deviceToken = deviceToken;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -422,12 +414,12 @@ public class DataItem {
         this.phone = phone;
     }
 
-    public List<String> getImages() {
-        return images;
+    public String getEmail() {
+        return email;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<RelatedAdd> getRelatedAdd() {
@@ -436,6 +428,14 @@ public class DataItem {
 
     public void setRelatedAdd(List<RelatedAdd> relatedAdd) {
         this.relatedAdd = relatedAdd;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
 }

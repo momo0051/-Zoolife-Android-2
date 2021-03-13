@@ -3,61 +3,87 @@ package com.zoolife.app.ResponseModel.GetPost;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class GetPostResponseModel implements Parcelable {
 
-	@SerializedName("data")
-	private Data data;
 
-	@SerializedName("error")
-	private boolean error;
+    public static final Parcelable.Creator<GetPostResponseModel> CREATOR = new Parcelable.Creator<GetPostResponseModel>() {
+        @Override
+        public GetPostResponseModel createFromParcel(Parcel source) {
+            return new GetPostResponseModel(source);
+        }
 
-	@SerializedName("status")
-	private int status;
+        @Override
+        public GetPostResponseModel[] newArray(int size) {
+            return new GetPostResponseModel[size];
+        }
+    };
+    @SerializedName("status")
+    @Expose
+    private int status;
+    @SerializedName("data")
+    @Expose
+    private Data data;
+    @SerializedName("error")
+    @Expose
+    private boolean error;
 
-	public Data getData(){
-		return data;
-	}
+    /**
+     * @param data
+     * @param error
+     * @param status
+     */
+    public GetPostResponseModel(int status, Data data, boolean error) {
+        super();
+        this.status = status;
+        this.data = data;
+        this.error = error;
+    }
 
-	public boolean isError(){
-		return error;
-	}
+    public GetPostResponseModel() {
+    }
 
-	public int getStatus(){
-		return status;
-	}
+    protected GetPostResponseModel(Parcel in) {
+        this.data = in.readParcelable(Data.class.getClassLoader());
+        this.error = in.readByte() != 0;
+        this.status = in.readInt();
+    }
 
-	@Override
-	public int describeContents() {
-		return 0;
-	}
+    public int getStatus() {
+        return status;
+    }
 
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeParcelable(this.data, flags);
-		dest.writeByte(this.error ? (byte) 1 : (byte) 0);
-		dest.writeInt(this.status);
-	}
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-	public GetPostResponseModel() {
-	}
+    public Data getData() {
+        return data;
+    }
 
-	protected GetPostResponseModel(Parcel in) {
-		this.data = in.readParcelable(Data.class.getClassLoader());
-		this.error = in.readByte() != 0;
-		this.status = in.readInt();
-	}
+    public void setData(Data data) {
+        this.data = data;
+    }
 
-	public static final Parcelable.Creator<GetPostResponseModel> CREATOR = new Parcelable.Creator<GetPostResponseModel>() {
-		@Override
-		public GetPostResponseModel createFromParcel(Parcel source) {
-			return new GetPostResponseModel(source);
-		}
+    public boolean isError() {
+        return error;
+    }
 
-		@Override
-		public GetPostResponseModel[] newArray(int size) {
-			return new GetPostResponseModel[size];
-		}
-	};
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.data, flags);
+        dest.writeByte(this.error ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.status);
+    }
 }

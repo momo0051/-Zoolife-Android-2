@@ -53,9 +53,21 @@
                 android:layout_centerInParent="true"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/d10"
+                    android:layout_marginEnd="@dimen/d10"
+                    android:gravity="start"
+                    android:paddingTop="@dimen/d10"
+                    android:singleLine="true"
+                    android:text="موقعك"
+                    android:textColor="@color/light_slate_gray"
+                    android:textSize="13sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_margin="@dimen/d10"
                     android:background="@drawable/bg_input_field"
                     android:orientation="vertical">
@@ -66,17 +78,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:prompt="@string/main_category" />
+                        android:background="@color/transparent"
+                        android:hint="عنوان الاعلان"
+                        android:inputType="text"
+                        android:prompt="@string/main_category"
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_margin="@dimen/d10"
                     android:background="@drawable/bg_input_field"
                     android:gravity="center"
@@ -88,17 +102,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
                         android:autofillHints=""
-                        android:hint="اضف عنوان الاعلان"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black" />
 
 
                 </LinearLayout>
 
-                <ImageView
+                <Button
                     android:id="@+id/add_delivery_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,7 +119,10 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/add_post" />
+                    android:background="@drawable/white_round_boder"
+                    android:text="أضف إعلان"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/appColorSearch" />
             </LinearLayout>
 
         </RelativeLayout>

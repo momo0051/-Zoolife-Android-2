@@ -215,7 +215,7 @@ public class FavouriteActivity extends AppBaseActivity {
         progress_circular.setVisibility(View.VISIBLE);
 
         Log.e("TAG", "All Articales Called");
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<AllArticlesResponseModel> call = apiService.getAllArticles("all_articles");
         call.enqueue(new Callback<AllArticlesResponseModel>() {
             @Override

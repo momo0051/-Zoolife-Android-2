@@ -1,6 +1,5 @@
 package com.zoolife.app.adapter;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
@@ -36,19 +30,20 @@ import com.zoolife.app.activity.LoginActivity;
 import com.zoolife.app.firebase.Collections;
 import com.zoolife.app.firebase.models.Group;
 import com.zoolife.app.models.DeliveryModel;
-import com.zoolife.app.models.HomeModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.blankj.utilcode.util.ActivityUtils.startActivity;
-import static com.zoolife.app.activity.AppBaseActivity.session;
 
 public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyViewHolder> {
 
@@ -77,15 +72,15 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
         DeliveryModel current = data.get(position);
 
         holder.itemTitle.setText(current.itemTitle);
+        holder.itemDescription.setText(current.itemDescription);
         holder.username.setText(current.username);
         holder.city.setText(current.city);
-        if(current.email!=null) {
+        if (current.email != null) {
             if (current.email.equals(session.getEmail())) {
                 holder.deleteIcon.setVisibility(View.VISIBLE);
             } else
                 holder.deleteIcon.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             holder.deleteIcon.setVisibility(View.GONE);
         }
 
@@ -94,20 +89,19 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+current.phone));
+                intent.setData(Uri.parse("tel:" + current.phone));
                 startActivity(intent);
             }
         });
         holder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                                if(session.isLogin()) {
+                if (session.isLogin()) {
 
-                                    activity.deleteDelivery(current.id);
-                                }
-                                else{
-                                    startActivity(new Intent(activity, LoginActivity.class));
-                                }
+                    activity.deleteDelivery(current.id);
+                } else {
+                    startActivity(new Intent(activity, LoginActivity.class));
+                }
             }
         });
 
@@ -120,9 +114,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 //                activity.startActivity(i);
 
 //                openWhatsAppConversation(activity.getApplicationContext(), current.phone, "");
-                openWhatsApp( current.phone, "");
-
-
+                openWhatsApp(current.phone, "");
 
 
             }
@@ -136,11 +128,10 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 //                current.itemTitle;
 //                current.username;
 //                Group group = new Group();
-                if(session.isLogin()) {
+                if (session.isLogin()) {
 
                     getUserProfileApi(current);
-                }
-                else{
+                } else {
                     startActivity(new Intent(activity, LoginActivity.class));
 
                 }
@@ -149,7 +140,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 
     }
 
-//    private void getUserProfileApi(DeliveryModel group) {
+    //    private void getUserProfileApi(DeliveryModel group) {
     private void getUserProfileApi(DeliveryModel group) {
 
 //        String username = group.email.equals(session.getEmail()) ? session.getEmail() : group.email;
@@ -158,13 +149,13 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 //        String username = group.getSenderEmail().equals(session.getEmail()) ? group.getRecipientEmail() : group.getSenderEmail();
 
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(activity).create(ApiService.class);
         Call<GetUserProfileResponseModel> call = apiService.getUserProfile(ID);
         call.enqueue(new Callback<GetUserProfileResponseModel>() {
             @Override
             public void onResponse(Call<GetUserProfileResponseModel> call, Response<GetUserProfileResponseModel> response) {
                 GetUserProfileResponseModel responseModel = response.body();
-                if (response.isSuccessful() && responseModel.getData()!=null ) {
+                if (response.isSuccessful() && responseModel.getData() != null) {
                     Intent chatIntent = new Intent(activity, ChatActivity.class);
 //                    chatIntent.putExtra(ChatActivity.AD_ID, group.getAdId());
 //                    chatIntent.putExtra(ChatActivity.AD_TITLE, group.getAdTitle());
@@ -190,7 +181,6 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
     }
 
 
-
     public static void openWhatsAppConversation(Context context, String number, String message) {
 
         number = number.replace(" ", "").replace("+", "");
@@ -206,7 +196,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
     }
 
 
-    public void openWhatsApp(String number, String message){
+    public void openWhatsApp(String number, String message) {
         try {
             String text = message;// Replace with your message.
 
@@ -215,11 +205,10 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + toNumber + "&text=" + text));
             startActivity(intent);
-        }
-        catch (Exception e){
-            Toast.makeText(activity,"Whatsapp app not found on your device",Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(activity, "Whatsapp app not found on your device", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -229,15 +218,16 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
         return data.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView city, itemTitle, username;
-        ImageView callIcon, deleteIcon, whatsappBtn,chatIcon;
+        TextView city, itemTitle, itemDescription, username;
+        ImageView callIcon, deleteIcon, whatsappBtn, chatIcon;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             city = itemView.findViewById(R.id.delivery_city);
             itemTitle = itemView.findViewById(R.id.delivery_item_title);
+            itemDescription = itemView.findViewById(R.id.delivery_item_desc);
             username = itemView.findViewById(R.id.item_username);
             callIcon = itemView.findViewById(R.id.call_icon);
             chatIcon = itemView.findViewById(R.id.chat_box);

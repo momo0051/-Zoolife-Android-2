@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zoolife.app.R;
+import com.zoolife.app.ResponseModel.AddDelivery.AddDeliveryResponseModel;
+import com.zoolife.app.ResponseModel.CityNameResponseModel.CityNameResponseModel;
 import com.zoolife.app.ResponseModel.UserPost.DataItem;
 import com.zoolife.app.ResponseModel.UserPost.UserAllPostResponseModel;
 import com.zoolife.app.adapter.DeliveryAdapter;
@@ -54,8 +57,8 @@ public class DeliveryOrderActivity extends AppBaseActivity {
     Spinner deliveryCitySpinner;
     ArrayAdapter aa;
     String itemTitle, city;
-    ImageView addDeliveryBtn;
-    String[] cities = {"اختيار موقع", "الشرقية", "جدة", "البحرين", "الأمارات", "الكويت", "عرعر", "الجوف", "نجران", "جيزان", "الباحة", "ابها", "حائل", "القصيم", "تبوك", "الطائف", "المدينة", "حفر الباطن", "ينبع", "مكة", "الرياض"};
+    Button addDeliveryBtn;
+    String[] cities = new String[]{};
 
 
     @Override
@@ -136,6 +139,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
                 DeliveryOrderActivity.this.finish();
             }
         });
+        getAllCityNames();
         getAllDelivery();
     }
 
@@ -148,14 +152,15 @@ public class DeliveryOrderActivity extends AppBaseActivity {
     public void addDelivery(String itemTitle, String city) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call = apiService.addDelivery("add-delivery", session.getEmail(), "a", itemTitle, "sdadas fwere ewrrw", "4000", "4", "1", "1", "0", "Pakistan", city);
-        call.enqueue(new Callback<UserAllPostResponseModel>() {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<AddDeliveryResponseModel> call = apiService.addDelivery(session.getUserId(), "", itemTitle, "4000", "4", "1", "1", "1", city, "المملكة العربية السعودية", session.getPhone());
+        call.enqueue(new Callback<AddDeliveryResponseModel>() {
             @Override
-            public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {
-                UserAllPostResponseModel responseModel = response.body();
+            public void onResponse(Call<AddDeliveryResponseModel> call, Response<AddDeliveryResponseModel> response) {
+                AddDeliveryResponseModel responseModel = response.body();
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
+                    getAllDelivery();
 
                     // Toast.makeText(DeliveryOrderActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -169,7 +174,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
             }
 
             @Override
-            public void onFailure(Call<UserAllPostResponseModel> call, Throwable t) {
+            public void onFailure(Call<AddDeliveryResponseModel> call, Throwable t) {
                 t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
@@ -181,7 +186,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
     public void deleteDelivery(String id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<UserAllPostResponseModel> call = apiService.deleteDelivery(session.getUserId(), id);
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
@@ -216,7 +221,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
     private void getAllDelivery() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<UserAllPostResponseModel> call = apiService.getAllDelivery(session.getUserId());
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override
@@ -231,7 +236,7 @@ public class DeliveryOrderActivity extends AppBaseActivity {
                     for (int i = 0; i < responseModel.getData().size(); i++) {
 //                        if (responseModel.getData().get(i).getEmail().equals(session.getEmail())){
                         DataItem HomeModel = responseModel.getData().get(i);
-                        dataList.add(new DeliveryModel(HomeModel.getItemTitle(), HomeModel.getCity(), HomeModel.getUsername(), HomeModel.getPhone(), HomeModel.getEmail(), String.valueOf(HomeModel.getId())));
+                        dataList.add(new DeliveryModel(HomeModel.getItemTitle(), HomeModel.getItemDesc(), HomeModel.getCity(), HomeModel.getUsername(), HomeModel.getPhone(), HomeModel.getEmail(), String.valueOf(HomeModel.getId())));
 //                        }
 
                     }
@@ -269,4 +274,27 @@ public class DeliveryOrderActivity extends AppBaseActivity {
         });
     }
 
+    private void getAllCityNames() {
+
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<CityNameResponseModel> call = apiService.getAllCityNames();
+        call.enqueue(new Callback<CityNameResponseModel>() {
+            @Override
+            public void onResponse(Call<CityNameResponseModel> call, Response<CityNameResponseModel> response) {
+                CityNameResponseModel responseModel = response.body();
+                cities = new String[responseModel.getData().size()];
+                for (int i = 0; i < responseModel.getData().size(); i++) {
+                    cities[i] = responseModel.getData().get(i).getName();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CityNameResponseModel> call, Throwable t) {
+                t.printStackTrace();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="اتصل بنا"
+                android:text="@string/call_us"
                 android:textColor="@color/app_bg"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dt16"
                 android:layout_marginRight="@dimen/dt16"
-                android:text="وضعنا بين أيديكم منصة زوولايف ليجمع كل ما يخص الحيوانات ويسهل على المستخدمين البحث عن بيع وشراء وغذاء ودواء والعيادات الخاصة ويجمع نخبة من الخبراء والمستشارين ليقدموا افضل النصائح والاستشارات ويضم زوولايف عروض وفعاليات ترفيهيه في عالم الحيوان."
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/dt18"
                 android:textStyle="bold" />
@@ -77,11 +77,21 @@
                 android:layout_marginLeft="@dimen/dt16"
                 android:layout_marginTop="@dimen/dt10"
                 android:layout_marginRight="@dimen/dt16"
-                android:text="الأهداف"
+                android:text="@string/about_us_description"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dt18" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dt16"
+                android:layout_marginTop="@dimen/dt10"
+                android:layout_marginRight="@dimen/dt16"
+                android:text="@string/objectives"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dt18" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -89,7 +99,7 @@
                 android:layout_marginLeft="@dimen/dt16"
                 android:layout_marginTop="@dimen/dt10"
                 android:layout_marginRight="@dimen/dt16"
-                android:text="هدفنا الأول هو تقديم وتسهيل الخدمات للعملاء في البحث في عالم الحيوان."
+                android:text="@string/objective_one"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dt18" />
 
@@ -100,7 +110,7 @@
                 android:layout_marginLeft="@dimen/dt16"
                 android:layout_marginTop="@dimen/dt10"
                 android:layout_marginRight="@dimen/dt16"
-                android:text="إنشاء ملتقيات لملاك الطيور والمواشي والأسماك والخيول وغيرها."
+                android:text="@string/objective_two"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dt18" />
 
@@ -111,7 +121,7 @@
                 android:layout_marginLeft="@dimen/dt16"
                 android:layout_marginTop="@dimen/dt10"
                 android:layout_marginRight="@dimen/dt16"
-                android:text="منصة تجمع كل العيادات البيطرية وكل شركات الأدوية والأعلاف وكل ما يخص الحيوانات."
+                android:text="@string/objective_three"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dt18" />
 
@@ -120,41 +130,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:weightSum="4">
-
-                <LinearLayout
-                    android:id="@+id/ll_whatsapp_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dt16"
-                        android:layout_marginTop="@dimen/dt10"
-                        android:layout_marginRight="@dimen/dt16"
-                        android:gravity="center"
-                        android:text="الاعلانات"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dt18"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dt16"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="@dimen/dt16"
-                        android:drawableRight="@drawable/ic_whatsapp"
-                        android:gravity="center"
-                        android:text="966551180030+"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/dt14"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_whatsapp_1"
@@ -171,7 +146,7 @@
                         android:layout_marginTop="@dimen/dt10"
                         android:layout_marginRight="@dimen/dt16"
                         android:gravity="center"
-                        android:text="الشكاوي والاقتراحات"
+                        android:text="@string/advertisement"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dt18"
                         android:textStyle="bold" />
@@ -184,7 +159,42 @@
                         android:layout_marginRight="@dimen/dt16"
                         android:drawableRight="@drawable/ic_whatsapp"
                         android:gravity="center"
-                        android:text="966591114156+"
+                        android:text="+966551180030"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dt14"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_whatsapp_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dt16"
+                        android:layout_marginTop="@dimen/dt10"
+                        android:layout_marginRight="@dimen/dt16"
+                        android:gravity="center"
+                        android:text="@string/complains"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dt18"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dt16"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="@dimen/dt16"
+                        android:drawableRight="@drawable/ic_whatsapp"
+                        android:gravity="center"
+                        android:text="+966591114156"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dt14"
                         android:textStyle="bold" />

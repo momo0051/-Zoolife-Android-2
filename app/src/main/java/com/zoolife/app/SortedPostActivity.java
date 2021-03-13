@@ -87,7 +87,7 @@ public class SortedPostActivity extends AppCompatActivity {
 
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override

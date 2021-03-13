@@ -86,7 +86,7 @@ public class MissingActivity extends Fragment {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
 
 
         View view = inflater.inflate(R.layout.fragment_missing, container, false);
@@ -118,7 +118,7 @@ public class MissingActivity extends Fragment {
     public void getAllPostByCategory(int cat_id) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
@@ -168,7 +168,7 @@ public class MissingActivity extends Fragment {
         Log.d(TAG, "getAllPostBySubCategory: " + cat_id + " " + sub_cat_id);
 
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override

@@ -402,8 +402,8 @@ public class MyProfileActivity extends AppBaseActivity {
     private void profileUpdate() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<UpdateProfileResponseModel> call=apiService.updateUserProfile(session.getUserId(),session.getCountry(),session.getCity(),session.getFullName());
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<UpdateProfileResponseModel> call = apiService.updateUserProfile(session.getUserId(), session.getCountry(), session.getCity(), session.getFullName());
                // session.getSurName(),session.getFullName(),session.getLanguage(),session.getYear(),session.getMonth(),session.getDay(), Integer.parseInt(session.getCountryId()),
                // session.getCity(),
                // Integer.parseInt(session.getCityId()));

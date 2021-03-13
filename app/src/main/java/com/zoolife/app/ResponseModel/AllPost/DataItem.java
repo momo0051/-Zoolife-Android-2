@@ -90,7 +90,7 @@ public class DataItem {
     private String phone;
     @SerializedName("images")
     @Expose
-    private List<String> images = null;
+    private List<Image> images = null;
     @SerializedName("related_ads")
     @Expose
     private List<RelatedAd> relatedAds = null;
@@ -98,7 +98,7 @@ public class DataItem {
     public DataItem() {
     }
 
-    public DataItem(int id, String priority, int allowComments, int fromUserId, int category, int subCategory, int likesCount, String itemTitle, String itemDesc, String imgUrl, String area, String country, String city, int showPhoneNumber, int showMessage, int showComments, int showWhatsapp, int phoneViewsCount, int modifyAt, int removeAt, String updatedAt, String createdAt, String username, int userId, String deviceToken, String email, String phone, List<String> images, List<RelatedAd> relatedAds) {
+    public DataItem(int id, String priority, int allowComments, int fromUserId, int category, int subCategory, int likesCount, String itemTitle, String itemDesc, String imgUrl, String area, String country, String city, int showPhoneNumber, int showMessage, int showComments, int showWhatsapp, int phoneViewsCount, int modifyAt, int removeAt, String updatedAt, String createdAt, String username, int userId, String deviceToken, String email, String phone, List<Image> images, List<RelatedAd> relatedAds) {
         super();
         this.id = id;
         this.priority = priority;
@@ -347,11 +347,11 @@ public class DataItem {
         this.phone = phone;
     }
 
-    public List<String> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<String> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 

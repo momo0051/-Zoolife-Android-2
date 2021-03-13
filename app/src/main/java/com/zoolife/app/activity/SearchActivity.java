@@ -22,6 +22,7 @@ import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.AllPost.AllPostResponseModel;
 import com.zoolife.app.ResponseModel.AllPost.DataItem;
 import com.zoolife.app.ResponseModel.Category.CategoryResponseModel;
+import com.zoolife.app.ResponseModel.CityNameResponseModel.CityNameResponseModel;
 import com.zoolife.app.ResponseModel.SubCategory.SubCategoryResponseModel;
 import com.zoolife.app.SortedPostActivity;
 import com.zoolife.app.adapter.HomeAdapter;
@@ -52,7 +53,7 @@ public class SearchActivity extends AppBaseActivity {
     Button search;
 
     Spinner spinner, spinner2, spinner3;
-    String[] cities = {"اختيار موقع", "الشرقية", "جدة", "البحرين", "الأمارات", "الكويت", "عرعر", "الجوف", "نجران", "جيزان", "الباحة", "ابها", "حائل", "القصيم", "تبوك", "الطائف", "المدينة", "حفر الباطن", "ينبع", "مكة", "الرياض"};
+    String[] cities = new String[]{};
     String[] mainCategory;
     String[] subCategory;
 
@@ -83,7 +84,7 @@ public class SearchActivity extends AppBaseActivity {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_offset);
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(2, spacingInPixels, true, 0);
         recyclerView.addItemDecoration(itemDecoration);
-
+        getAllCityNames();
         getCategory();
 
         getAllPost();
@@ -159,12 +160,6 @@ public class SearchActivity extends AppBaseActivity {
         });
 
 
-        //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter aa = new ArrayAdapter(SearchActivity.this, android.R.layout.simple_spinner_item, cities);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spinner.setAdapter(aa);
-
         btnSearchBack = (ImageView) findViewById(R.id.btnSearchBack);
 
         btnSearchBack.setOnClickListener(new View.OnClickListener() {
@@ -192,7 +187,7 @@ public class SearchActivity extends AppBaseActivity {
     private void getCategory() {
 
 //        ApiService apiService = ApiClient.getClientZoo().create(ApiService.class);
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<CategoryResponseModel> call = apiService.getCategory();
         call.enqueue(new Callback<CategoryResponseModel>() {
             @Override
@@ -267,9 +262,39 @@ public class SearchActivity extends AppBaseActivity {
         });
     }
 
+    private void getAllCityNames() {
+
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<CityNameResponseModel> call = apiService.getAllCityNames();
+        call.enqueue(new Callback<CityNameResponseModel>() {
+            @Override
+            public void onResponse(Call<CityNameResponseModel> call, Response<CityNameResponseModel> response) {
+                CityNameResponseModel responseModel = response.body();
+                cities = new String[responseModel.getData().size()];
+                for (int i = 0; i < responseModel.getData().size(); i++) {
+                    cities[i] = responseModel.getData().get(i).getName();
+                }
+                //Creating the ArrayAdapter instance having the country list
+                if (spinner.getAdapter() == null) {
+                    ArrayAdapter aa = new ArrayAdapter(SearchActivity.this, android.R.layout.simple_spinner_item, cities);
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //Setting the ArrayAdapter data on the Spinner
+                    spinner.setAdapter(aa);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CityNameResponseModel> call, Throwable t) {
+                t.printStackTrace();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     public void getSubCategory(int cat_id) {
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<SubCategoryResponseModel> call = apiService.getSubCategory(cat_id);
         call.enqueue(new Callback<SubCategoryResponseModel>() {
             @Override
@@ -337,7 +362,7 @@ public class SearchActivity extends AppBaseActivity {
 
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override
@@ -413,7 +438,7 @@ public class SearchActivity extends AppBaseActivity {
     public void getAllPost() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<AllPostResponseModel> call = apiService.getAllPost();
         call.enqueue(new Callback<AllPostResponseModel>() {
             @Override

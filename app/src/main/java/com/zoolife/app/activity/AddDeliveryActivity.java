@@ -11,7 +11,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.zoolife.app.R;
-import com.zoolife.app.ResponseModel.UserPost.UserAllPostResponseModel;
+import com.zoolife.app.ResponseModel.AddDelivery.AddDeliveryResponseModel;
+import com.zoolife.app.ResponseModel.CityNameResponseModel.CityNameResponseModel;
 import com.zoolife.app.network.ApiClient;
 import com.zoolife.app.network.ApiService;
 
@@ -36,7 +37,7 @@ public class AddDeliveryActivity extends AppCompatActivity {
     String itemTitle, city;
     Button addDeliveryBtn;
     ProgressBar progress_circular;
-    String[] cities = {"اختيار موقع", "الشرقية", "جدة", "البحرين", "الأمارات", "الكويت", "عرعر", "الجوف", "نجران", "جيزان", "الباحة", "ابها", "حائل", "القصيم", "تبوك", "الطائف", "المدينة", "حفر الباطن", "ينبع", "مكة", "الرياض"};
+    String[] cities = new String[]{};
     List<String> cityList = new ArrayList<String>();
 
     @Override
@@ -74,23 +75,23 @@ public class AddDeliveryActivity extends AppCompatActivity {
 
             }
         });
-
+        getAllCityNames();
 
     }
 
     public void addDelivery() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
-        Call<UserAllPostResponseModel> call = apiService.addDelivery(session.getUserId(), itemTitle, "sdadas fwere ewrrw", "4000", "4", "1", "1", "0", "Pakistan", city, "", "");
-        call.enqueue(new Callback<UserAllPostResponseModel>() {
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<AddDeliveryResponseModel> call = apiService.addDelivery(session.getUserId(), "", itemTitle, "4000", "4", "1", "1", "0", city, "saudia", "550655214");
+        call.enqueue(new Callback<AddDeliveryResponseModel>() {
             @Override
-            public void onResponse(Call<UserAllPostResponseModel> call, Response<UserAllPostResponseModel> response) {
-                UserAllPostResponseModel responseModel = response.body();
+            public void onResponse(Call<AddDeliveryResponseModel> call, Response<AddDeliveryResponseModel> response) {
+                AddDeliveryResponseModel responseModel = response.body();
                 if (responseModel != null && !responseModel.isError()) {
                     progress_circular.setVisibility(View.GONE);
 
-                  //  Toast.makeText(AddDeliveryActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(AddDeliveryActivity.this, "" + responseModel.getMessage(), Toast.LENGTH_SHORT).show();
                     finish();
 
 
@@ -103,11 +104,40 @@ public class AddDeliveryActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserAllPostResponseModel> call, Throwable t) {
+            public void onFailure(Call<AddDeliveryResponseModel> call, Throwable t) {
                 t.printStackTrace();
                 String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
                 progress_circular.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void getAllCityNames() {
+
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
+        Call<CityNameResponseModel> call = apiService.getAllCityNames();
+        call.enqueue(new Callback<CityNameResponseModel>() {
+            @Override
+            public void onResponse(Call<CityNameResponseModel> call, Response<CityNameResponseModel> response) {
+                CityNameResponseModel responseModel = response.body();
+                cities = new String[responseModel.getData().size()];
+                for (int i = 0; i < responseModel.getData().size(); i++) {
+                    cities[i] = responseModel.getData().get(i).getName();
+                }
+                if (deliveryCitySpinner.getAdapter() == null) {
+                    ArrayAdapter aa = new ArrayAdapter(AddDeliveryActivity.this, android.R.layout.simple_spinner_item, cities);
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    //Setting the ArrayAdapter data on the Spinner
+                    deliveryCitySpinner.setAdapter(aa);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CityNameResponseModel> call, Throwable t) {
+                t.printStackTrace();
+                String strr = t.getMessage() != null ? t.getMessage() : "Error in server";
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

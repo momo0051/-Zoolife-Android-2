@@ -1,4 +1,4 @@
-package com.zoolife.app.network;
+/*package com.zoolife.app.network;
 
 public class ApiUtils {
 
@@ -9,4 +9,4 @@ public class ApiUtils {
         return ApiClient.getClient().create(ApiService.class);
     }
 
-}
+}*/

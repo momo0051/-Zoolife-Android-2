@@ -98,7 +98,7 @@ public class NotificationFragment extends Fragment {
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 //        notificationAdapter.notifyDataSetChanged();
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
 
 
         return view;
@@ -143,8 +143,8 @@ public class NotificationFragment extends Fragment {
     public void getNotifications(String username) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService= ApiClient.getClient().create(ApiService.class);
-        Call<NotificationModel> call=apiService.getAllNotify(session.getUserId());
+        ApiService apiService = ApiClient.getClient(getActivity()).create(ApiService.class);
+        Call<NotificationModel> call = apiService.getAllNotify(session.getUserId());
         call.enqueue(new Callback<NotificationModel>() {
             @Override
             public void onResponse(Call<NotificationModel> call, Response<NotificationModel> response) {

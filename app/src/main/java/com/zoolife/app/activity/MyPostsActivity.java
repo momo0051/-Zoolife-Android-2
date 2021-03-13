@@ -85,7 +85,7 @@ public class MyPostsActivity extends AppBaseActivity {
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
 
         setContentView(R.layout.activity_my_posts);
 
@@ -128,7 +128,7 @@ public class MyPostsActivity extends AppBaseActivity {
     private void getAllPost() {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<UserAllPostResponseModel> call = apiService.getPostbyUser(session.getUserId());
         call.enqueue(new Callback<UserAllPostResponseModel>() {
             @Override

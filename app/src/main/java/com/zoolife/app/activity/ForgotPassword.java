@@ -29,7 +29,7 @@ public class ForgotPassword extends AppBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        forceRTLIfSupported();
+        //forceRTLIfSupported();
         setContentView(R.layout.activity_forgot_password);
 
         editTextUserName = findViewById(R.id.editTextUserName);
@@ -72,7 +72,7 @@ public class ForgotPassword extends AppBaseActivity {
     private void resetPassword(String email) {
         progress_circular.setVisibility(View.VISIBLE);
 
-        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        ApiService apiService = ApiClient.getClient(this).create(ApiService.class);
         Call<JsonObject> call = apiService.resetPassword(email);
         call.enqueue(new Callback<JsonObject>() {
             @Override

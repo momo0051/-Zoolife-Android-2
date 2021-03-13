@@ -133,14 +133,14 @@
                                 android:gravity="bottom"
                                 android:text="@string/location"
                                 android:textSize="13sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
                             <TextView
                                 android:id="@+id/city"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginStart="5dp"
                                 android:gravity="bottom"
                                 android:text="@string/location"
                                 android:textSize="13sp"
@@ -233,10 +233,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/d10">
+                        android:layout_margin="@dimen/d10"
+                        android:gravity="start">
 
                         <ImageView
-                            android:id="@+id/call_icon"
+                            android:id="@+id/iv_call"
                             android:layout_width="@dimen/d50"
                             android:layout_height="@dimen/d50"
                             android:background="@drawable/ripple_effect_white_detail_icons"
@@ -245,7 +246,7 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/chat_icon"
+                            android:id="@+id/iv_chat"
                             android:layout_width="@dimen/d50"
                             android:layout_height="@dimen/d50"
                             android:layout_marginStart="16dp"
@@ -255,7 +256,7 @@
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/whatsapp_box"
+                            android:id="@+id/iv_whatsapp"
                             android:layout_width="@dimen/d50"
                             android:layout_height="@dimen/d50"
                             android:layout_marginStart="16dp"
@@ -264,7 +265,7 @@
                             android:src="@drawable/ic_whatsapp_icon" />
 
                         <ImageView
-                            android:id="@+id/whatsapp_icon"
+                            android:id="@+id/iv_comment"
                             android:layout_width="@dimen/d50"
                             android:layout_height="@dimen/d50"
                             android:layout_marginStart="16dp"
@@ -445,7 +446,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:background="@drawable/ripple_effect_white"
-                                android:hint="اكتب تعليقك هنا"
+                                android:hint="@string/write_message"
                                 android:paddingStart="@dimen/d10"
                                 android:paddingEnd="10dp" />
 
@@ -465,10 +466,10 @@
                             android:id="@+id/sendBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="34dp"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="@dimen/dt10"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="@dimen/dt10"
                             android:adjustViewBounds="true"
-                            android:background="@null"
+                            android:background="@drawable/light_blue_button_bg"
                             android:scaleType="fitCenter"
                             android:src="@drawable/post" />
 
@@ -485,9 +486,9 @@
                         android:id="@+id/full_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="34dp"
-                        android:layout_gravity="end"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/dt10"
                         android:layout_marginTop="@dimen/d8"
-                        android:layout_marginEnd="@dimen/dt10"
                         android:adjustViewBounds="true"
                         android:background="@null"
                         android:scaleType="fitCenter"
@@ -583,7 +584,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:paddingStart="@dimen/d10"
-                        android:text="اعلانات مشابهة"
+                        android:text="@string/simillar_ads"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />

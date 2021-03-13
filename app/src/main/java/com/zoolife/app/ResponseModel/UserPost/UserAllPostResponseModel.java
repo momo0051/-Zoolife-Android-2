@@ -13,7 +13,7 @@ public class UserAllPostResponseModel {
     private int status;
     @SerializedName("data")
     @Expose
-    private List<DataItem> data;
+    private List<DataItem> data = null;
     @SerializedName("error")
     @Expose
     private boolean error;
@@ -59,5 +59,6 @@ public class UserAllPostResponseModel {
     public void setError(boolean error) {
         this.error = error;
     }
+
 
 }

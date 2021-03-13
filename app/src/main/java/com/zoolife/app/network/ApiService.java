@@ -2,11 +2,13 @@ package com.zoolife.app.network;
 
 import com.google.gson.JsonObject;
 import com.zoolife.app.ResponseModel.AddComment.AddCommentResponseModel;
+import com.zoolife.app.ResponseModel.AddDelivery.AddDeliveryResponseModel;
 import com.zoolife.app.ResponseModel.AddPost.AddPostResponseModel;
 import com.zoolife.app.ResponseModel.AllPost.AllPostResponseModel;
 import com.zoolife.app.ResponseModel.Articles.AllArticlesResponseModel;
 import com.zoolife.app.ResponseModel.Category.CategoryResponseModel;
 import com.zoolife.app.ResponseModel.ChangePassword.ChangePasswordResponseModel;
+import com.zoolife.app.ResponseModel.CityNameResponseModel.CityNameResponseModel;
 import com.zoolife.app.ResponseModel.FavModel.FavResponseModel;
 import com.zoolife.app.ResponseModel.GetFavourites.GetFavouritesResponse;
 import com.zoolife.app.ResponseModel.GetPost.GetPostResponseModel;
@@ -309,7 +311,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("public/api/list_comments_by_item")
     Call<ViewCommentsResponseModel> listCommentByItem(
-            @Field("itemId") String itemId
+            @Field("id") String itemId
     );
 
     @FormUrlEncoded
@@ -558,19 +560,18 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("public/api/add_delivery")
-    Call<UserAllPostResponseModel> addDelivery(
-            @Field("fromUserId") String fromUserId,
+    Call<AddDeliveryResponseModel> addDelivery(
+            @Field("user_id") String fromUserId,
             @Field("itemTitle") String itemTitle,
             @Field("itemDesc") String itemDesc,
             @Field("category") String category,
-            @Field("sub_category") String subcategory,
+            @Field("subCategory") String subcategory,
             @Field("showPhoneNumber") String showPhoneNumber,
             @Field("showComments") String showComments,
             @Field("showMessage") String showMessage,
             @Field("city") String city,
             @Field("country") String country,
-            @Field("imgUrl") String imgUrl,
-            @Field("phone") String phone
+            @Field("phone") String imgUrl
     );
 
     @FormUrlEncoded
@@ -707,6 +708,10 @@ public interface ApiService {
     @POST("public/api/delete_item_images")
     Call<NoDataResponseModel> deleteItemImage(
             @Field("id") String id
+    );
+
+    @GET("public/api/cities")
+    Call<CityNameResponseModel> getAllCityNames(
     );
 
 }

@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.zoolife.app.R;
 import com.zoolife.app.ResponseModel.Category.CategoryResponseModel;
 import com.zoolife.app.Session;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AppBaseActivity extends AppCompatActivity {
 
